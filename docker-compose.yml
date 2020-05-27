@@ -1,0 +1,9 @@
+version: "3"
+services:
+  fastapi_nano:
+    container_name: "fastapi-cont"
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
