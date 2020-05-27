@@ -29,6 +29,11 @@ Minimal fastAPI template with https and basic authentication
 ├── .pre-commit-config.yaml   # pre-commit config file
 ├── docker-compose.yml        # docker-compose file
 ├── Dockerfile                # dockerfile
-├── README.md                 # meta
-└── requirements.txt          # requirements file
+├── poetry.lock               # lock file for dependencies
+├── pyproject.toml            # human readable dependency list
+└── README.md                 # meta
 ```
+
+## uvicorn-gunicorn-fastapi-docker
+
+ https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker
