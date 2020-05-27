@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "fastapi-nano"
+version = "0.1.0"
+description = ""
+authors = ["rednafi <redowan.nafi@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.55.1"
+uvicorn = "^0.11.5"
+gunicorn = "^20.0.4"
+python-dotenv = "^0.13.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.4.2"
+black = "^19.10b0"
+pre-commit = "^2.4.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
