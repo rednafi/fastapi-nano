@@ -22,16 +22,12 @@ def authorize(credentials: HTTPBasicCredentials = Depends(security)):
 
 
 @router.get("/api-a/{num}", tags=["api_a"])
-async def views_a(num: int):
-    auth = Depends(authorize)
-
+async def views_a(num: int, auth=Depends(authorize)):
     if auth is True:
         return func_main_a(num)
 
 
 @router.get("/api-b/{num}", tags=["api_b"])
-async def views_b(num: int):
-    auth = Depends(authorize)
-
+async def views_b(num: int, auth=Depends(authorize)):
     if auth is True:
         return func_main_b(num)
