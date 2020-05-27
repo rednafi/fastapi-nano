@@ -1,4 +1,3 @@
-
 from app.api_b.submod import random_dict
 
 

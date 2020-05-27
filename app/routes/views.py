@@ -1,9 +1,11 @@
 import secrets
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
-from app.core import config
+
 from app.api_a.mainmod import func_main as func_main_a
 from app.api_b.mainmod import func_main as func_main_b
+from app.core import config
 
 router = APIRouter()
 security = HTTPBasic()
