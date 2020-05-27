@@ -1,12 +1,14 @@
+FROM tiangolo/uvicorn-gunicorn:python3.8-slim
 
-FROM python:3.8.3-slim-buster
+# Install Poetry
+RUN pip install poetry
+RUN poetry config virtualenvs.create false
 
+# Copy using poetry.lock* in case it doesn't exist yet
+COPY ./pyproject.toml ./poetry.lock* /app/
 
-RUN mkdir /app
-WORKDIR /app
-COPY . /app
+RUN poetry install --no-root --no-dev
 
-RUN pip3 install -r requirements.txt
+COPY ./ /app
+
 EXPOSE 5000
-
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000"]
