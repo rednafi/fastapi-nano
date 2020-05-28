@@ -112,15 +112,21 @@ So hitting the API with a random integer will give you a response like the follo
 
 ## Quickstart
 
+## Running the Containers
+
 * Clone the repository.
-    ```
+
+    ```bash
     git clone git@github.com:rednafi/fastapi-nano.git
     ```
 
 * Go to the root folder and run:
-    ```
+
+    ```bash
     docker-compose up -d
     ```
+
+## Hitting the APIs
 
 * To play around with the APIs, go to the following link on your browser:
 
@@ -132,8 +138,39 @@ So hitting the API with a random integer will give you a response like the follo
 
     ![Screenshot from 2020-05-29 02-22-36](https://user-images.githubusercontent.com/30027932/83190668-95c10080-a154-11ea-873b-d8fe80d9c132.png)
 
-    Press the `authorize` button on the right and add username and password. The APIs use basic password based authentication. In this case, the username and password is `rednafi` and `ubuntu` respectively.
+* Press the `authorize` button on the right and add username and password. The APIs use basic password based authentication. In this case, the username and password is `rednafi` and `ubuntu` respectively.
 
-    Then select any of the APIs and put an integer in the number box and click the `execute` button. It should give a json response with random integers.
+* Then select any of the APIs and put an integer in the number box and click the `execute` button.
 
     ![Screenshot from 2020-05-29 02-35-43](https://user-images.githubusercontent.com/30027932/83191125-5810a780-a155-11ea-8cc7-8c4f4694fbc5.png)
+
+* Hitting the API should give a json response with random integers.
+
+    ![Screenshot from 2020-05-29 02-42-34](https://user-images.githubusercontent.com/30027932/83191591-1a604e80-a156-11ea-930f-4a805d1f631c.png)
+
+* Also, notice the `curl` section in the above screen shot. You can directly use the highlighted curl command in your terminal.
+
+    ```bash
+    curl -X GET "http://localhost:5000/api-a/34" -H "accept: application/json" -H "Authorization: Basic cmVkbmFmaTp1YnVudHU="
+    ```
+
+    This should show a response like this:
+
+    ```json
+    {"seed":34,"random_first":13,"random_second":27}
+    ```
+
+* To test the `GET` APIs with Python, you can use a http client library like [httpx]():
+
+    ```python
+    import httpx
+
+    headers = {
+        "accept": "application/json",
+        "Authorization": "Basic cmVkbmFmaTp1YnVudHU=",
+    }
+
+    with httpx.Client() as client:
+        response = client.get("http://localhost:5000/api-a/34", headers=headers)
+        print(response.json())
+    ```
