@@ -20,12 +20,14 @@ This [FastAPI](https://fastapi.tiangolo.com/) template incorporates factory patt
 
 * Password based http basic authentication to secure the endpoints.
 
+* [CORS (Cross Origin Resource Sharing)](https://fastapi.tiangolo.com/tutorial/cors/) enabled.
+
 * Flask inspired divisional folder structure better decoupling and encapsulation. This is suitable for small to medium backend development.
 
 * Dockerized using [uvicorn-gunicorn-fastapi-docker]( https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker
 ). This image will set a sensible configuration based on the server it is running on (the amount of CPU cores available) without making sacrifices.
 
-It has sensible defaults, but you can configure it with environment variables or override the configuration files.
+    It has sensible defaults, but you can configure it with environment variables or override the configuration files.
 
 ## Folder Structure
 
@@ -62,6 +64,52 @@ It has sensible defaults, but you can configure it with environment variables or
 └── README.md                 # meta
 ```
 
+In the above structure, `api_a` and `api_b` are the main packages where the code of the APIs live and they are exposed by the endpoints defined in the `routes` folder. Here, `api_a` and `api_b` are dummy APIs that take an integer and return two random integers between zero and the input value.
+
+The following snippets show the logic behind the dummy APIs (`api_b` looks identical to `api_a`):
+
+```python
+# app/api_a/submod.py
+
+# This a dummy module
+# This gets called in the module_main.py file
+
+import random
+
+
+def random_dict(num: int) -> dict:
+    num = int(num)
+    d = {
+        "seed": num,
+        "random_first": random.randint(0, num),
+        "random_second": random.randint(0, num),
+    }
+    return d
+
+```
+
+```python
+# app/api_a/mainmod.py
+
+from app.api_a.submod import random_dict
+
+
+def func_main(num: int) -> dict:
+    d = random_dict(num)
+    return d
+```
+
+So hitting the API with a random integer will give you a response like the following:
+
+```json
+{
+  "seed": 34,
+  "random_first": 27,
+  "random_second": 20
+}
+```
+
+
 ## Quickstart
 
 * Clone the repository.
@@ -73,3 +121,5 @@ It has sensible defaults, but you can configure it with environment variables or
     ```
     docker-compose up -d
     ```
+
+

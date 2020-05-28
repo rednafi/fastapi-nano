@@ -4,7 +4,7 @@
 import random
 
 
-def random_dict(num: int):
+def random_dict(num: int) -> dict:
     num = int(num)
     d = {
         "seed": num,
