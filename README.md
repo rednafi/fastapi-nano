@@ -1,6 +1,6 @@
 <div align="center">
 
-![logo](https://user-images.githubusercontent.com/30027932/83197324-213f8f00-a15f-11ea-8076-e99becf888ef.png)
+![logo](https://user-images.githubusercontent.com/30027932/83198400-ec343c00-a160-11ea-8bec-28f0d09b16de.png)
 
 </div>
 
