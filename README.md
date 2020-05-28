@@ -8,7 +8,7 @@
 
 ## Description
 
-This [FastAPI](https://fastapi.tiangolo.com/) template incorporates factory pattern architecture with [divisional folder structure](https://exploreflask.com/en/latest/blueprints.html#divisional) for API oriented micro-service development. The architecture is similar to what you'd get with Flask's [Blueprint](https://exploreflask.com/en/latest/blueprints.html).
+This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) template that incorporates factory pattern architecture with [divisional folder structure](https://exploreflask.com/en/latest/blueprints.html#divisional). It's suitable for developing small to medium sized API oriented micro-services. The architecture is similar to what you'd get with Flask's [Blueprint](https://exploreflask.com/en/latest/blueprints.html).
 
 ## Features
 
@@ -122,4 +122,18 @@ So hitting the API with a random integer will give you a response like the follo
     docker-compose up -d
     ```
 
+* To play around with the APIs, go to the following link on your browser:
 
+    ```
+    http://localhost:5000/docs
+    ```
+
+    This will take you to an UI like below:
+
+    ![Screenshot from 2020-05-29 02-22-36](https://user-images.githubusercontent.com/30027932/83190668-95c10080-a154-11ea-873b-d8fe80d9c132.png)
+
+    Press the `authorize` button on the right and add username and password. The APIs use basic password based authentication. In this case, the username and password is `rednafi` and `ubuntu` respectively.
+
+    Then select any of the APIs and put an integer in the number box and click the `execute` button. It should give a json response with random integers.
+
+    ![Screenshot from 2020-05-29 02-35-43](https://user-images.githubusercontent.com/30027932/83191125-5810a780-a155-11ea-8cc7-8c4f4694fbc5.png)
