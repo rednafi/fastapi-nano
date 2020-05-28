@@ -112,7 +112,7 @@ So hitting the API with a random integer will give you a response like the follo
 
 ## Quickstart
 
-## Running the Containers
+### Running the Containers
 
 * Clone the repository.
 
@@ -126,7 +126,7 @@ So hitting the API with a random integer will give you a response like the follo
     docker-compose up -d
     ```
 
-## Hitting the APIs
+### Hitting the APIs
 
 * To play around with the APIs, go to the following link on your browser:
 
