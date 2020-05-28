@@ -1,6 +1,29 @@
 # fastapi-nano
 
-Minimal fastAPI template with https and basic authentication
+🐍 A minimalistic FastAPI template with factory pattern architecture
+
+## Description
+
+This [FastAPI](https://fastapi.tiangolo.com/) template incorporates factory pattern architecture with [divisional folder structure](https://exploreflask.com/en/latest/blueprints.html#divisional) for API oriented micro-service development. The architecture is similar to what you'd get with Flask's [Blueprint](https://exploreflask.com/en/latest/blueprints.html).
+
+## Features
+
+* It uses [FastAPI]() framework for API development. FastAPI is a modern, highly performant, web framework for building APIs with Python 3.6+.
+
+* The APIs are served with [Uvicorn]() server. Uvicorn is a lightning-fast "ASGI" server. It runs asynchronous Python web code in a single process.
+
+* [Gunicorn]() is used here to manage Uvicorn and run multiple of these concurrent processes. That way, you get the best of concurrency and parallelism.
+
+* Password based http basic authentication to secure the endpoints.
+
+* Flask inspired divisional folder structure better decoupling and encapsulation. This is suitable for small to medium backend development.
+
+* Dockerized using [uvicorn-gunicorn-fastapi-docker]( https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker
+). This image will set a sensible configuration based on the server it is running on (the amount of CPU cores available) without making sacrifices.
+
+It has sensible defaults, but you can configure it with environment variables or override the configuration files.
+
+## Folder Structure
 
 ```
 .
@@ -17,7 +40,7 @@ Minimal fastAPI template with https and basic authentication
 │   │   ├── config.py         # sample config file
 │   │   └── __init__.py       # empty init file to make the config folder a package
 │   ├── __init__.py           # empty init file to make the app folder a package
-│   ├── main.py               # main file where fastAPI() class is called
+│   ├── main.py               # main file where the fastAPI() class is called
 │   ├── routes                # this is where all the routes live
 │   │   └── views.py          # file containing the endpoints of api_a and api_b
 │   └── tests                 # test package
@@ -35,6 +58,15 @@ Minimal fastAPI template with https and basic authentication
 └── README.md                 # meta
 ```
 
-## uvicorn-gunicorn-fastapi-docker
+## Quickstart
 
- https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker
+* Clone the repository.
+    ```
+    git clone git@github.com:rednafi/fastapi-nano.git
+    ```
+
+* Go to the root folder and run:
+    ```
+    docker-compose up -d
+    ```
+
