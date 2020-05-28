@@ -1,8 +1,6 @@
 <div align="center">
 
-# FastAPI Nano
-
-🐍 A minimalistic FastAPI template with factory pattern architecture
+![logo](https://user-images.githubusercontent.com/30027932/83197324-213f8f00-a15f-11ea-8076-e99becf888ef.png)
 
 </div>
 
