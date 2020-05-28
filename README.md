@@ -4,6 +4,7 @@
 
 </div>
 
+
 ## Description
 
 This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) template that incorporates factory pattern architecture with [divisional folder structure](https://exploreflask.com/en/latest/blueprints.html#divisional). It's suitable for developing small to medium sized API oriented micro-services. The architecture is similar to what you'd get with Flask's [Blueprint](https://exploreflask.com/en/latest/blueprints.html).
@@ -26,6 +27,7 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 ). This image will set a sensible configuration based on the server it is running on (the amount of CPU cores available) without making sacrifices.
 
     It has sensible defaults, but you can configure it with environment variables or override the configuration files.
+
 
 ## Folder Structure
 
@@ -158,7 +160,7 @@ So hitting the API with a random integer will give you a response like the follo
     {"seed":34,"random_first":13,"random_second":27}
     ```
 
-* To test the `GET` APIs with Python, you can use a http client library like [httpx]():
+* To test the `GET` APIs with Python, you can use a http client library like [httpx](https://www.python-httpx.org/):
 
     ```python
     import httpx
@@ -172,3 +174,22 @@ So hitting the API with a random integer will give you a response like the follo
         response = client.get("http://localhost:5000/api-a/34", headers=headers)
         print(response.json())
     ```
+
+## Stack
+
+* [FastAPI](https://fastapi.tiangolo.com/)
+* [Httpx](https://www.python-httpx.org/)
+* [Uvicorn](https://www.uvicorn.org/)
+* [Gunicorn](https://gunicorn.org/)
+* [Poetry](https://python-poetry.org/)
+* [Pydantic](https://pydantic-docs.helpmanual.io/)
+* [Starlette](https://www.starlette.io/)
+* [Docker](https://www.docker.com/)
+* [Pytest](https://docs.pytest.org/en/latest/)
+
+## Resources
+
+* [Docker image: uvicorn-gunicorn-fastapi-docker]( https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker
+)
+* [Flask divisional folder structure](https://exploreflask.com/en/latest/blueprints.html#divisional)
+* [Deploying APIs built with FastAPI](https://fastapi.tiangolo.com/deployment/)
