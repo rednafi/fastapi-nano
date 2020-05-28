@@ -1,6 +1,10 @@
-# fastapi-nano
+<div align="center">
+
+# FastAPI Nano
 
 🐍 A minimalistic FastAPI template with factory pattern architecture
+
+</div>
 
 ## Description
 
@@ -69,4 +73,3 @@ It has sensible defaults, but you can configure it with environment variables or
     ```
     docker-compose up -d
     ```
-
