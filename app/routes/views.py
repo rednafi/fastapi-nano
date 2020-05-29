@@ -3,8 +3,8 @@ import secrets
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
-from app.api_a.mainmod import func_main as func_main_a
-from app.api_b.mainmod import func_main as func_main_b
+from app.api_a.mainmod import main_func as main_func_a
+from app.api_b.mainmod import main_func as main_func_b
 from app.core import config
 
 router = APIRouter()
@@ -26,10 +26,10 @@ def authorize(credentials: HTTPBasicCredentials = Depends(security)):
 @router.get("/api-a/{num}", tags=["api_a"])
 async def views_a(num: int, auth=Depends(authorize)):
     if auth is True:
-        return func_main_a(num)
+        return main_func_a(num)
 
 
 @router.get("/api-b/{num}", tags=["api_b"])
 async def views_b(num: int, auth=Depends(authorize)):
     if auth is True:
-        return func_main_b(num)
+        return main_func_b(num)

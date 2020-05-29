@@ -64,9 +64,9 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 └── README.md                 # meta
 ```
 
-In the above structure, `api_a` and `api_b` are the main packages where the code of the APIs live and they are exposed by the endpoints defined in the `routes` folder. Here, `api_a` and `api_b` are dummy APIs that take an integer and return two random integers between zero and the input value.
+In the above structure, `api_a` and `api_b` are the main packages where the code of the APIs live and they are exposed by the endpoints defined in the `routes` folder. Here, `api_a` and `api_b` have identical logic. Basically these are dummy APIs that take an integer as input and return two random integers between zero and the input value. The purpose of including two identical APIs in the template is to demonstrate how you can decouple the logics of muliple APIs and then assemble their endpoints in the routes directory. The following snippets show the logic behind the dummy APIs.
 
-The following snippets show the logic behind the dummy APIs (`api_b` looks identical to `api_a`):
+This is a dummy submodule that houses a function called `random_gen` which basically generates a dict of random integers.
 
 ```python
 # app/api_a/submod.py
@@ -77,7 +77,7 @@ The following snippets show the logic behind the dummy APIs (`api_b` looks ident
 import random
 
 
-def random_dict(num: int) -> dict:
+def rand_gen(num: int) -> dict:
     num = int(num)
     d = {
         "seed": num,
@@ -85,18 +85,33 @@ def random_dict(num: int) -> dict:
         "random_second": random.randint(0, num),
     }
     return d
-
 ```
+
+The `main_func` in the primary module calls the `rand_gen` function from the submodule.
 
 ```python
 # app/api_a/mainmod.py
 
-from app.api_a.submod import random_dict
+from app.api_a.submod import rand_gen
 
 
-def func_main(num: int) -> dict:
-    d = random_dict(num)
+def main_func(num: int) -> dict:
+    d = rand_gen(num)
     return d
+```
+
+The endpoint is exposed like this:
+
+```python
+# app/routes/views.py
+
+#... codes regarding authentication ...
+
+# endpoint for api_a (api_b looks identical)
+@router.get("/api-a/{num}", tags=["api_a"])
+async def views_a(num: int, auth=Depends(authorize)):
+    if auth is True:
+        return main_func_a(num)
 ```
 
 So hitting the API with a random integer will give you a response like the following:
@@ -126,7 +141,7 @@ So hitting the API with a random integer will give you a response like the follo
     docker-compose up -d
     ```
 
-### Hitting the APIs
+### Check the APIs
 
 * To play around with the APIs, go to the following link on your browser:
 

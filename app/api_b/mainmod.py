@@ -1,6 +1,6 @@
-from app.api_b.submod import random_dict
+from app.api_b.submod import rand_gen
 
 
-def func_main(num: int) -> dict:
-    d = random_dict(num)
+def main_func(num: int) -> dict:
+    d = rand_gen(num)
     return d
