@@ -192,6 +192,12 @@ So hitting the API with a random integer will give you a response like the follo
 
 You can put your own API logics in the shape of `api_a` and `api_b` directories. Rename these folders or add additional directories according to your need. Then expose the APIs in the `routes/views.py` file. You may choose to create multiple `views` files to organize your endpoints. Also, this template uses basic password based authentication and it's easy to change that according to your need. FastAPI docs has a comprehensive list of [authentication options](https://fastapi.tiangolo.com/tutorial/security/) and instructions on how to use them.
 
+* todo:
+    * add instructions on changing host and port while deployment (see the `./Dockerfile`)
+    * add gunicorn config modification instructions
+
+
+
 ## Stack
 
 * [FastAPI](https://fastapi.tiangolo.com/)
