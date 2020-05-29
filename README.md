@@ -11,11 +11,11 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
 ## Features
 
-* It uses [FastAPI]() framework for API development. FastAPI is a modern, highly performant, web framework for building APIs with Python 3.6+.
+* It uses [FastAPI](https://fastapi.tiangolo.com/) framework for API development. FastAPI is a modern, highly performant, web framework for building APIs with Python 3.6+.
 
-* The APIs are served with [Uvicorn]() server. Uvicorn is a lightning-fast "ASGI" server. It runs asynchronous Python web code in a single process.
+* The APIs are served with [Uvicorn](https://www.uvicorn.org/) server. Uvicorn is a lightning-fast "ASGI" server. It runs asynchronous Python web code in a single process.
 
-* [Gunicorn]() is used here to manage Uvicorn and run multiple of these concurrent processes. That way, you get the best of concurrency and parallelism.
+* [Gunicorn](https://gunicorn.org/) is used here to manage Uvicorn and run multiple of these concurrent processes. That way, you get the best of concurrency and parallelism.
 
 * Password based http basic authentication to secure the endpoints.
 
@@ -27,7 +27,6 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 ). This image will set a sensible configuration based on the server it is running on (the amount of CPU cores available) without making sacrifices.
 
     It has sensible defaults, but you can configure it with environment variables or override the configuration files.
-
 
 ## Folder Structure
 
@@ -124,10 +123,9 @@ So hitting the API with a random integer will give you a response like the follo
 }
 ```
 
-
 ## Quickstart
 
-### Running the Containers
+### Run the Containers
 
 * Clone the repository.
 
@@ -189,6 +187,10 @@ So hitting the API with a random integer will give you a response like the follo
         response = client.get("http://localhost:5000/api-a/34", headers=headers)
         print(response.json())
     ```
+
+## Modify & Use the Template
+
+You can put your own API logics in the shape of `api_a` and `api_b` directories. Rename these folders or add additional directories according to your need. Then expose the APIs in the `routes/views.py` file. You may choose to create multiple `views` files to organize your endpoints. Also, this template uses basic password based authentication and it's easy to change that according to your need. FastAPI docs has a comprehensive list of [authentication options](https://fastapi.tiangolo.com/tutorial/security/) and instructions on how to use them.
 
 ## Stack
 
