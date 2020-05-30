@@ -220,6 +220,9 @@ So hitting the API with a random integer will give you a response like the follo
 * [Flask divisional folder structure](https://exploreflask.com/en/latest/blueprints.html#divisional)
 * [Deploying APIs built with FastAPI](https://fastapi.tiangolo.com/deployment/)
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+<div align="center">
+
+*=== [REDNAFI](https://twitter.com/rednafi) ===*
+
+</div>
