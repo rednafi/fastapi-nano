@@ -223,6 +223,6 @@ So hitting the API with a random integer will give you a response like the follo
 
 <div align="center">
 
-*=== [REDNAFI](https://twitter.com/rednafi) ===*
+*=== [rednafi](https://twitter.com/rednafi) ===*
 
 </div>
