@@ -23,8 +23,7 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
 * Flask inspired divisional folder structure better decoupling and encapsulation. This is suitable for small to medium backend development.
 
-* Dockerized using [uvicorn-gunicorn-fastapi-docker]( https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker
-). This image will set a sensible configuration based on the server it is running on (the amount of CPU cores available) without making sacrifices.
+* Dockerized using [uvicorn-gunicorn-fastapi-docker](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker). This image will set a sensible configuration based on the server it is running on (the amount of CPU cores available) without making sacrifices.
 
     It has sensible defaults, but you can configure it with environment variables or override the configuration files.
 
@@ -190,12 +189,17 @@ So hitting the API with a random integer will give you a response like the follo
 
 ## Modify & Use the Template
 
-You can put your own API logics in the shape of `api_a` and `api_b` directories. Rename these folders or add additional directories according to your need. Then expose the APIs in the `routes/views.py` file. You may choose to create multiple `views` files to organize your endpoints. Also, this template uses basic password based authentication and it's easy to change that according to your need. FastAPI docs has a comprehensive list of [authentication options](https://fastapi.tiangolo.com/tutorial/security/) and instructions on how to use them.
+* You can put your own API logics in the shape of `api_a` and `api_b` directories. Rename these folders or add additional directories according to your needs.
 
-* todo:
-    * add instructions on changing host and port while deployment (see the `./Dockerfile`)
-    * add gunicorn config modification instructions
+* Then expose the APIs in the `routes/views.py` file. You may choose to create multiple `views` files to organize your endpoints.
 
+* This template uses basic password based authentication and it's easy to change that according to your need. FastAPI docs has a comprehensive list of [authentication options](https://fastapi.tiangolo.com/tutorial/security/) and instructions on how to use them.
+
+* During deployment, you might need to change the host name and port number. To do so, just change the values of `HOST` and `PORT` variables under the `environment` section in the `docker-compose.yml` file.
+
+* Here, containerization has been done using FastAPI author's `python3.8-slim` based [uvicorn-gunicorn-fastapi-docker](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker) image. You might want to use a different base image that caters your usage. A few viable options are listed [here](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker#tiangolouvicorn-gunicorn-fastapi).
+
+* Although this template uses [sensible](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker#tiangolouvicorn-gunicorn-fastapi) `Uvicorn-Gunicorn` defaults, it exposes a few configs under the `environment` section in the `docker-compose.yml` file. Should you choose to tinker with them, you can do it there. Also, you can use a custom `Gunicorn` config file and point the location of the `custom_gunicorn_conf.py` in the `GUNICORN_CONF` variable.
 
 
 ## Stack
@@ -212,7 +216,6 @@ You can put your own API logics in the shape of `api_a` and `api_b` directories.
 
 ## Resources
 
-* [Docker image: uvicorn-gunicorn-fastapi-docker]( https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker
-)
+* [Docker image: uvicorn-gunicorn-fastapi-docker](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker)
 * [Flask divisional folder structure](https://exploreflask.com/en/latest/blueprints.html#divisional)
 * [Deploying APIs built with FastAPI](https://fastapi.tiangolo.com/deployment/)
