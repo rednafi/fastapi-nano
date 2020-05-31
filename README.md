@@ -57,6 +57,8 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 ├── .pre-commit-config.yaml   # pre-commit config file
 ├── docker-compose.yml        # docker-compose file
 ├── Dockerfile                # dockerfile
+├── LICENSE                   # do whatever you like license
+├── mypy.ini                  # type checking configs
 ├── poetry.lock               # lock file for dependencies
 ├── pyproject.toml            # human readable dependency list
 └── README.md                 # meta
@@ -67,15 +69,14 @@ In the above structure, `api_a` and `api_b` are the main packages where the code
 This is a dummy submodule that houses a function called `random_gen` which basically generates a dict of random integers.
 
 ```python
-# app/api_a/submod.py
-
 # This a dummy module
 # This gets called in the module_main.py file
 
 import random
+from typing import Dict
 
 
-def rand_gen(num: int) -> dict:
+def rand_gen(num: int) -> Dict[str, int]:
     num = int(num)
     d = {
         "seed": num,
@@ -88,12 +89,12 @@ def rand_gen(num: int) -> dict:
 The `main_func` in the primary module calls the `rand_gen` function from the submodule.
 
 ```python
-# app/api_a/mainmod.py
+from typing import Dict
 
 from app.api_a.submod import rand_gen
 
 
-def main_func(num: int) -> dict:
+def main_func(num: int) -> Dict[str, int]:
     d = rand_gen(num)
     return d
 ```
@@ -107,7 +108,7 @@ The endpoint is exposed like this:
 
 # endpoint for api_a (api_b looks identical)
 @router.get("/api-a/{num}", tags=["api_a"])
-async def views_a(num: int, auth=Depends(authorize)):
+async def views_a(num: int, auth=Depends(authorize)) -> Dict[str, int]:
     if auth is True:
         return main_func_a(num)
 ```
