@@ -2,9 +2,10 @@
 # This gets called in the module_main.py file
 
 import random
+from typing import Dict
 
 
-def rand_gen(num: int) -> dict:
+def rand_gen(num: int) -> Dict[str, int]:
     num = int(num)
     d = {
         "seed": num,

@@ -1,4 +1,5 @@
 import secrets
+from typing import Dict
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
@@ -11,7 +12,7 @@ router = APIRouter()
 security = HTTPBasic()
 
 
-def authorize(credentials: HTTPBasicCredentials = Depends(security)):
+def authorize(credentials: HTTPBasicCredentials = Depends(security)) -> bool:
     correct_username = secrets.compare_digest(credentials.username, config.api_username)
     correct_password = secrets.compare_digest(credentials.password, config.api_password)
     if not (correct_username and correct_password):
@@ -24,12 +25,12 @@ def authorize(credentials: HTTPBasicCredentials = Depends(security)):
 
 
 @router.get("/api-a/{num}", tags=["api_a"])
-async def views_a(num: int, auth=Depends(authorize)):
+async def views_a(num: int, auth=Depends(authorize)) -> Dict[str, int]:
     if auth is True:
         return main_func_a(num)
 
 
 @router.get("/api-b/{num}", tags=["api_b"])
-async def views_b(num: int, auth=Depends(authorize)):
+async def views_b(num: int, auth=Depends(authorize)) -> Dict[str, int]:
     if auth is True:
         return main_func_b(num)
