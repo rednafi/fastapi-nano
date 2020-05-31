@@ -14,9 +14,9 @@ class BaseConfig:
     HOST: Optional[str] = environ.get("HOST")
 
     @staticmethod
-    def typecast(variable, type_):
+    def typecast(variable, target_type):
         if variable is not None:
-            return type_(variable)
+            return target_type(variable)
 
 
 @dataclass
