@@ -1,52 +1,49 @@
-from dataclasses import dataclass
-from os import environ
 from typing import Optional
 
-from dotenv import load_dotenv
-
-load_dotenv()
+from pydantic import BaseSettings, Field
 
 
-@dataclass
-class BaseConfig:
-    """Common configurations."""
+class OmniConfig(BaseSettings):
+    """Global configurations."""
 
-    HOST: Optional[str] = environ.get("HOST")
+    # This variable will be loaded from the .env file. However, if there is a
+    # shell environment variable having the same name, that will take precedence.
 
-    @staticmethod
-    def typecast(variable, type_):
-        if variable is not None:
-            return type_(variable)
+    ENV_STATE: Optional[str] = Field(None, env="ENV_STATE")
+
+    class Config:
+        """Loads the dotenv file."""
+
+        env_file: str = ".env"
 
 
-@dataclass
-class DevConfig(BaseConfig):
+class DevConfig(OmniConfig):
     """Development configurations."""
 
-    API_USERNAME: Optional[str] = environ.get("DEV.API_USERNAME")
-    API_PASSWORD: Optional[str] = environ.get("DEV.API_PASSWORD")
+    API_USERNAME: Optional[str] = Field(None, env="DEV_API_USERNAME")
+    API_PASSWORD: Optional[str] = Field(None, env="DEV_API_PASSWORD")
 
 
-@dataclass
-class ProdConfig(BaseConfig):
+class ProdConfig(OmniConfig):
     """Production configurations."""
 
-    API_USERNAME: Optional[str] = environ.get("PROD.API_USERNAME")
-    API_PASSWORD: Optional[str] = environ.get("PROD.API_PASSWORD")
+    API_USERNAME: Optional[str] = Field(None, env="PROD_API_USERNAME")
+    API_PASSWORD: Optional[str] = Field(None, env="PROD_API_PASSWORD")
 
 
-class Config:
-    """Configuration factory class."""
+class FactoryConfig:
+    """Returns a config instance dependending on the ENV_STATE variable."""
 
-    def __init__(self, env: Optional[str]):
-        self.env = env
+    def __init__(self, env_state: Optional[str]):
+        self.env_state = env_state
 
     def __call__(self):
-        if self.env == "dev":
+        if self.env_state == "dev":
             return DevConfig()
 
-        elif self.env == "prod":
+        elif self.env_state == "prod":
             return ProdConfig()
 
 
-config = Config(env=environ.get("ENVIRONMENT"))()
+config = FactoryConfig(OmniConfig().ENV_STATE)()
+# print(config.__repr__())
