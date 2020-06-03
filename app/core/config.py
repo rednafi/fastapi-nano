@@ -3,7 +3,7 @@ from typing import Optional
 from pydantic import BaseSettings, Field
 
 
-class OmniConfig(BaseSettings):
+class GlobalConfig(BaseSettings):
     """Global configurations."""
 
     # This variable will be loaded from the .env file. However, if there is a
@@ -17,14 +17,14 @@ class OmniConfig(BaseSettings):
         env_file: str = ".env"
 
 
-class DevConfig(OmniConfig):
+class DevConfig(GlobalConfig):
     """Development configurations."""
 
     API_USERNAME: Optional[str] = Field(None, env="DEV_API_USERNAME")
     API_PASSWORD: Optional[str] = Field(None, env="DEV_API_PASSWORD")
 
 
-class ProdConfig(OmniConfig):
+class ProdConfig(GlobalConfig):
     """Production configurations."""
 
     API_USERNAME: Optional[str] = Field(None, env="PROD_API_USERNAME")
@@ -45,5 +45,5 @@ class FactoryConfig:
             return ProdConfig()
 
 
-config = FactoryConfig(OmniConfig().ENV_STATE)()
+config = FactoryConfig(GlobalConfig().ENV_STATE)()
 # print(config.__repr__())
