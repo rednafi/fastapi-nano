@@ -4,8 +4,8 @@ from typing import Dict
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
-from app.api_a.mainmod import main_func as main_func_a
-from app.api_b.mainmod import main_func as main_func_b
+from app.{{cookiecutter.api1}}.mainmod import main_func as main_func_a
+from app.{{cookiecutter.api2}}.mainmod import main_func as main_func_b
 from app.core.config import config
 
 router = APIRouter()
@@ -24,13 +24,13 @@ def authorize(credentials: HTTPBasicCredentials = Depends(security)) -> bool:
     return True
 
 
-@router.get("/api-a/{num}", tags=["api_a"])
+@router.get("/{{cookiecutter.api1}}/{num}", tags=["api_a"])
 async def views_a(num: int, auth=Depends(authorize)) -> Dict[str, int]:
     if auth is True:
         return main_func_a(num)
 
 
-@router.get("/api-b/{num}", tags=["api_b"])
+@router.get("/{{cookiecutter.api2}}/{num}", tags=["api_b"])
 async def views_b(num: int, auth=Depends(authorize)) -> Dict[str, int]:
     if auth is True:
         return main_func_b(num)

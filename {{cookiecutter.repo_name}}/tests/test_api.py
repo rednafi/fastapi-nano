@@ -1,5 +1,5 @@
-from app.api_a.mainmod import main_func as main_func_a
-from app.api_b.mainmod import main_func as main_func_b
+from app.{{cookiecutter.api1}}.mainmod import main_func as main_func_a
+from app.{{cookiecutter.api2}}.mainmod import main_func as main_func_b
 
 
 def test_func_main_a() -> None:
