@@ -29,15 +29,16 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 ## Quickstart
 
 ### Spin Up the Cookiecutter
-* Install cookiecutter
 
-* Go to your project folder and run
+* Install [cookiecutter](https://cookiecutter.readthedocs.io/en/1.7.2/installation.html).
+
+* Go to your project folder and run:
 
     ```bash
     cookiecutter https://github.com/rednafi/fastapi-nano.git --checkout dev
     ```
 
-* Follow the prompts to generate your project
+* Follow the prompts to generate your project.
 
     ```
     repo [fastapi-nano]:
