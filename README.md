@@ -69,7 +69,7 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
     ![Screenshot from 2020-06-14 19-32-08](https://user-images.githubusercontent.com/30027932/84594744-3104e600-ae76-11ea-86da-2c760acef833.png)
 
-* Press the `authorize` button on the right and add username and password. The APIs use basic password based authentication. In this case, the username and password is `rednafi` and `ubuntu` respectively.
+* Press the `authorize` button on the right and add username and password. The APIs use basic password based authentication. In this case, the username and password is `ubuntu` and `debian` respectively.
 
 * Then select any of the APIs and put an integer in the number box and click the `execute` button.
 

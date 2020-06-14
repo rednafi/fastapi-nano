@@ -10,6 +10,8 @@ class GlobalConfig(BaseSettings):
     # shell environment variable having the same name, that will take precedence.
 
     ENV_STATE: Optional[str] = Field(None, env="ENV_STATE")
+    API_USERNAME: Optional[str] = None
+    API_PASSWORD: Optional[str] = None
 
     class Config:
         """Loads the dotenv file."""
@@ -20,15 +22,15 @@ class GlobalConfig(BaseSettings):
 class DevConfig(GlobalConfig):
     """Development configurations."""
 
-    API_USERNAME: Optional[str] = Field(None, env="DEV_API_USERNAME")
-    API_PASSWORD: Optional[str] = Field(None, env="DEV_API_PASSWORD")
+    class Config:
+        env_prefix: str = "DEV_"
 
 
 class ProdConfig(GlobalConfig):
     """Production configurations."""
 
-    API_USERNAME: Optional[str] = Field(None, env="PROD_API_USERNAME")
-    API_PASSWORD: Optional[str] = Field(None, env="PROD_API_PASSWORD")
+    class Config:
+        env_prefix: str = "PROD_"
 
 
 class FactoryConfig:
