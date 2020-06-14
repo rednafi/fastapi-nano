@@ -1,7 +1,6 @@
 {
-  "repo_name": "fano",
-  "api1": "nano",
-  "api2": "pico",
+  "api1": "api_a",
+  "api2": "api_b",
   "year": 2020,
   "full_name": "rednafi"
 }
