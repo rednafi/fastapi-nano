@@ -35,7 +35,7 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 * Go to your project folder and run:
 
     ```bash
-    cookiecutter https://github.com/rednafi/fastapi-nano.git --checkout dev
+    cookiecutter https://github.com/rednafi/fastapi-nano.git
     ```
 
 * Follow the prompts to generate your project.
@@ -67,17 +67,19 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
     This will take you to an UI like below:
 
-    ![Screenshot from 2020-05-29 02-22-36](https://user-images.githubusercontent.com/30027932/83190668-95c10080-a154-11ea-873b-d8fe80d9c132.png)
+    ![Screenshot from 2020-06-14 19-32-08](https://user-images.githubusercontent.com/30027932/84594744-3104e600-ae76-11ea-86da-2c760acef833.png)
 
 * Press the `authorize` button on the right and add username and password. The APIs use basic password based authentication. In this case, the username and password is `rednafi` and `ubuntu` respectively.
 
 * Then select any of the APIs and put an integer in the number box and click the `execute` button.
 
-    ![Screenshot from 2020-05-29 02-35-43](https://user-images.githubusercontent.com/30027932/83191125-5810a780-a155-11ea-8cc7-8c4f4694fbc5.png)
+    ![Screenshot from 2020-06-14 19-33-36](https://user-images.githubusercontent.com/30027932/84594747-32cea980-ae76-11ea-8fba-bb6450a95fc0.png)
+
 
 * Hitting the API should give a json response with random integers.
 
-    ![Screenshot from 2020-05-29 02-42-34](https://user-images.githubusercontent.com/30027932/83191591-1a604e80-a156-11ea-930f-4a805d1f631c.png)
+    ![Screenshot from 2020-06-14 19-34-06](https://user-images.githubusercontent.com/30027932/84594749-33674000-ae76-11ea-8056-561fab20c3a2.png)
+
 
 * Also, notice the `curl` section in the above screen shot. You can directly use the highlighted curl command in your terminal.
 
