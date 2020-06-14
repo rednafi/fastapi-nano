@@ -4,8 +4,8 @@ from typing import Dict
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
-from app.{{cookiecutter.api1}}.mainmod import main_func as main_func_a
-from app.{{cookiecutter.api2}}.mainmod import main_func as main_func_b
+from app.apis.{{cookiecutter.api1}}.mainmod import main_func as main_func_a
+from app.apis.{{cookiecutter.api2}}.mainmod import main_func as main_func_b
 from app.core.config import config
 
 router = APIRouter()

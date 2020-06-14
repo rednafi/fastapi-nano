@@ -1,6 +1,6 @@
 from typing import Dict
 
-from app.api_b.submod import rand_gen
+from app.apis.{{cookiecutter.api2}}.submod import rand_gen
 
 
 def main_func(num: int) -> Dict[str, int]:
