@@ -78,13 +78,14 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
 * Hitting the API should give a json response with random integers.
 
-    ![Screenshot from 2020-06-14 19-34-06](https://user-images.githubusercontent.com/30027932/84594749-33674000-ae76-11ea-8056-561fab20c3a2.png)
+    ![Screenshot from 2020-06-14 23-27-37](https://user-images.githubusercontent.com/30027932/84599830-c0ba8c80-ae96-11ea-99b7-ccb674de5079.png)
+
 
 
 * Also, notice the `curl` section in the above screen shot. You can directly use the highlighted curl command in your terminal.
 
     ```bash
-    curl -X GET "http://localhost:5000/api_a/34" -H "accept: application/json" -H "Authorization: Basic cmVkbmFmaTp1YnVudHU="
+    curl -X GET "http://localhost:5000/api_a/34" -H "accept: application/json" -H "Authorization: Basic dWJ1bnR1OmRlYmlhbg=="
     ```
 
     This should show a response like this:
@@ -92,8 +93,8 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
     ```json
     {
     "seed": 34,
-    "random_first": 9,
-    "random_second": 6
+    "random_first": 5,
+    "random_second": 13
     }
     ```
 
@@ -104,11 +105,11 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
     headers = {
         "accept": "application/json",
-        "Authorization": "Basic cmVkbmFmaTp1YnVudHU=",
+        "Authorization": "Basic dWJ1bnR1OmRlYmlhbg==",
     }
 
     with httpx.Client() as client:
-        response = client.get("http://localhost:5000/api-a/34", headers=headers)
+        response = client.get("http://localhost:5000/api_a/34", headers=headers)
         print(response.json())
     ```
 
