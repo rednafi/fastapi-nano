@@ -13,7 +13,8 @@ services:
       - LOG_LEVEL=info                                  # by default info
       #- WORKER_CLASS="uvicorn.workers.UvicornWorker"   # by default this. don't touch
       - TIMEOUT=120                                     # by default 120 sec
-
+    env_file:
+      - .env
     build:
       context: ./
       dockerfile: Dockerfile
