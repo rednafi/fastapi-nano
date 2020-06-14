@@ -84,13 +84,17 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 * Also, notice the `curl` section in the above screen shot. You can directly use the highlighted curl command in your terminal.
 
     ```bash
-    curl -X GET "http://localhost:5000/api-a/34" -H "accept: application/json" -H "Authorization: Basic cmVkbmFmaTp1YnVudHU="
+    curl -X GET "http://localhost:5000/api_a/34" -H "accept: application/json" -H "Authorization: Basic cmVkbmFmaTp1YnVudHU="
     ```
 
     This should show a response like this:
 
     ```json
-    {"seed":34,"random_first":13,"random_second":27}
+    {
+    "seed": 34,
+    "random_first": 9,
+    "random_second": 6
+    }
     ```
 
 * To test the `GET` APIs with Python, you can use a http client library like [httpx](https://www.python-httpx.org/):
