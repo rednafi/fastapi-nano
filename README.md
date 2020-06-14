@@ -33,13 +33,19 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
 * Go to your project folder and run
 
-```bash
-cookiecutter https://github.com/rednafi/fastapi-nano.git --checkout dev
-```
-
-* Follow the prompts to generate your project
+    ```bash
+    cookiecutter https://github.com/rednafi/fastapi-nano.git --checkout dev
     ```
 
+* Follow the prompts to generate your project
+
+    ```
+    repo [fastapi-nano]:
+    api_a [api_a]:
+    api_b [api_b]:
+    year [2020]:
+    fname [Redowan Delowar]:
+    email [redowan.nafi@gmail.com]:
     ```
 
 ### Run the Containers
