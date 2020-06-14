@@ -26,10 +26,86 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
     It has sensible defaults, but you can configure it with environment variables or override the configuration files.
 
+## Quickstart
+
+### Spin Up the Cookiecutter
+* Install cookiecutter
+
+* Go to your project folder and run
+
+```bash
+cookiecutter https://github.com/rednafi/fastapi-nano.git --checkout dev
+```
+
+* Follow the prompts to generate your project
+    ```
+
+    ```
+
+### Run the Containers
+
+* Go to your template folder and run:
+
+    ```bash
+    docker-compose up -d
+    ```
+
+### Check the APIs
+
+* To play around with the APIs, go to the following link on your browser:
+
+    ```
+    http://localhost:5000/docs
+    ```
+
+    This will take you to an UI like below:
+
+    ![Screenshot from 2020-05-29 02-22-36](https://user-images.githubusercontent.com/30027932/83190668-95c10080-a154-11ea-873b-d8fe80d9c132.png)
+
+* Press the `authorize` button on the right and add username and password. The APIs use basic password based authentication. In this case, the username and password is `rednafi` and `ubuntu` respectively.
+
+* Then select any of the APIs and put an integer in the number box and click the `execute` button.
+
+    ![Screenshot from 2020-05-29 02-35-43](https://user-images.githubusercontent.com/30027932/83191125-5810a780-a155-11ea-8cc7-8c4f4694fbc5.png)
+
+* Hitting the API should give a json response with random integers.
+
+    ![Screenshot from 2020-05-29 02-42-34](https://user-images.githubusercontent.com/30027932/83191591-1a604e80-a156-11ea-930f-4a805d1f631c.png)
+
+* Also, notice the `curl` section in the above screen shot. You can directly use the highlighted curl command in your terminal.
+
+    ```bash
+    curl -X GET "http://localhost:5000/api-a/34" -H "accept: application/json" -H "Authorization: Basic cmVkbmFmaTp1YnVudHU="
+    ```
+
+    This should show a response like this:
+
+    ```json
+    {"seed":34,"random_first":13,"random_second":27}
+    ```
+
+* To test the `GET` APIs with Python, you can use a http client library like [httpx](https://www.python-httpx.org/):
+
+    ```python
+    import httpx
+
+    headers = {
+        "accept": "application/json",
+        "Authorization": "Basic cmVkbmFmaTp1YnVudHU=",
+    }
+
+    with httpx.Client() as client:
+        response = client.get("http://localhost:5000/api-a/34", headers=headers)
+        print(response.json())
+    ```
+
+
 ## Folder Structure
 
+This shows the folder structure of the default template.
+
 ```
-.
+fastapi-nano
 ├── app                             # primary application folder
 │   ├── apis                        # this houses all the API packages
 │   │   ├── api_a                   # api_a package
@@ -101,8 +177,8 @@ The endpoint is exposed like this:
 #... codes regarding authentication ...
 
 # endpoint for api_a (api_b looks identical)
-@router.get("/api-a/{num}", tags=["api_a"])
-async def views_a(num: int, auth=Depends(authorize)) -> Dict[str, int]:
+@router.get("/api_a/{num}", tags=["api_a"])
+async def views(num: int, auth=Depends(authorize)) -> Dict[str, int]:
     if auth is True:
         return main_func_a(num)
 ```
@@ -117,74 +193,9 @@ So hitting the API with a random integer will give you a response like the follo
 }
 ```
 
-## Quickstart
+## Further Modifications
 
-### Run the Containers
-
-* Clone the repository.
-
-    ```bash
-    git clone git@github.com:rednafi/fastapi-nano.git
-    ```
-
-* Go to the root folder and run:
-
-    ```bash
-    docker-compose up -d
-    ```
-
-### Check the APIs
-
-* To play around with the APIs, go to the following link on your browser:
-
-    ```
-    http://localhost:5000/docs
-    ```
-
-    This will take you to an UI like below:
-
-    ![Screenshot from 2020-05-29 02-22-36](https://user-images.githubusercontent.com/30027932/83190668-95c10080-a154-11ea-873b-d8fe80d9c132.png)
-
-* Press the `authorize` button on the right and add username and password. The APIs use basic password based authentication. In this case, the username and password is `rednafi` and `ubuntu` respectively.
-
-* Then select any of the APIs and put an integer in the number box and click the `execute` button.
-
-    ![Screenshot from 2020-05-29 02-35-43](https://user-images.githubusercontent.com/30027932/83191125-5810a780-a155-11ea-8cc7-8c4f4694fbc5.png)
-
-* Hitting the API should give a json response with random integers.
-
-    ![Screenshot from 2020-05-29 02-42-34](https://user-images.githubusercontent.com/30027932/83191591-1a604e80-a156-11ea-930f-4a805d1f631c.png)
-
-* Also, notice the `curl` section in the above screen shot. You can directly use the highlighted curl command in your terminal.
-
-    ```bash
-    curl -X GET "http://localhost:5000/api-a/34" -H "accept: application/json" -H "Authorization: Basic cmVkbmFmaTp1YnVudHU="
-    ```
-
-    This should show a response like this:
-
-    ```json
-    {"seed":34,"random_first":13,"random_second":27}
-    ```
-
-* To test the `GET` APIs with Python, you can use a http client library like [httpx](https://www.python-httpx.org/):
-
-    ```python
-    import httpx
-
-    headers = {
-        "accept": "application/json",
-        "Authorization": "Basic cmVkbmFmaTp1YnVudHU=",
-    }
-
-    with httpx.Client() as client:
-        response = client.get("http://localhost:5000/api-a/34", headers=headers)
-        print(response.json())
-    ```
-
-## Modify & Use the Template
-
-* You can put your own API logics in the shape of `api_a` and `api_b` packages. Rename these folders or add additional directories if you need more APIs.
+* You can put your own API logics in the shape of `api_a` and `api_b` packages. You'll have to add additional directories like `api_a` and `api_b` if you need more APIs.
 
 * Then expose the APIs in the `routes/views.py` file. You may choose to create multiple `views` files to organize your endpoints.
 
