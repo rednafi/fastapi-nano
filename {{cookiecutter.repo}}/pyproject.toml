@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "fastapi-nano"
+name = "{{cookiecutter.repo}}"
 version = "0.1.0"
 description = ""
-authors = ["rednafi <redowan.nafi@gmail.com>"]
+authors = ["{{cookiecutter.fname}} <{{cookiecutter.email}}>"]
 license = "MIT"
 
 [tool.poetry.dependencies]

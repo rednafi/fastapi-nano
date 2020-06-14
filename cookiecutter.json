@@ -1,6 +1,8 @@
 {
-  "api1": "api_a",
-  "api2": "api_b",
+  "repo": "fastapi-nano",
+  "api_a": "api_a",
+  "api_b": "api_b",
   "year": 2020,
-  "full_name": "rednafi"
+  "fname": "Redowan Delowar",
+  "email": "redowan.nafi@gmail.com"
 }

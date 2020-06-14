@@ -1,7 +1,7 @@
 version: "3"
 services:
-  fastapi_nano:
-    container_name: "fastapi-cont"
+  {{cookiecutter.repo}}:
+    container_name: "{{cookiecutter.repo}}"
     environment:
       - MODULE_NAME=app.main                            # or custom_app:custom_main
       - VARIABLE_NAME=app                               # or some custom_var
