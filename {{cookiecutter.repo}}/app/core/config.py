@@ -10,6 +10,7 @@ class GlobalConfig(BaseSettings):
     # shell environment variable having the same name, that will take precedence.
 
     ENV_STATE: Optional[str] = None
+    HOST: Optional[str] = None
     API_USERNAME: Optional[str] = None
     API_PASSWORD: Optional[str] = None
 
