@@ -85,7 +85,6 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
     ![Screenshot from 2020-06-14 23-27-37](https://user-images.githubusercontent.com/30027932/84599830-c0ba8c80-ae96-11ea-99b7-ccb674de5079.png)
 
 
-
 * Also, notice the `curl` section in the above screen shot. You can directly use the highlighted curl command in your terminal.
 
     ```bash
@@ -116,7 +115,6 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
         response = client.get("http://localhost:5000/api_a/34", headers=headers)
         print(response.json())
     ```
-
 
 ## Folder Structure
 
@@ -224,7 +222,6 @@ So hitting the API with a random integer will give you a response like the follo
 * Here, containerization has been done using FastAPI author's `python3.8-slim` based [uvicorn-gunicorn-fastapi-docker](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker) image. You may want to use a different base image that caters your usage. A few viable options are listed [here](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker#tiangolouvicorn-gunicorn-fastapi).
 
 * Although this template uses [sensible](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker#tiangolouvicorn-gunicorn-fastapi) `Uvicorn-Gunicorn` defaults, it exposes a few configs under the `environment` section in the `docker-compose.yml` file. Should you choose to tinker with them, you can do it there. Also, you can use a custom `Gunicorn` config file and point the location of the `custom_gunicorn_conf.py` file in the `GUNICORN_CONF` variable.
-
 
 ## Stack
 
