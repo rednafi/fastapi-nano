@@ -20,7 +20,7 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
 * [Gunicorn](https://gunicorn.org/) is used here to manage Uvicorn and run multiple of these concurrent processes. That way, you get the best of concurrency and parallelism.
 
-* Password based http basic authentication to secure the endpoints.
+* OAuth2 (with hashed password and Bearer with JWT) based authentication
 
 * [CORS (Cross Origin Resource Sharing)](https://fastapi.tiangolo.com/tutorial/cors/) enabled.
 
