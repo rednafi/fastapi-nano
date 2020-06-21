@@ -218,7 +218,7 @@ So hitting the API with a random integer will give you a response like the follo
 
 ```json
 {
-  "seed": 34,
+  "seed": 22,
   "random_first": 27,
   "random_second": 20
 }
