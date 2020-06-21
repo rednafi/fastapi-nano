@@ -71,18 +71,27 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
     This will take you to an UI like below:
 
-    ![Screenshot from 2020-06-14 19-32-08](https://user-images.githubusercontent.com/30027932/84594744-3104e600-ae76-11ea-86da-2c760acef833.png)
+    ![Screenshot from 2020-06-21 22-15-18](https://user-images.githubusercontent.com/30027932/85229723-5b721880-b40d-11ea-8f03-de36c07a3ce5.png)
 
-* Press the `authorize` button on the right and add username and password. The APIs use basic password based authentication. In this case, the username and password is `ubuntu` and `debian` respectively.
 
-* Then select any of the APIs and put an integer in the number box and click the `execute` button.
+* Press the `authorize` button on the right and add *username* and *password*. The APIs use OAuth2 (with hashed password and Bearer with JWT) based authentication. In this case, the username and password is `ubuntu` and `debian` respectively.
 
-    ![Screenshot from 2020-06-14 19-33-36](https://user-images.githubusercontent.com/30027932/84594747-32cea980-ae76-11ea-8fba-bb6450a95fc0.png)
+    ![Screenshot from 2020-06-21 22-18-25](https://user-images.githubusercontent.com/30027932/85229725-5e6d0900-b40d-11ea-9c37-bbee546f84a8.png)
+
+    Clicking the `authorize` button will bring up a screen like this:
+
+    ![Screenshot from 2020-06-21 22-18-59](https://user-images.githubusercontent.com/30027932/85229729-6036cc80-b40d-11ea-877e-7421b927a849.png)
+
+
+
+* Then select any of the `api_a` or `api_b` APIs and put an integer in the number box and click the `authorize` button.
+
+    ![Screenshot from 2020-06-21 22-31-19](https://user-images.githubusercontent.com/30027932/85229992-fcad9e80-b40e-11ea-850d-9ca86259d463.png)
 
 
 * Hitting the API should give a json response with random integers.
 
-    ![Screenshot from 2020-06-14 23-27-37](https://user-images.githubusercontent.com/30027932/84599830-c0ba8c80-ae96-11ea-99b7-ccb674de5079.png)
+    ![Screenshot from 2020-06-21 22-32-28](https://user-images.githubusercontent.com/30027932/85230016-25359880-b40f-11ea-9196-c46fd72a760c.png)
 
 
 * Also, notice the `curl` section in the above screen shot. You can directly use the highlighted curl command in your terminal.
@@ -201,7 +210,7 @@ The endpoint is exposed like this:
 
 # endpoint for api_a (api_b looks identical)
 @router.get("/api_a/{num}", tags=["api_a"])
-async def views(num: int, auth=Depends(authorize)) -> Dict[str, int]:
+async def view_a(num: int, auth=Depends(authorize)) -> Dict[str, int]:
     if auth is True:
         return main_func_a(num)
 ```
