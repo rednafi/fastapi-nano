@@ -88,7 +88,7 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 * Also, notice the `curl` section in the above screen shot. You can directly use the highlighted curl command in your terminal.
 
     ```bash
-    curl -X GET "http://localhost:5000/api_a/34" -H "accept: application/json" -H "Authorization: Basic dWJ1bnR1OmRlYmlhbg=="
+    curl -X GET "http://localhost:5000/api_a/34" -H "accept: application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1YnVudHUiLCJleHAiOjY4NDg3NDI1MDl9.varo-uXei0kmGkejkfzCtOkWvW6y7ewzaKBj4qZZHWQ"
     ```
 
     This should show a response like this:
@@ -106,9 +106,15 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
     ```python
     import httpx
 
+    token = (
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9."
+        + "eyJzdWIiOiJ1YnVudHUiLCJleHAiOjY4NDg3NDI1MDl9."
+        + "varo-uXei0kmGkejkfzCtOkWvW6y7ewzaKBj4qZZHWQ"
+    )
+
     headers = {
         "accept": "application/json",
-        "Authorization": "Basic dWJ1bnR1OmRlYmlhbg==",
+        "Authorization": f"Bearer {token}",
     }
 
     with httpx.Client() as client:
