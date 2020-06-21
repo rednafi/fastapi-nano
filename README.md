@@ -230,7 +230,7 @@ So hitting the API with a random integer will give you a response like the follo
 
 * Then expose the APIs in the `routes/views.py` file. You may choose to create multiple `views` files to organize your endpoints.
 
-* This template uses basic password based authentication and it's easy to change that. FastAPI docs has a comprehensive list of the available [authentication options](https://fastapi.tiangolo.com/tutorial/security/) and instructions on how to use them.
+* This template uses OAuth2 based authentication and it's easy to change that. FastAPI docs has a comprehensive list of the available [authentication options](https://fastapi.tiangolo.com/tutorial/security/) and instructions on how to use them.
 
 * During deployment, you may need to change the host name and port number. To do so, just change the values of `HOST` and `PORT` variables under the `environment` section in the `docker-compose.yml` file.
 
