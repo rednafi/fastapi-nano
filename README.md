@@ -211,8 +211,7 @@ The endpoint is exposed like this:
 # endpoint for api_a (api_b looks identical)
 @router.get("/api_a/{num}", tags=["api_a"])
 async def view_a(num: int, auth=Depends(authorize)) -> Dict[str, int]:
-    if auth is True:
-        return main_func_a(num)
+    return main_func_a(num)
 ```
 
 So hitting the API with a random integer will give you a response like the following:
