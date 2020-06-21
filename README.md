@@ -97,14 +97,14 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 * Also, notice the `curl` section in the above screen shot. You can directly use the highlighted curl command in your terminal.
 
     ```bash
-    curl -X GET "http://localhost:5000/api_a/34" -H "accept: application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1YnVudHUiLCJleHAiOjY4NDg3NDI1MDl9.varo-uXei0kmGkejkfzCtOkWvW6y7ewzaKBj4qZZHWQ"
+    curl -X GET "http://localhost:5000/api_a/22" -H "accept: application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1YnVudHUiLCJleHAiOjY4NDg3NDI1MDl9.varo-uXei0kmGkejkfzCtOkWvW6y7ewzaKBj4qZZHWQ"
     ```
 
     This should show a response like this:
 
     ```json
     {
-    "seed": 34,
+    "seed": 22,
     "random_first": 5,
     "random_second": 13
     }
@@ -127,7 +127,7 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
     }
 
     with httpx.Client() as client:
-        response = client.get("http://localhost:5000/api_a/34", headers=headers)
+        response = client.get("http://localhost:5000/api_a/22", headers=headers)
         print(response.json())
     ```
 
