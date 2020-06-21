@@ -139,6 +139,7 @@ fastapi-nano
 │   │       ├── mainmod.py          # main module of api_b package
 │   │       └── submod.py           # submodule of api_b package
 │   ├── core                        # this is where the configs live
+│   │   ├── auth.py                 # authentication with OAuth2
 │   │   ├── config.py               # sample config file
 │   │   └── __init__.py             # empty init file to make the config folder a package
 │   ├── __init__.py                 # empty init file to make the app folder a package
