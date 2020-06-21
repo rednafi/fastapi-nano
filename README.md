@@ -210,7 +210,7 @@ The endpoint is exposed like this:
 
 # endpoint for api_a (api_b looks identical)
 @router.get("/api_a/{num}", tags=["api_a"])
-async def view_a(num: int, auth=Depends(authorize)) -> Dict[str, int]:
+async def view_a(num: int, auth=Depends(get_current_user)) -> Dict[str, int]:
     return main_func_a(num)
 ```
 
