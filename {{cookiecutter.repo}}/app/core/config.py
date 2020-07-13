@@ -9,8 +9,11 @@ class GlobalConfig(BaseSettings):
     # This variable will be loaded from the .env file. However, if there is a
     # shell environment variable having the same name, that will take precedence.
 
-    ENV_STATE: Optional[str] = None
-    HOST: Optional[str] = None
+    # the class Field is necessary while defining the global variables
+    ENV_STATE: Optional[str] = Field(..., env="ENV_STATE")
+    HOST: Optional[str] = Field(..., env="HOST")
+
+    # environment specific configs
     API_USERNAME: Optional[str] = None
     API_PASSWORD: Optional[str] = None
 
