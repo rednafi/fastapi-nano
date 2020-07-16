@@ -26,7 +26,7 @@ jobs:
 
       # install, build and test
       - run: |
-          sudo apt-get install cookiecutter
+          pip install cookiecutter
           make -f "Makefile.dev" install build
           make -f "Makefile.dev" docker_build docker_test
 
