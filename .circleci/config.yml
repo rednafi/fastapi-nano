@@ -1,39 +1,23 @@
 version: 2.1
 jobs:
   build_test:
-    docker:
-      - image: circleci/python:3.8.3
+    image: ubuntu-1604:202004-01
+
     steps:
       - checkout
-      # start proprietary DB using private Docker image
-      # with credentials stored in the UI
-
 
       # activate venv
       - run: |
-          python3 -m venv venv
+          python3.8 -m venv venv
           source venv/bin/activate
 
       # install, build and test
       - run: make -f "Makefile.dev" clean install build test
 
-  docker_build_test:
-    machine: true
-    steps:
-      - checkout
-      # start proprietary DB using private Docker image
-      # with credentials stored in the UI
-
-      # install, build and test
-      - run: |
-          pip install python3-pip
-          pip3 install cookiecutter
-          make -f "Makefile.dev" install build
-          make -f "Makefile.dev" docker_build docker_test
-
+      # build and test the docker image
+      - run: make -f "Makefile.dev" docker_build docker_test
 
 workflows:
   build_test_docker_build_test: # name of your workflow
     jobs:
       - build_test
-      - docker_build_test
