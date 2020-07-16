@@ -245,11 +245,11 @@ So hitting the API with a random integer will give you a response like the follo
 * [Httpx](https://www.python-httpx.org/)
 * [Uvicorn](https://www.uvicorn.org/)
 * [Gunicorn](https://gunicorn.org/)
-* [Poetry](https://python-poetry.org/)
 * [Pydantic](https://pydantic-docs.helpmanual.io/)
 * [Starlette](https://www.starlette.io/)
 * [Docker](https://www.docker.com/)
 * [Pytest](https://docs.pytest.org/en/latest/)
+* [Pip-tools](https://github.com/jazzband/pip-tools)
 
 ## Resources
 
