@@ -15,21 +15,24 @@ jobs:
           source venv/bin/activate
 
       # install, build and test
-      - run: make -f "Makefile.dev"
+      - run: make -f "Makefile.dev" clean install build test
 
-  # docker_build_test:
-  #   machine: true
-  #   steps:
-  #     - checkout
-  #     # start proprietary DB using private Docker image
-  #     # with credentials stored in the UI
+  docker_build_test:
+    machine: true
+    steps:
+      - checkout
+      # start proprietary DB using private Docker image
+      # with credentials stored in the UI
 
-  #     # install, build and test
-  #     - run: make -f "Makefile.dev" clean install build test
+      # install, build and test
+      - run: |
+          sudo apt-get install cookiecutter
+          make -f "Makefile.dev" install build
+          make -f "Makefile.dev" docker_build docker_test
 
 
 workflows:
   build_test_docker_build_test: # name of your workflow
     jobs:
       - build_test
-  
+      - docker_build_test
