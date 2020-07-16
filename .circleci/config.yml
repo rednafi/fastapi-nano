@@ -1,25 +1,21 @@
-version: 2
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
+
 jobs:
-  build:
-    branches:
-      only: master
-      
-    machine: true
+  build-and-test:
+    executor: python/default
     steps:
       - checkout
-      # start proprietary DB using private Docker image
-      # with credentials stored in the UI
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
+      - run:
+          command: ./manage.py test
+          name: Test
 
-      # install docker-compose
-      - run : |
-          sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-
-      # activate venv
-      - run: |
-          python3 -m venv venv
-          source venv/bin/activate
-
-
-      # install, build and test
-      - run: make -f "Makefile.dev"
+workflows:
+  main:
+    jobs:
+      - build-and-test
