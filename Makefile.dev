@@ -1,0 +1,16 @@
+all: do_clean install do_build do_test
+
+
+install:
+	@pip install cookiecutter pytest
+
+
+do_build:
+	@cookiecutter --no-input https://github.com/rednafi/fastapi-nano.git
+
+
+do_test:
+	@pytest fastapi-nano
+
+do_clean:
+	@rm -rf fastapi-nano

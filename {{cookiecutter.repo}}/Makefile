@@ -61,4 +61,4 @@ endif
 			--select "B,C,E,F,W,T4,B9" \
 			--ignore "E203,E266,E501,W503,F403,F401,E402" \
 			--exclude ".git,__pycache__,old, build, \
-						dist, venv"
+						dist, venv" $(path)
