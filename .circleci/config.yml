@@ -1,7 +1,9 @@
 version: 2.1
 jobs:
   build_test:
-    image: ubuntu-1604:202004-01
+  
+    machine:
+      image: ubuntu-1604:202004-01
 
     steps:
       - checkout
