@@ -167,7 +167,7 @@ fastapi-nano
 └── requirements-dev.txt                # development dependencies
 ```
 
-In the above structure, `api_a` and `api_b` are the main packages where the code of the APIs live and they are exposed by the endpoints defined in the `routes` folder. Here, `api_a` and `api_b` have identical logic. Basically these are dummy APIs that take an integer as input and return two random integers between zero and the input value. The purpose of including two identical APIs in the template is to demonstrate how you can decouple the logics of muliple APIs and then assemble their endpoints in the routes directory. The following snippets show the logic behind the dummy APIs.
+In the above structure, `api_a` and `api_b` are the main packages where the code of the APIs live and they are exposed by the endpoints defined in the `routes` folder. Here, `api_a` and `api_b` have identical logic. Basically these are dummy APIs that take an integer as input and return two random integers between zero and the input value. The purpose of including two identical APIs in the template is to demonstrate how you can decouple the logics of multiple APIs and then assemble their endpoints in the routes directory. The following snippets show the logic behind the dummy APIs.
 
 This is a dummy submodule that houses a function called `random_gen` which basically generates a dict of random integers.
 
