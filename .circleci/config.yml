@@ -13,11 +13,25 @@ jobs:
           python3.8 -m venv venv
           source venv/bin/activate
 
-      # install, build and test
-      - run: make -f "Makefile.dev" install build test
+      # install and build
+      - run: |
+          pip install cookiecutter
+          cookiecutter --no-input https://github.com/rednafi/fastapi-nano.git
+          pip install -r fastapi-nano/requirements.txt
+          pip install -r fastapi-nano/requirements-dev.txt
 
-      # build and test the docker image
-      - run: make -f "Makefile.dev" docker_build docker_test
+      # test
+      - run: |
+          pytest fastapi-nano
+
+      # build docker image
+      - run: |
+          cd fastapi-nano && docker-compose up -d
+
+      # test docker image
+      - run: |
+          curl -X GET "http://localhost:5000/api_b/22" -H "accept: application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1YnVudHUiLCJleHAiOjY4NTA4OTczNTJ9.2L7NQKiINLo7_O7z8eAZekK40wHBZpNo3q5C0gm47Wo"
+
 
 workflows:
   build_test_docker_build_test: # name of your workflow
