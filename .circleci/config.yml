@@ -8,25 +8,27 @@ jobs:
     steps:
       - checkout
 
-      # install and build
+      # install, build and test (layers don't keep state)
       - run: |
+          # create and activate venv
           python3.8 -m venv venv
           source venv/bin/activate
+
+          # install cookiecutter
           pip install cookiecutter
           cookiecutter --no-input https://github.com/rednafi/fastapi-nano.git
+
+          # install dependencies
           pip install -r fastapi-nano/requirements.txt
           pip install -r fastapi-nano/requirements-dev.txt
 
-      # test
-      - run: |
+          # run the tests
           pytest fastapi-nano
 
-      # build docker image
-      - run: |
+          # build the docker image
           cd fastapi-nano && docker-compose up -d
 
-      # test docker image
-      - run: |
+          # test the docker image
           curl -X GET "http://localhost:5000/api_b/22" -H "accept: application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1YnVudHUiLCJleHAiOjY4NTA4OTczNTJ9.2L7NQKiINLo7_O7z8eAZekK40wHBZpNo3q5C0gm47Wo"
 
 
