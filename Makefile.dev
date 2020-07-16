@@ -1,16 +1,21 @@
-all: do_clean install do_build do_test
+all: do_clean install do_build do_test do_docker_build
 
 
 install:
-	@pip install cookiecutter pytest
+	@pip install cookiecutter
 
 
 do_build:
 	@cookiecutter --no-input https://github.com/rednafi/fastapi-nano.git
-
+	@pip install -r fastapi-nano/requirements.txt
+	@pip install -r fastapi-nano/requirements-dev.txt
 
 do_test:
 	@pytest fastapi-nano
 
 do_clean:
 	@rm -rf fastapi-nano
+
+
+do_docker_build:
+	cd fastapi-nano && docker-compose up -d

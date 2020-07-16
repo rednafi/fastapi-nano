@@ -1,0 +1,19 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      # start proprietary DB using private Docker image
+      # with credentials stored in the UI
+
+      # activate venv
+      - run: |
+          python3 -m venv venv
+          source venv/bin/activate
+
+      # install 
+      - run: docker build -t company/app:$CIRCLE_BRANCH .
+
+      # deploy the image
+      - run: docker push company/app:$CIRCLE_BRANCH
