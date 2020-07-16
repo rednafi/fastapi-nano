@@ -1,24 +1,35 @@
 version: 2.1
 jobs:
-  build-and-test:
-    machine: true
+  build_test:
+    docker:
+      - image: circleci/python:3.8.3
     steps:
       - checkout
       # start proprietary DB using private Docker image
       # with credentials stored in the UI
 
-      # install docker-compose
-      - run : |
-          sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
+
       # activate venv
       - run: |
           python3 -m venv venv
           source venv/bin/activate
+
       # install, build and test
       - run: make -f "Makefile.dev"
 
+  # docker_build_test:
+  #   machine: true
+  #   steps:
+  #     - checkout
+  #     # start proprietary DB using private Docker image
+  #     # with credentials stored in the UI
+
+  #     # install, build and test
+  #     - run: make -f "Makefile.dev" clean install build test
+
+
 workflows:
-  build_and_test: # name of your workflow
+  build_test_docker_build_test: # name of your workflow
     jobs:
-      - build-and-test
+      - build_test
+  
