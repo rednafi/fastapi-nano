@@ -2,8 +2,8 @@ all: clean install build test docker_build docker_test
 
 
 install:
-	@pip install --user cookiecutter
-
+	sudo apt-get install cookiecutter
+	export PATH=$HOME/.local/bin:$PATH
 
 build:
 	@cookiecutter --no-input https://github.com/rednafi/fastapi-nano.git
