@@ -9,24 +9,26 @@ jobs:
       - checkout
 
       # install, build and test (layers don't keep state)
-      - run: |
-          # create and activate venv
-          python3.8 -m venv venv
-          source venv/bin/activate
+      - run:
+          name: Build & Test
+          command: |
+            # create and activate venv
+            python3.8 -m venv venv
+            source venv/bin/activate
 
-          # install cookiecutter
-          pip install cookiecutter
-          cookiecutter --no-input https://github.com/rednafi/fastapi-nano.git
+            # install cookiecutter
+            pip install cookiecutter
+            cookiecutter --no-input https://github.com/rednafi/fastapi-nano.git
 
-          # install dependencies
-          pip install -r fastapi-nano/requirements.txt
-          pip install -r fastapi-nano/requirements-dev.txt
+            # install dependencies
+            pip install -r fastapi-nano/requirements.txt
+            pip install -r fastapi-nano/requirements-dev.txt
 
-          # run the tests
-          pytest fastapi-nano
+            # run the tests
+            pytest fastapi-nano
 
-          # build the docker image
-          cd fastapi-nano && docker-compose up -d
+            # build the docker image
+            cd fastapi-nano && docker-compose up -d
 
 
 workflows:
