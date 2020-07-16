@@ -1,21 +1,24 @@
-all: do_clean install do_build do_test do_docker_build
+all: clean install build test docker_build docker_test
 
 
 install:
 	@pip install cookiecutter
 
 
-do_build:
+build:
 	@cookiecutter --no-input https://github.com/rednafi/fastapi-nano.git
 	@pip install -r fastapi-nano/requirements.txt
 	@pip install -r fastapi-nano/requirements-dev.txt
 
-do_test:
+test:
 	@pytest fastapi-nano
 
-do_clean:
+clean:
 	@rm -rf fastapi-nano
 
 
-do_docker_build:
+docker_build:
 	cd fastapi-nano && docker-compose up -d
+
+docker_test:
+	@curl -X GET "http://localhost:5000/api_b/22" -H "accept: application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1YnVudHUiLCJleHAiOjY4NTA4OTczNTJ9.2L7NQKiINLo7_O7z8eAZekK40wHBZpNo3q5C0gm47Wo"
