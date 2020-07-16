@@ -1,9 +1,6 @@
-version: 2
+version: 2.1
 jobs:
   build-and-test:
-    branches:
-      only: master
-
     machine: true
     steps:
       - checkout
@@ -22,6 +19,6 @@ jobs:
       - run: make -f "Makefile.dev"
 
 workflows:
-  main:
+  build_and_test: # name of your workflow
     jobs:
       - build-and-test
