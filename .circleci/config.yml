@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  build-and-test:
     branches:
       only: master
 
@@ -20,3 +20,8 @@ jobs:
           source venv/bin/activate
       # install, build and test
       - run: make -f "Makefile.dev"
+
+workflows:
+  main:
+    jobs:
+      - build-and-test
