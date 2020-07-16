@@ -137,33 +137,34 @@ This shows the folder structure of the default template.
 
 ```
 fastapi-nano
-├── app                             # primary application folder
-│   ├── apis                        # this houses all the API packages
-│   │   ├── api_a                   # api_a package
-│   │   │   ├── __init__.py         # empty init file to make the api_a folder a package
-│   │   │   ├── mainmod.py          # main module of api_a package
-│   │   │   └── submod.py           # submodule of api_a package
-│   │   └── api_b                   # api_b package
-│   │       ├── __init__.py         # empty init file to make the api_b folder a package
-│   │       ├── mainmod.py          # main module of api_b package
-│   │       └── submod.py           # submodule of api_b package
-│   ├── core                        # this is where the configs live
-│   │   ├── auth.py                 # authentication with OAuth2
-│   │   ├── config.py               # sample config file
-│   │   └── __init__.py             # empty init file to make the config folder a package
-│   ├── __init__.py                 # empty init file to make the app folder a package
-│   ├── main.py                     # main file where the fastAPI() class is called
-│   ├── routes                      # this is where all the routes live
-│   │   └── views.py                # file containing the endpoints of api_a and api_b
-│   └── tests                       # test package
-│       ├── __init__.py             # empty init file to make the tests folder a package
-│       └── test_api.py             # test files
-├── docker-compose.yml              # docker-compose file
-├── Dockerfile                      # dockerfile
-├── LICENSE                         # MIT license
-├── mypy.ini                        # type checking configs
-├── poetry.lock                     # lock file for dependencies
-└── pyproject.toml                  # human readable dependency list
+├── app                                 # primary application folder
+│   ├── apis                            # this houses all the API packages
+│   │   ├── api_a                       # api_a package
+│   │   │   ├── __init__.py             # empty init file to make the api_a folder a package
+│   │   │   ├── mainmod.py              # main module of api_a package
+│   │   │   └── submod.py               # submodule of api_a package
+│   │   └── api_b                       # api_b package
+│   │       ├── __init__.py             # empty init file to make the api_b folder a package
+│   │       ├── mainmod.py              # main module of api_b package
+│   │       └── submod.py               # submodule of api_b package
+│   ├── core                            # this is where the configs live
+│   │   ├── auth.py                     # authentication with OAuth2
+│   │   ├── config.py                   # sample config file
+│   │   └── __init__.py                 # empty init file to make the config folder a package
+│   ├── __init__.py                     # empty init file to make the app folder a package
+│   ├── main.py                         # main file where the fastAPI() class is called
+│   ├── routes                          # this is where all the routes live
+│   │   └── views.py                    # file containing the endpoints of api_a and api_b
+│   └── tests                           # test package
+│       ├── __init__.py                 # empty init file to make the tests folder a package
+│       └── test_api.py                 # test files
+├── docker-compose.yml                  # docker-compose file
+├── Dockerfile                          # dockerfile
+├── LICENSE                             # MIT license
+├── Makefile                            # Makefile to apply Python linters
+├── mypy.ini                            # type checking configs
+├── requirements.txt                    # app dependencies
+└── requirements-dev.txt                # development dependencies
 ```
 
 In the above structure, `api_a` and `api_b` are the main packages where the code of the APIs live and they are exposed by the endpoints defined in the `routes` folder. Here, `api_a` and `api_b` have identical logic. Basically these are dummy APIs that take an integer as input and return two random integers between zero and the input value. The purpose of including two identical APIs in the template is to demonstrate how you can decouple the logics of muliple APIs and then assemble their endpoints in the routes directory. The following snippets show the logic behind the dummy APIs.
