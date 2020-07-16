@@ -26,6 +26,7 @@ jobs:
 
       # install, build and test
       - run: |
+          pip install python3-pip
           pip install cookiecutter
           make -f "Makefile.dev" install build
           make -f "Makefile.dev" docker_build docker_test
