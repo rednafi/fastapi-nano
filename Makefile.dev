@@ -2,13 +2,13 @@ all: clean install build test docker_build docker_test
 
 
 install:
-	@pip install cookiecutter
+	@python3.8 -m pip install cookiecutter
 
 
 build:
 	@cookiecutter --no-input https://github.com/rednafi/fastapi-nano.git
-	@pip install -r fastapi-nano/requirements.txt
-	@pip install -r fastapi-nano/requirements-dev.txt
+	@python3.8 -m pip install -r fastapi-nano/requirements.txt
+	@python3.8 -m pip install -r fastapi-nano/requirements-dev.txt
 
 test:
 	@pytest fastapi-nano
