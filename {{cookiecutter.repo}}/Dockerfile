@@ -2,11 +2,21 @@
 
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-slim
 
-# Copy using poetry.lock* in case it doesn't exist yet
-COPY ./requirements.txt /app/
+# set environment variables
+ENV PYTHONWRITEBYTECODE 1
+ENV PYTHONBUFFERED 1
 
+# set working directory
+WORKDIR /code
+
+# copy dependencies
+COPY requirements.txt /code/
+
+# install dependencies
 RUN pip install -r requirements.txt
 
-COPY ./ /app
+# copy project
+COPY . /code/
 
+# expose port
 EXPOSE 5000

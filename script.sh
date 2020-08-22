@@ -10,7 +10,7 @@ set -euxo pipefail
 pip install cookiecutter
 
 # create concrete project from cookie cutter
-cookiecutter https://github.com/rednafi/fastapi-nano.git --no-input
+cookiecutter $(pwd) --no-input
 
 # install dependencies
 cd fastapi-nano &&\
@@ -36,7 +36,11 @@ pytest fastapi-nano
 cp fastapi-nano/requirements.txt  \{\{cookiecutter.repo\}\}/ && \
 cp fastapi-nano/requirements-dev.txt \{\{cookiecutter.repo\}\}/
 
+# build docker-container
+cd fastapi-nano && docker-compose up --build -d && cd ..
+
 # cleanup
+cd fastapi-nano && docker-compose down && cd ..
 rm -rf fastapi-nano
 
 # turn off command echo
