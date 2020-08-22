@@ -4,7 +4,7 @@
 # assumes venv is activated
 
 # set command echo
-set -x
+set -euxo pipefail
 
 # install cookiecutter
 pip install cookiecutter
