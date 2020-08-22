@@ -5,41 +5,41 @@
 #    pip-compile requirements-dev.txt
 #
 appdirs==1.4.4            # via -r requirements-dev.txt, black
-arrow==0.15.7             # via jinja2-time
+arrow==0.15.7             # via -r requirements-dev.txt, jinja2-time
 attrs==19.3.0             # via -r requirements-dev.txt, black, pytest
-binaryornot==0.4.4        # via cookiecutter
+binaryornot==0.4.4        # via -r requirements-dev.txt, cookiecutter
 black==19.10b0            # via -r requirements-dev.txt
-certifi==2020.6.20        # via requests
-chardet==3.0.4            # via binaryornot, requests
+certifi==2020.6.20        # via -r requirements-dev.txt, requests
+chardet==3.0.4            # via -r requirements-dev.txt, binaryornot, requests
 click==7.1.2              # via -r requirements-dev.txt, black, cookiecutter, pip-tools
 cookiecutter==1.7.2       # via -r requirements-dev.txt
 flake8==3.8.3             # via -r requirements-dev.txt
-idna==2.10                # via requests
+idna==2.10                # via -r requirements-dev.txt, requests
 isort==5.1.1              # via -r requirements-dev.txt
-jinja2-time==0.2.0        # via cookiecutter
-jinja2==2.11.2            # via cookiecutter, jinja2-time
-markupsafe==1.1.1         # via cookiecutter, jinja2
+jinja2-time==0.2.0        # via -r requirements-dev.txt, cookiecutter
+jinja2==2.11.2            # via -r requirements-dev.txt, cookiecutter, jinja2-time
+markupsafe==1.1.1         # via -r requirements-dev.txt, cookiecutter, jinja2
 mccabe==0.6.1             # via -r requirements-dev.txt, flake8
 more-itertools==8.4.0     # via -r requirements-dev.txt, pytest
 packaging==20.4           # via -r requirements-dev.txt, pytest
 pathspec==0.8.0           # via -r requirements-dev.txt, black
 pip-tools==5.2.1          # via -r requirements-dev.txt
 pluggy==0.13.1            # via -r requirements-dev.txt, pytest
-poyo==0.5.0               # via cookiecutter
+poyo==0.5.0               # via -r requirements-dev.txt, cookiecutter
 py==1.9.0                 # via -r requirements-dev.txt, pytest
 pycodestyle==2.6.0        # via -r requirements-dev.txt, flake8
 pyflakes==2.2.0           # via -r requirements-dev.txt, flake8
 pyparsing==2.4.7          # via -r requirements-dev.txt, packaging
 pytest==5.4.3             # via -r requirements-dev.txt
-python-dateutil==2.8.1    # via arrow
-python-slugify==4.0.1     # via cookiecutter
+python-dateutil==2.8.1    # via -r requirements-dev.txt, arrow
+python-slugify==4.0.1     # via -r requirements-dev.txt, cookiecutter
 regex==2020.7.14          # via -r requirements-dev.txt, black
-requests==2.24.0          # via cookiecutter
+requests==2.24.0          # via -r requirements-dev.txt, cookiecutter
 six==1.15.0               # via -r requirements-dev.txt, cookiecutter, packaging, pip-tools, python-dateutil
-text-unidecode==1.3       # via python-slugify
+text-unidecode==1.3       # via -r requirements-dev.txt, python-slugify
 toml==0.10.1              # via -r requirements-dev.txt, black
 typed-ast==1.4.1          # via -r requirements-dev.txt, black
-urllib3==1.25.9           # via requests
+urllib3==1.25.9           # via -r requirements-dev.txt, requests
 wcwidth==0.2.5            # via -r requirements-dev.txt, pytest
 
 # The following packages are considered to be unsafe in a requirements file:
