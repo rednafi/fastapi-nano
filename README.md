@@ -259,7 +259,5 @@ So hitting the API with a random integer will give you a response like the follo
 
 
 <div align="center">
-
-*[=== rednafi ===](https://twitter.com/rednafi)*
-
+✨ 🍰 ✨
 </div>
