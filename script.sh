@@ -3,22 +3,22 @@
 # Automatically update dependencies and run the tests.
 # Assumes venv is activated.
 
-# Set command echo.
+# Turn on bash strict mode.
 set -euxo pipefail
 
 # Install cookiecutter.
 pip install cookiecutter
 
-# Create concrete project from cookiecutter.
+# Create a concrete project from the cookiecutter template.
 cookiecutter $(pwd) --no-input
 
-# Install dependencies.
+# Install the dependencies.
 cd fastapi-nano &&\
 pip install -r requirements-dev.txt &&\
 pip install -r requirements.txt &&\
 cd ..
 
-# Upgrade dependencies.
+# Update the dependencies.
 cd fastapi-nano && \
 pip-compile --upgrade requirements-dev.txt && \
 pip-compile --upgrade requirements.txt && \
