@@ -40,15 +40,8 @@ cp fastapi-nano/requirements-dev.txt \{\{cookiecutter.repo\}\}/
 cd fastapi-nano && docker-compose up --build -d && cd ..
 
 # Cleanup.
-# cd fastapi-nano && docker-compose down && cd ..
-# rm -rf fastapi-nano
-
-# git config
-# git config user.email "redowan.nafi@gmail.com"
-# git config user.name "rednafi"
-# git add .
-# git commit -m "Dependency upgrade"
-# git push origin master
+cd fastapi-nano && docker-compose down && cd ..
+rm -rf fastapi-nano
 
 # turn off command echo
 set +x
