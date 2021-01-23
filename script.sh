@@ -41,7 +41,7 @@ cd fastapi-nano && docker-compose up --build -d && cd ..
 
 # Cleanup.
 cd fastapi-nano && docker-compose down && cd ..
-rm -rf fastapi-nano
+# rm -rf fastapi-nano
 
 # turn off command echo
 set +x

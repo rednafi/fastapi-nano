@@ -1,4 +1,4 @@
-name: Konfik Test
+name: FastAPI Nano
 
 on:
   push:
