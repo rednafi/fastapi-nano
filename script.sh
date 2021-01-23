@@ -1,47 +1,47 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# automatically update dependencies and run the tests
-# assumes venv is activated
+# Automatically update dependencies and run the tests.
+# Assumes venv is activated.
 
-# set command echo
+# Set command echo.
 set -euxo pipefail
 
-# install cookiecutter
+# Install cookiecutter.
 pip install cookiecutter
 
-# create concrete project from cookie cutter
+# Create concrete project from cookiecutter.
 cookiecutter $(pwd) --no-input
 
-# install dependencies
+# Install dependencies.
 cd fastapi-nano &&\
 pip install -r requirements-dev.txt &&\
 pip install -r requirements.txt &&\
 cd ..
 
-# upgrade dependencies
+# Upgrade dependencies.
 cd fastapi-nano && \
 pip-compile --upgrade requirements-dev.txt && \
 pip-compile --upgrade requirements.txt && \
 cd ..
 
-# sync venv according to the upgraded dependencies
+# Sync venv according to the upgraded dependencies.
 cd fastapi-nano && \
 pip-sync requirements-dev.txt requirements.txt &&
 cd ..
 
-# run the tests
+# Run the tests.
 pytest fastapi-nano
 
-# copy dependencies
+# Copy dependencies.
 cp fastapi-nano/requirements.txt  \{\{cookiecutter.repo\}\}/ && \
 cp fastapi-nano/requirements-dev.txt \{\{cookiecutter.repo\}\}/
 
-# build docker-container
+# Build docker-container.
 cd fastapi-nano && docker-compose up --build -d && cd ..
 
-# cleanup
-cd fastapi-nano && docker-compose down && cd ..
-rm -rf fastapi-nano
+# Cleanup.
+# cd fastapi-nano && docker-compose down && cd ..
+# rm -rf fastapi-nano
 
 # git config
 # git config user.email "redowan.nafi@gmail.com"

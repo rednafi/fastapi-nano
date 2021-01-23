@@ -1,0 +1,16 @@
+# The top-level dependencies are listed here.
+# Using pip-tools you can automatically generate requirements.txt
+# This helps you segegate the top-level dependencies and makes the
+# upgrade process easier.
+
+# You can pin your dependencies here.
+# https://github.com/jazzband/pip-tools
+
+
+fastapi
+gunicorn
+passlib
+pyjwt
+python-dotenv
+python-multipart
+uvicorn
