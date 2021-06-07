@@ -1,11 +1,12 @@
 # This a dummy module
 # This gets called in the module_main.py file
 
+from __future__ import annotations
+
 import random
-from typing import Dict
 
 
-def rand_gen(num: int) -> Dict[str, int]:
+def rand_gen(num: int) -> dict[str, int]:
     num = int(num)
     d = {
         "seed": num,

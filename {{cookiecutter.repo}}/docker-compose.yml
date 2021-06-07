@@ -1,8 +1,8 @@
 version: "3.8"
 services:
-  {{cookiecutter.repo}}:
-    container_name: "{{cookiecutter.repo}}"
-    image: "{{cookiecutter.repo}}:latest"
+  fastapi-nano:
+    container_name: "fastapi-nano"
+    image: "fastapi-nano:latest"
     env_file:
       - .env
     build:

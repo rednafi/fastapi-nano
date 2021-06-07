@@ -1,4 +1,6 @@
-from typing import Optional
+from __future__ import annotations
+
+from typing import Optional, Union
 
 from pydantic import BaseSettings, Field
 
@@ -40,10 +42,10 @@ class ProdConfig(GlobalConfig):
 class FactoryConfig:
     """Returns a config instance dependending on the ENV_STATE variable."""
 
-    def __init__(self, env_state: Optional[str]):
+    def __init__(self, env_state: Optional[str]) -> None:
         self.env_state = env_state
 
-    def __call__(self):
+    def __call__(self) -> Union[DevConfig, ProdConfig]:
         if self.env_state == "dev":
             return DevConfig()
 

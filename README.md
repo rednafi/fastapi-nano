@@ -174,12 +174,11 @@ This is a dummy submodule that houses a function called `random_gen` which basic
 ```python
 # This a dummy module
 # This gets called in the module_main.py file
-
+from __future__ import annotations
 import random
-from typing import Dict
 
 
-def rand_gen(num: int) -> Dict[str, int]:
+def rand_gen(num: int) -> dict[str, int]:
     num = int(num)
     d = {
         "seed": num,
@@ -192,12 +191,12 @@ def rand_gen(num: int) -> Dict[str, int]:
 The `main_func` in the primary module calls the `rand_gen` function from the submodule.
 
 ```python
-from typing import Dict
+from __future__ import annotations
 
 from app.api_a.submod import rand_gen
 
 
-def main_func(num: int) -> Dict[str, int]:
+def main_func(num: int) -> dict[str, int]:
     d = rand_gen(num)
     return d
 ```
