@@ -4,7 +4,7 @@
 # Assumes venv is activated.
 
 # Turn on bash strict mode.
-set -euo pipefail
+set -euxo pipefail
 
 # Install cookiecutter.
 pip install cookiecutter
@@ -21,23 +21,27 @@ cd ..
 # Update the dependencies.
 cd fastapi-nano && \
 pip-compile --upgrade requirements-dev.txt && \
-pip-compile --upgrade requirements.txt && cd ..
+pip-compile --upgrade requirements.txt && \
+cd ..
 
 # Sync venv according to the upgraded dependencies.
 cd fastapi-nano && \
-pip-sync requirements-dev.txt requirements.txt && cd ..
+pip-sync requirements-dev.txt requirements.txt &&
+cd ..
 
 # Run the tests.
-cd fastapi-nano && pytest && cd ..
+pytest fastapi-nano
 
 # Copy dependencies.
 cp fastapi-nano/requirements.txt  \{\{cookiecutter.repo\}\}/ && \
 cp fastapi-nano/requirements-dev.txt \{\{cookiecutter.repo\}\}/
 
 # Build docker-container.
-docker-compose up --build -d
+cd fastapi-nano && docker-compose up --build -d && cd ..
 
 # Cleanup.
-docker-compose down
+cd fastapi-nano && docker-compose down && cd ..
+# rm -rf fastapi-nano
 
-cd .. && sudo rm -rf fastapi-nano
+# turn off command echo
+set +x
