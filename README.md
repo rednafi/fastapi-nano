@@ -161,10 +161,14 @@ fastapi-nano
 ├── docker-compose.yml                  # docker-compose file
 ├── Dockerfile                          # dockerfile
 ├── LICENSE                             # MIT license
-├── Makefile                            # Makefile to apply Python linters
+├── makefile                            # Makefile to apply Python linters
 ├── mypy.ini                            # type checking configs
-├── requirements.txt                    # app dependencies
-└── requirements-dev.txt                # development dependencies
+├── pyproject.toml                      # pep-518 compliant config file
+├── README.md                           # a basic readme template
+├── requrements-dev.in                  # .in file to enlist the top-level dev requirements
+├── requirements-dev.txt                # pinned dev dependencies
+├── requirements.in                     # .in file to enlist the top-level app dependencies
+└── requirements.txt                    # pinned app dependencies
 ```
 
 In the above structure, `api_a` and `api_b` are the main packages where the code of the APIs live and they are exposed by the endpoints defined in the `routes` folder. Here, `api_a` and `api_b` have identical logic. Basically these are dummy APIs that take an integer as input and return two random integers between zero and the input value. The purpose of including two identical APIs in the template is to demonstrate how you can decouple the logics of multiple APIs and then assemble their endpoints in the routes directory. The following snippets show the logic behind the dummy APIs.
@@ -192,7 +196,6 @@ The `main_func` in the primary module calls the `rand_gen` function from the sub
 
 ```python
 from __future__ import annotations
-
 from app.api_a.submod import rand_gen
 
 
@@ -205,12 +208,12 @@ The endpoint is exposed like this:
 
 ```python
 # app/routes/views.py
-
+from __future__ import annotations
 #... codes regarding authentication ...
 
 # endpoint for api_a (api_b looks identical)
 @router.get("/api_a/{num}", tags=["api_a"])
-async def view_a(num: int, auth=Depends(get_current_user)) -> Dict[str, int]:
+async def view_a(num: int, auth: Depends =Depends(get_current_user)) -> dict[str, int]:
     return main_func_a(num)
 ```
 
