@@ -6,6 +6,8 @@
 #
 appdirs==1.4.4
     # via black
+attrs==21.2.0
+    # via pytest
 black==21.5b2
     # via -r requirements-dev.in
 click==7.1.2
@@ -14,6 +16,8 @@ click==7.1.2
     #   pip-tools
 flake8==3.9.2
     # via -r requirements-dev.in
+iniconfig==1.1.1
+    # via pytest
 isort==5.7.0
     # via -r requirements-dev.in
 mccabe==0.6.1
@@ -24,18 +28,30 @@ mypy-extensions==0.4.3
     #   mypy
 mypy==0.812
     # via -r requirements-dev.in
+packaging==20.9
+    # via pytest
 pathspec==0.8.1
     # via black
 pip-tools==5.5.0
     # via -r requirements-dev.in
+pluggy==0.13.1
+    # via pytest
+py==1.10.0
+    # via pytest
 pycodestyle==2.7.0
     # via flake8
 pyflakes==2.3.1
     # via flake8
+pyparsing==2.4.7
+    # via packaging
+pytest==6.2.4
+    # via -r requirements-dev.in
 regex==2021.4.4
     # via black
 toml==0.10.2
-    # via black
+    # via
+    #   black
+    #   pytest
 typed-ast==1.4.3
     # via mypy
 typing-extensions==3.10.0.0
