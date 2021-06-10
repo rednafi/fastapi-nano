@@ -10,7 +10,7 @@ cffi==1.14.4
     # via bcrypt
 click==7.1.2
     # via uvicorn
-fastapi==0.61.1
+fastapi==0.65.2
     # via -r requirements.in
 gunicorn==20.0.4
     # via -r requirements.in
@@ -20,7 +20,7 @@ passlib==1.7.4
     # via -r requirements.in
 pycparser==2.20
     # via cffi
-pydantic==1.6.1
+pydantic==1.8.2
     # via fastapi
 pyjwt==1.7.1
     # via -r requirements.in
@@ -32,8 +32,10 @@ six==1.15.0
     # via
     #   bcrypt
     #   python-multipart
-starlette==0.13.6
+starlette==0.14.2
     # via fastapi
+typing-extensions==3.10.0.0
+    # via pydantic
 uvicorn==0.12.2
     # via -r requirements.in
 
