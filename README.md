@@ -60,6 +60,41 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
     ```bash
     docker-compose up -d
     ```
+    
+### Alternatively, Run App on Localhost
+
+* Create and activate virtualenv with your python environment manager of choice:
+
+    ```bash
+    pyenv virtualenv fastapi-nano-localdev
+    pyenv activate fastapi-nano-localdev
+    ```
+
+* Install Dependencies (dev and main):
+
+    ```bash
+    pip install -r requirements.txt
+    pip install -r requirements-dev.txt
+    ```
+* Upgrade All Dependencies to Resolve Error:
+
+    _Explanation for this error_: Without having done this I couldn't launch the uvicorn server without `app.core.auth.login_for_access_token()` raising an exception: `RecursionError: maximum recursion depth exceeded django model inheritance`. After some research I found an issue on the FastAPI repo in which the cause was found to be a mismatch in Pydantic and FastAPI versions. I decided to go ahead and update all of the pip packages and have the server running. I will add those updated requirements.txt files to this PR as well. Will likely remove this step once I have added those commits to the PR.
+
+    ```bash
+    pip install cffi click fastapi gunicorn h11 isort mypy packaging pathspec pip-tools pluggy pydantic PyJWT pytest python-dotenv regex setuptools six starlette typing-extensions uvicorn -U
+    ```
+
+* Run the App with Uvicorn (Optionally: specify `--reload` for live reloading)
+
+    ```bash
+    uvicorn app.main:app --reload
+    ```
+
+ * App is Now Running on Default Port 8000 (change port with uvicorn option `--port`)
+
+    ```
+    http://127.0.0.1:8000/docs
+    ```
 
 ### Check the APIs
 
