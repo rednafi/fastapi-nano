@@ -24,5 +24,5 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Build & Test
         run: |
-          chmod +x script.sh
-          ./script.sh
+          chmod +x ./scripts/docker_ci.sh
+          ./scripts/docker_ci.sh
