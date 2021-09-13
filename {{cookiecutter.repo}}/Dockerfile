@@ -1,6 +1,6 @@
 # https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker
 
-FROM python:3.9-slim-buster
+FROM python:3.9-slim-bullseye
 
 # set environment variables
 ENV PYTHONWRITEBYTECODE 1

@@ -26,9 +26,7 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
 * Flask inspired divisional folder structure better decoupling and encapsulation. This is suitable for small to medium backend development.
 
-* Dockerized using [uvicorn-gunicorn-fastapi-docker](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker). This image will set a sensible configuration based on the server it is running on (the amount of CPU cores available) without making sacrifices.
-
-    It has sensible defaults, but you can configure it with environment variables or override the configuration files.
+* Dockerized using [python:3.9-slim-bullseye](https://github.com/docker-library/python/blob/bb68424de76756a2d3dc817f87b1f8640112461f/3.8/bullseye/Dockerfile) and optimized for size and functionality.
 
 ## Quickstart
 
@@ -237,16 +235,11 @@ So hitting the API with a random integer will give you a response like the follo
 
 * During deployment, you may need to change the host name and port number. To do so, just change the values of `HOST` and `PORT` variables under the `environment` section in the `docker-compose.yml` file.
 
-* Here, containerization has been done using FastAPI author's `python3.8-slim` based [uvicorn-gunicorn-fastapi-docker](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker) image. You may want to use a different base image that caters your usage. A few viable options are listed [here](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker#tiangolouvicorn-gunicorn-fastapi).
-
-* Although this template uses [sensible](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker#tiangolouvicorn-gunicorn-fastapi) `Uvicorn-Gunicorn` defaults, it exposes a few configs under the `environment` section in the `docker-compose.yml` file. Should you choose to tinker with them, you can do it there. Also, you can use a custom `Gunicorn` config file and point the location of the `custom_gunicorn_conf.py` file in the `GUNICORN_CONF` variable.
-
 ## Stack
 
 * [FastAPI](https://fastapi.tiangolo.com/)
 * [Httpx](https://www.python-httpx.org/)
 * [Uvicorn](https://www.uvicorn.org/)
-* [Gunicorn](https://gunicorn.org/)
 * [Pydantic](https://pydantic-docs.helpmanual.io/)
 * [Starlette](https://www.starlette.io/)
 * [Docker](https://www.docker.com/)
@@ -255,7 +248,6 @@ So hitting the API with a random integer will give you a response like the follo
 
 ## Resources
 
-* [Docker image: uvicorn-gunicorn-fastapi-docker](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker)
 * [Flask divisional folder structure](https://exploreflask.com/en/latest/blueprints.html#divisional)
 * [Deploying APIs built with FastAPI](https://fastapi.tiangolo.com/deployment/)
 
