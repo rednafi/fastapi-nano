@@ -5,14 +5,17 @@
 # Turn on bash strict mode.
 set -euxo pipefail
 
-target_folder=\{\{cookiecutter.repo\}\}
+cookiecutter_dir=\{\{cookiecutter.repo\}\}
 
 # Delete dep files.
-rm -rf $target_folder/requirements-*.txt
+rm -rf $cookiecutter_dir/requirements-*.txt
 
 # Install dev dependencies.
 pip install pip-tools
 
 # Update the deps.
-pip-compile $target_folder/requirements.in -o $target_folder/requirements.txt &&\
-pip-compile $target_folder/requirements-dev.in -o $target_folder/requirements-dev.txt
+pip-compile $cookiecutter_dir/requirements.in \
+-o $cookiecutter_dir/requirements.txt &&\
+
+pip-compile $cookiecutter_dir/requirements-dev.in \
+-o $cookiecutter_dir/requirements-dev.txt
