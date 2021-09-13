@@ -1,6 +1,6 @@
 # https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker
 
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-slim
+FROM python:3.9-slim-buster
 
 # set environment variables
 ENV PYTHONWRITEBYTECODE 1
@@ -20,3 +20,5 @@ COPY . /code/
 
 # expose port
 EXPOSE 5000
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000"]
