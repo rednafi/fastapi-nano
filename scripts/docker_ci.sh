@@ -10,7 +10,7 @@ current_dir=$(pwd)
 cookiecutter_dir=\{\{cookiecutter.repo\}\}
 
 # Install the dependencies.
-pip install -r $cookiecutter_dir/requirements.txt  &&\
+pip install -r $cookiecutter_dir/requirements-dev.txt  &&\
 pip install -r $cookiecutter_dir/requirements.txt
 
 # Create a concrete project from the cookiecutter template.
