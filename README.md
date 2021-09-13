@@ -18,8 +18,6 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
 * The APIs are served with [Uvicorn](https://www.uvicorn.org/) server. Uvicorn is a lightning-fast "ASGI" server. It runs asynchronous Python web code in a single process.
 
-* [Gunicorn](https://gunicorn.org/) is used here to manage Uvicorn and run multiple of these concurrent processes. That way, you get the best of concurrency and parallelism.
-
 * OAuth2 (with hashed password and Bearer with JWT) based authentication
 
 * [CORS (Cross Origin Resource Sharing)](https://fastapi.tiangolo.com/tutorial/cors/) enabled.
