@@ -161,7 +161,7 @@ fastapi-nano
 ├── mypy.ini                            # type checking configs
 ├── pyproject.toml                      # pep-518 compliant config file
 ├── README.md                           # a basic readme template
-├── requrements-dev.in                  # .in file to enlist the top-level dev requirements
+├── requirements-dev.in                  # .in file to enlist the top-level dev requirements
 ├── requirements-dev.txt                # pinned dev dependencies
 ├── requirements.in                     # .in file to enlist the top-level app dependencies
 └── requirements.txt                    # pinned app dependencies
