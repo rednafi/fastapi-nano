@@ -57,7 +57,7 @@ To run the application using Docker, make sure you've got Docker and Docker Comp
 docker-compose up -d
 ```
 
-### Run the App Locally
+### Alternatively, Run the App Locally
 
 If you want to run the application locally, without using Docker, then:
 
