@@ -49,12 +49,42 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
     email [redowan.nafi@gmail.com]:
     ```
 
-### Run the Containers
+### Run the App in Containers
 
-* Go to your template folder and run:
+To run the application using Docker, make sure you've got Docker and Docker Compose installed on your system. Then go to the template folder you just created and run:
 
     ```bash
     docker-compose up -d
+    ```
+
+### Run the App Locally
+
+If you want to run the application locally, without using Docker, then:
+
+* Create a virtual environment in the root directory. Here I'm using Python's built-in venv in a Unix system. Run:
+
+    ```
+    python3.9 -m venv .venv
+    ```
+
+* Activate the environment. Run:
+
+    ```
+    source .venv/bin/activate
+    ```
+
+* Go to the folder created by cookie-cutter (default is **fastapi-nano**).
+
+* Install the dependencies. Run:
+
+    ```
+    pip install -r requirements.txt && pip install -r requirements-dev.txt
+    ```
+
+* Start the application. Run:
+
+    ```
+    uvicorn app.main:app --port 5000 --reload
     ```
 
 ### Check the APIs
