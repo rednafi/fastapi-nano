@@ -63,13 +63,13 @@ If you want to run the application locally, without using Docker, then:
 
 * Create a virtual environment in the root directory. Here I'm using Python's built-in venv in a Unix system. Run:
 
-    ```
+    ```bash
     python3.9 -m venv .venv
     ```
 
 * Activate the environment. Run:
 
-    ```
+    ```bash
     source .venv/bin/activate
     ```
 
@@ -77,13 +77,13 @@ If you want to run the application locally, without using Docker, then:
 
 * Install the dependencies. Run:
 
-    ```
+    ```bash
     pip install -r requirements.txt && pip install -r requirements-dev.txt
     ```
 
 * Start the application. Run:
 
-    ```
+    ```bash
     uvicorn app.main:app --port 5000 --reload
     ```
 
