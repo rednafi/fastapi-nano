@@ -53,9 +53,9 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
 To run the application using Docker, make sure you've got Docker and Docker Compose installed on your system. Then go to the template folder you just created and run:
 
-    ```bash
-    docker-compose up -d
-    ```
+```bash
+docker-compose up -d
+```
 
 ### Run the App Locally
 
