@@ -1,57 +1,30 @@
-from __future__ import annotations
+import os
 
-from typing import Optional, Union
+from dotenv import load_dotenv
 
-from pydantic import BaseSettings, Field
+load_dotenv("./.env")
 
+ENV_STATE = os.environ["ENV_STATE"]
 
-class GlobalConfig(BaseSettings):
-    """Global configurations."""
-
-    # This variable will be loaded from the .env file. However, if there is a
-    # shell environment variable having the same name, that will take precedence.
-
-    # the class Field is necessary while defining the global variables
-    ENV_STATE: Optional[str] = Field(..., env="ENV_STATE")
-    HOST: Optional[str] = Field(..., env="HOST")
-
-    # environment specific configs
-    API_USERNAME: Optional[str] = None
-    API_PASSWORD: Optional[str] = None
-
-    class Config:
-        """Loads the dotenv file."""
-
-        env_file: str = ".env"
+# Base configs.
+HOST = os.environ["HOST"]
 
 
-class DevConfig(GlobalConfig):
-    """Development configurations."""
-
-    class Config:
-        env_prefix: str = "DEV_"
-
-
-class ProdConfig(GlobalConfig):
-    """Production configurations."""
-
-    class Config:
-        env_prefix: str = "PROD_"
+# Prod configs.
+if ENV_STATE == "prod":
+    API_USERNAME = os.environ["PROD_API_USERNAME"]
+    API_PASSWORD = os.environ["PROD_API_PASSWORD"]
 
 
-class FactoryConfig:
-    """Returns a config instance dependending on the ENV_STATE variable."""
-
-    def __init__(self, env_state: Optional[str]) -> None:
-        self.env_state = env_state
-
-    def __call__(self) -> Union[DevConfig, ProdConfig]:
-        if self.env_state == "dev":
-            return DevConfig()
-
-        elif self.env_state == "prod":
-            return ProdConfig()
+# Dev configs.
+else:
+    API_USERNAME = os.environ["DEV_API_USERNAME"]
+    API_PASSWORD = os.environ["DEV_API_PASSWORD"]
 
 
-config = FactoryConfig(GlobalConfig().ENV_STATE)()
-# print(config.__repr__())
+# Auth configs.
+API_SECRET_KEY = os.environ["API_SECRET_KEY"]
+API_ALGORITHM = os.environ["API_ALGORITHM"]
+API_ACCESS_TOKEN_EXPIRE_MINUTES = int(
+    os.environ["API_ACCESS_TOKEN_EXPIRE_MINUTES"]
+)  # infinity

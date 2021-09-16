@@ -1,8 +1,24 @@
+# Linter configuruation.
 [tool.isort]
-profile="black"
-atomic=true
-extend_skip_glob="migrations,scripts"
-line_length=88
+profile = "black"
+atomic = true
+line_length = 88
+
 
 [tool.black]
-extend-exclude="migrations,scripts"
+extend-exclude = "migrations,scripts"
+
+
+[tool.mypy]
+follow_imports = "skip"
+ignore_missing_imports = true
+warn_no_return = false
+warn_unused_ignores = true
+allow_untyped_globals = true
+allow_redefinition = true
+pretty = true
+
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+ignore_errors = true

@@ -148,7 +148,7 @@ If you want to run the application locally, without using Docker, then:
     )
 
     headers = {
-        "accept": "application/json",
+        "Accept": "application/json",
         "Authorization": f"Bearer {token}",
     }
 
