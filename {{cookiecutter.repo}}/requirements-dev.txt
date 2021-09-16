@@ -10,7 +10,7 @@ attrs==21.2.0
     # via pytest
 binaryornot==0.4.4
     # via cookiecutter
-black==21.8b0
+black==21.9b0
     # via -r {{cookiecutter.repo}}/requirements-dev.in
 certifi==2021.5.30
     # via requests
