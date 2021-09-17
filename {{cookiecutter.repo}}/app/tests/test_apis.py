@@ -68,7 +68,7 @@ def test_api_b():
 
     # Authorized but should raise 400 error.
     response = client.get(
-        "/api_a/a",
+        "/api_b/b",
         headers={
             "Accept": "application/json",
             "Authorization": token_str,
