@@ -17,7 +17,7 @@ pip install -r $cookiecutter_dir/requirements.txt
 cookiecutter $current_dir --no-input -f
 
 # Run the tests.
-pytest fastapi-nano
+cd fastapi-nano && pytest && cd ..
 
 # Build docker-container.
 docker-compose -f fastapi-nano/docker-compose.yml up --build -d
