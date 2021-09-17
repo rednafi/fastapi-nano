@@ -1,5 +1,6 @@
 from http import HTTPStatus
 
+import pytest
 from fastapi.testclient import TestClient
 
 from app.core import config
@@ -8,7 +9,8 @@ from app.main import app
 client = TestClient(app)
 
 
-def get_token_str():
+@pytest.fixture()
+def api_token():
     # Get token.
     res = client.post(
         "/token",
@@ -26,20 +28,17 @@ def get_token_str():
     return f"{token_type} {access_token}"
 
 
-def test_api_a():
+def test_api_a(api_token):
     # Unauthorized request.
     response = client.get("/api_a/100")
     assert response.status_code == HTTPStatus.UNAUTHORIZED
-
-    # Get token.
-    token_str = get_token_str()
 
     # Authorized but should raise 400 error.
     response = client.get(
         "/api_a/a",
         headers={
             "Accept": "application/json",
-            "Authorization": token_str,
+            "Authorization": api_token,
         },
     )
     assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY
@@ -49,7 +48,7 @@ def test_api_a():
         "/api_a/200",
         headers={
             "Accept": "application/json",
-            "Authorization": token_str,
+            "Authorization": api_token,
         },
     )
     assert response.status_code == HTTPStatus.OK
@@ -58,20 +57,17 @@ def test_api_a():
         assert isinstance(val, int)
 
 
-def test_api_b():
+def test_api_b(api_token):
     # Unauthorized request.
     response = client.get("/api_b/100")
     assert response.status_code == HTTPStatus.UNAUTHORIZED
-
-    # Get token.
-    token_str = get_token_str()
 
     # Authorized but should raise 400 error.
     response = client.get(
         "/api_b/b",
         headers={
             "Accept": "application/json",
-            "Authorization": token_str,
+            "Authorization": api_token,
         },
     )
     assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY
@@ -81,7 +77,7 @@ def test_api_b():
         "/api_b/0",
         headers={
             "Accept": "application/json",
-            "Authorization": token_str,
+            "Authorization": api_token,
         },
     )
     assert response.status_code == HTTPStatus.OK
