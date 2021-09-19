@@ -1,16 +1,20 @@
 path := .
 
-.PHONY: help
-help: ## Show this help message
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+define Comment
+	- Run `make help` to see all the available options.
+	- Run `make testall` to run all the tests.
+	- Run `make lint` to run the linter.
+	- Run `make lint-check` to check linter conformity.
+	- Run `make publish` to publish to PYPI.
+endef
 
 
 .PHONY: lint
-lint: black isort flake mypy	## Apply all the linters
+lint: black isort flake mypy	## Apply all the linters.
 
 
 .PHONY: lint-check
-lint-check:
+lint-check:  ## Check whether the codebase satisfies the linter rules.
 	@echo
 	@echo "Checking linter rules..."
 	@echo "========================"
@@ -22,18 +26,17 @@ lint-check:
 
 
 .PHONY: black
-black: ## Apply black
+black: ## Apply black.
 	@echo
 	@echo "Applying black..."
 	@echo "================="
 	@echo
-	@ # --fast was added to circumnavigate a black bug
 	@black --fast $(path)
 	@echo
 
 
 .PHONY: isort
-isort: ## Apply isort
+isort: ## Apply isort.
 	@echo "Applying isort..."
 	@echo "================="
 	@echo
@@ -41,7 +44,7 @@ isort: ## Apply isort
 
 
 .PHONY: flake
-flake: ## Apply flake8
+flake: ## Apply flake8.
 	@echo
 	@echo "Applying flake8..."
 	@echo "================="
@@ -50,7 +53,7 @@ flake: ## Apply flake8
 
 
 .PHONY: mypy
-mypy: ## Apply mypy
+mypy: ## Apply mypy.
 	@echo
 	@echo "Applying mypy..."
 	@echo "================="
@@ -58,21 +61,21 @@ mypy: ## Apply mypy
 	@mypy $(path)
 
 
-.PHONY: trim-imports
-trim-imports: ## Remove unused imports
-	@autoflake --remove-all-unused-imports \
-	--ignore-init-module-imports \
-	--in-place \
-	--recursive \
-	$(path)
+.PHONY: help
+help: ## Show this help message.
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
+
+.PHONY: test
+test: ## Run the tests against the current version of Python.
+	pytest
 
 .PHONY: dep-lock
-dep-lock: ## Freeze deps in `requirements.txt` file
-	@sort --ignore-case -o requirements.in requirements.in
-	@pip-compile requirements.in --output-file=requirements.txt
+dep-lock: ## Freeze deps in 'requirements.txt' file.
+	@pip-compile requirements.in -o requirements.txt
+	@pip-compile requirements-dev.in -o requirements-dev.txt
 
 
 .PHONY: dep-sync
-dep-sync: ## Sync venv installation with `requirements.txt`
+dep-sync: ## Sync venv installation with 'requirements.txt' file.
 	@pip-sync
