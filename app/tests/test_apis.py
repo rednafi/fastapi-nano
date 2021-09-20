@@ -30,12 +30,12 @@ def api_token():
 
 def test_api_a(api_token):
     # Unauthorized request.
-    response = client.get("/api_a/100")
+    response = client.get("/api/v1/api_a/100")
     assert response.status_code == HTTPStatus.UNAUTHORIZED
 
     # Authorized but should raise 400 error.
     response = client.get(
-        "/api_a/a",
+        "/api/v1/api_a/a",
         headers={
             "Accept": "application/json",
             "Authorization": api_token,
@@ -45,7 +45,7 @@ def test_api_a(api_token):
 
     # Successful request.
     response = client.get(
-        "/api_a/200",
+        "/api/v1/api_a/200",
         headers={
             "Accept": "application/json",
             "Authorization": api_token,
@@ -59,12 +59,12 @@ def test_api_a(api_token):
 
 def test_api_b(api_token):
     # Unauthorized request.
-    response = client.get("/api_b/100")
+    response = client.get("/api/v1/api_b/100")
     assert response.status_code == HTTPStatus.UNAUTHORIZED
 
     # Authorized but should raise 400 error.
     response = client.get(
-        "/api_b/b",
+        "/api/v1/api_b/b",
         headers={
             "Accept": "application/json",
             "Authorization": api_token,
@@ -74,7 +74,7 @@ def test_api_b(api_token):
 
     # Successful request.
     response = client.get(
-        "/api_b/0",
+        "/api/v1/api_b/0",
         headers={
             "Accept": "application/json",
             "Authorization": api_token,
