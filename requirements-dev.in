@@ -4,4 +4,3 @@ flake8
 mypy
 pip-tools
 pytest
-cookiecutter

@@ -14,8 +14,6 @@ click==8.0.1
     # via uvicorn
 fastapi==0.68.1
     # via -r requirements.in
-gunicorn==20.1.0
-    # via -r requirements.in
 h11==0.12.0
     # via uvicorn
 passlib==1.7.4
@@ -40,6 +38,3 @@ typing-extensions==3.10.0.2
     # via pydantic
 uvicorn==0.15.0
     # via -r requirements.in
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools

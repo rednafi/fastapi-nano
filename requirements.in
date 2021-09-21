@@ -10,7 +10,6 @@
 
 bcrypt
 fastapi
-gunicorn
 passlib
 pyjwt
 python-dotenv

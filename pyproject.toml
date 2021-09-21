@@ -2,6 +2,7 @@
 [tool.isort]
 profile = "black"
 atomic = true
+extend_skip_glob = "migrations,scripts"
 line_length = 88
 
 

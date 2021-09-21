@@ -1,0 +1,5 @@
+# https://caddyserver.com/docs/caddyfile/concepts
+
+:5000 {
+	reverse_proxy /* fnano:6969
+}

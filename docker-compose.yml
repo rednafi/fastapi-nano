@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  fnano:
+    container_name: fnano
+    image: fnano:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      labels:
+        - fnano
+    volumes:
+        - .:/code
+    command:
+      - /bin/sh
+      - -c
+      - |
+        uvicorn app.main:app --host 0.0.0.0 --port 6969
+    ports:
+      - 6969:6969
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - 5000:5000
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+
+    depends_on:
+      - fnano
