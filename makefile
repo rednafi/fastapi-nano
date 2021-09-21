@@ -80,3 +80,22 @@ dep-lock: ## Freeze deps in 'requirements.txt' file.
 .PHONY: dep-sync
 dep-sync: ## Sync venv installation with 'requirements.txt' file.
 	@pip-sync
+
+.PHONY: dep-update
+dep-update: ## Update all the deps.
+	@chmod +x ./scripts/update_deps.sh
+	@./scripts/update_deps.sh
+
+
+.PHONY: run-container
+run-container: ## Run the app in a docker container.
+	docker-compose up -d
+
+.PHONY: kill-container
+kill-container: ## Stop the running docker container.
+	docker-compose down
+
+
+.PHONY: run-local
+run-local: ## Run the app locally.
+	uvicorn app.main:app --port 5000 --reload
