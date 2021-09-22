@@ -1,5 +1,5 @@
 # https://caddyserver.com/docs/caddyfile/concepts
 
-:5000 {
+:{$PORT} {
 	reverse_proxy /* fnano:6969
 }

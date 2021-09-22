@@ -6,7 +6,7 @@ from app.apis.api_a.mainmod import main_func as main_func_a
 from app.apis.api_b.mainmod import main_func as main_func_b
 from app.core.auth import get_current_user
 
-router = APIRouter(prefix="/api/v1")
+router = APIRouter()
 
 
 @router.get("/api_a/{num}", tags=["api_a"])
