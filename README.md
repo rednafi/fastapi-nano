@@ -18,6 +18,8 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
 * The APIs are served with [Gunicorn](https://gunicorn.org/) server with multiple [Uvicorn](https://www.uvicorn.org/) workers. Uvicorn is a lightning-fast "ASGI" server. It runs asynchronous Python web code in a single process.
 
+* Simple reverse-proxying with [Caddy](https://caddyserver.com/docs/).
+
 * OAuth2 (with hashed password and Bearer with JWT) based authentication
 
 * [CORS (Cross Origin Resource Sharing)](https://fastapi.tiangolo.com/tutorial/cors/) enabled.
@@ -130,20 +132,22 @@ If you want to run the application locally, without using Docker, then:
     ```python
     import httpx
 
-    token = (
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9."
-        + "eyJzdWIiOiJ1YnVudHUiLCJleHAiOjY4NDg3NDI1MDl9."
-        + "varo-uXei0kmGkejkfzCtOkWvW6y7ewzaKBj4qZZHWQ"
-    )
-
-    headers = {
-        "Accept": "application/json",
-        "Authorization": f"Bearer {token}",
-    }
-
     with httpx.Client() as client:
-        response = client.get("http://localhost:5000/api_a/22", headers=headers)
-        print(response.json())
+
+        # Collect the API token.
+        r = client.post(
+            "http://localhost:5000/token",
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+            data={"username": "ubuntu", "password": "debian"},
+        )
+        token = r.json()["access_token"]
+
+        # Use the token value to hit the API.
+        r = client.get(
+            "http://localhost:5000/api_a/22",
+            headers={"Accept": "application/json", "Authorization": f"Bearer {token}"},
+        )
+        print(r.json())
     ```
 
 ## Folder Structure
@@ -252,24 +256,28 @@ So hitting the API with a random integer will give you a response like the follo
 
 * This template uses OAuth2 based authentication and it's easy to change that. FastAPI docs has a comprehensive list of the available [authentication options](https://fastapi.tiangolo.com/tutorial/security/) and instructions on how to use them.
 
-* During deployment, you may need to change the host name and port number. To do so, just change the values of `HOST` and `PORT` variables under the `environment` section in the `docker-compose.yml` file.
+* You can change the application port in the `.env` file.
+
+* During prod deployment, you might need to fiddle with the reverse-proxy rules in the Caddyfile.
 
 ## Stack
 
-* [FastAPI](https://fastapi.tiangolo.com/)
-* [Httpx](https://www.python-httpx.org/)
-* [Gunicorn](https://gunicorn.org/)
-* [Uvicorn](https://www.uvicorn.org/)
-* [Pydantic](https://pydantic-docs.helpmanual.io/)
-* [Starlette](https://www.starlette.io/)
+* [Caddy](https://caddyserver.com/docs/)
 * [Docker](https://www.docker.com/)
-* [Pytest](https://docs.pytest.org/en/latest/)
+* [FastAPI](https://fastapi.tiangolo.com/)
+* [Gunicorn](https://gunicorn.org/)
+* [Httpx](https://www.python-httpx.org/)
 * [Pip-tools](https://github.com/jazzband/pip-tools)
+* [Pydantic](https://pydantic-docs.helpmanual.io/)
+* [Pytest](https://docs.pytest.org/en/latest/)
+* [Starlette](https://www.starlette.io/)
+* [Uvicorn](https://www.uvicorn.org/)
 
 ## Resources
 
 * [Flask divisional folder structure](https://exploreflask.com/en/latest/blueprints.html#divisional)
 * [Deploying APIs built with FastAPI](https://fastapi.tiangolo.com/deployment/)
+* [Reverse proxying with Caddy](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy)
 
 
 <div align="center">
