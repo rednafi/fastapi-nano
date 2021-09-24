@@ -2,4 +2,5 @@
 
 :{$PORT} {
 	reverse_proxy /* fnano:6969
+	encode zstd gzip
 }
