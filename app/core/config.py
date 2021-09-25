@@ -5,10 +5,6 @@ from dotenv import load_dotenv
 load_dotenv("./.env")
 
 
-# Base configs.
-HOST = os.environ["HOST"]
-PORT = os.environ["PORT"]
-
 API_USERNAME = os.environ["API_USERNAME"]
 API_PASSWORD = os.environ["API_PASSWORD"]
 
