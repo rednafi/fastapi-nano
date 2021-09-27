@@ -7,9 +7,10 @@
 set -euxo pipefail
 
 # Run the tests.
-python -m pip install -r requirements.txt && \
-python -m pip install -r requirements-dev.txt
-python -m pytest
+
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+pytest app/tests
 
 # Build docker-container.
 docker-compose --build -d
