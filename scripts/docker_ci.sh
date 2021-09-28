@@ -12,12 +12,12 @@ pip install -r requirements.txt
 pip install -r requirements-dev.txt
 pytest app/tests
 
-# Build docker-container.
-docker-compose --build -d
+# # Build docker-container.
+# docker-compose --build -d
 
-# Cleanup.
-docker-compose down
-## rm -rf fastapi-nano
+# # Cleanup.
+# docker-compose down
+# ## rm -rf fastapi-nano
 
-# turn off command echo
-set +x
+# # turn off command echo
+# set +x

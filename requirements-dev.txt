@@ -4,16 +4,37 @@
 #
 #    pip-compile --output-file=requirements-dev.txt requirements-dev.in
 #
+anyio==3.3.1
+    # via httpcore
 attrs==21.2.0
     # via pytest
 black==21.9b0
     # via -r requirements-dev.in
+certifi==2021.5.30
+    # via
+    #   httpx
+    #   requests
+charset-normalizer==2.0.6
+    # via
+    #   httpx
+    #   requests
 click==8.0.1
     # via
     #   black
     #   pip-tools
 flake8==3.9.2
     # via -r requirements-dev.in
+h11==0.12.0
+    # via httpcore
+httpcore==0.13.7
+    # via httpx
+httpx==0.19.0
+    # via -r requirements-dev.in
+idna==3.2
+    # via
+    #   anyio
+    #   requests
+    #   rfc3986
 iniconfig==1.1.1
     # via pytest
 isort==5.9.3
@@ -50,6 +71,15 @@ pytest==6.2.5
     # via -r requirements-dev.in
 regex==2021.8.28
     # via black
+requests==2.26.0
+    # via -r requirements-dev.in
+rfc3986[idna2008]==1.5.0
+    # via httpx
+sniffio==1.2.0
+    # via
+    #   anyio
+    #   httpcore
+    #   httpx
 toml==0.10.2
     # via
     #   mypy
@@ -62,6 +92,8 @@ typing-extensions==3.10.0.2
     # via
     #   black
     #   mypy
+urllib3==1.26.6
+    # via requests
 wheel==0.37.0
     # via pip-tools
 
