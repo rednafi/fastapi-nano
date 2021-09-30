@@ -1,6 +1,7 @@
 <div align="center">
 
-![logo](https://user-images.githubusercontent.com/30027932/83198400-ec343c00-a160-11ea-8bec-28f0d09b16de.png)
+![logo](https://user-images.githubusercontent.com/30027932/134270064-baecfbec-b3e7-4cb7-a07e-c11a58526260.png)
+
 
 [![Mentioned in Awesome <INSERT LIST NAME>](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/mjhea0/awesome-fastapi#boilerplate)
 [![License](https://img.shields.io/cocoapods/l/AFNetworking?style=flat-square)](https://github.com/rednafi/think-asyncio/blob/master/LICENSE)
