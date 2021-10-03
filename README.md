@@ -43,10 +43,10 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
 ### Run the App in Containers
 
-To run the application using Docker, make sure you've got Docker and Docker Compose installed on your system. From the project's root dirctory, run:
+To run the application using Docker, make sure you've got [Docker](https://www.docker.com/) and [Docker Compose V2](https://docs.docker.com/compose/cli-command/) installed on your system. From the project's root dirctory, run:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ### Alternatively, Run the App Locally
@@ -112,10 +112,14 @@ If you want to run the application locally, without using Docker, then:
     ![Screenshot from 2020-06-21 22-32-28](https://user-images.githubusercontent.com/30027932/85230016-25359880-b40f-11ea-9196-c46fd72a760c.png)
 
 
-* Also, notice the `curl` section in the above screen shot. You can directly use the highlighted curl command in your terminal.
+* Also, notice the `curl` section in the above screen shot. You can directly use the highlighted curl command in your terminal. Make sure you've got `jq` installed in your system.
 
     ```bash
-    curl -X GET "http://localhost:5000/api_a/22" -H "accept: application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1YnVudHUiLCJleHAiOjY4NDg3NDI1MDl9.varo-uXei0kmGkejkfzCtOkWvW6y7ewzaKBj4qZZHWQ"
+    curl -X GET "http://localhost:5000/api_a/22" \
+         -H "accept: application/json" \
+         -H "Authorization: Bearer $(curl -X POST "http://localhost:5000/token" \
+                            -H "accept: application/x-www-form-urlencoded" \
+                            -d "username=ubuntu&password=debian" | jq -r ".access_token")"
     ```
 
     This should show a response like this:

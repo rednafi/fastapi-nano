@@ -2,7 +2,6 @@ version: "3.9"
 services:
   fnano:
     container_name: fnano
-    image: fnano:latest
     restart: unless-stopped
     env_file:
       - .env
