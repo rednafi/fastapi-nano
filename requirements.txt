@@ -4,6 +4,8 @@
 #
 #    pip-compile --output-file=requirements.txt requirements.in
 #
+anyio==3.3.2
+    # via starlette
 asgiref==3.4.1
     # via uvicorn
 bcrypt==3.2.0
@@ -12,12 +14,14 @@ cffi==1.14.6
     # via bcrypt
 click==8.0.1
     # via uvicorn
-fastapi==0.68.2
+fastapi==0.70.0
     # via -r requirements.in
 gunicorn==20.1.0
     # via -r requirements.in
 h11==0.12.0
     # via uvicorn
+idna==3.2
+    # via anyio
 passlib==1.7.4
     # via -r requirements.in
 pycparser==2.20
@@ -34,7 +38,9 @@ six==1.16.0
     # via
     #   bcrypt
     #   python-multipart
-starlette==0.14.2
+sniffio==1.2.0
+    # via anyio
+starlette==0.16.0
     # via fastapi
 typing-extensions==3.10.0.2
     # via pydantic
