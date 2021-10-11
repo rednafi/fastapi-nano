@@ -30,7 +30,7 @@ pydantic==1.8.2
     # via fastapi
 pyjwt==2.2.0
     # via -r requirements.in
-python-dotenv==0.19.0
+python-dotenv==0.19.1
     # via -r requirements.in
 python-multipart==0.0.5
     # via -r requirements.in
