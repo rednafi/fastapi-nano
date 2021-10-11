@@ -22,7 +22,7 @@ click==8.0.1
     # via
     #   black
     #   pip-tools
-flake8==3.9.2
+flake8==4.0.1
     # via -r requirements-dev.in
 h11==0.12.0
     # via httpcore
@@ -61,9 +61,9 @@ pluggy==1.0.0
     # via pytest
 py==1.10.0
     # via pytest
-pycodestyle==2.7.0
+pycodestyle==2.8.0
     # via flake8
-pyflakes==2.3.1
+pyflakes==2.4.0
     # via flake8
 pyparsing==2.4.7
     # via packaging
