@@ -28,7 +28,7 @@ pycparser==2.20
     # via cffi
 pydantic==1.8.2
     # via fastapi
-pyjwt==2.2.0
+pyjwt==2.3.0
     # via -r requirements.in
 python-dotenv==0.19.1
     # via -r requirements.in
