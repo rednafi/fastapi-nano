@@ -37,7 +37,7 @@ idna==3.2
     #   rfc3986
 iniconfig==1.1.1
     # via pytest
-isort==5.10.0
+isort==5.10.1
     # via -r requirements-dev.in
 mccabe==0.6.1
     # via flake8
