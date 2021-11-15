@@ -12,6 +12,7 @@ black==21.10b0
     # via -r requirements-dev.in
 certifi==2021.5.30
     # via
+    #   httpcore
     #   httpx
     #   requests
 charset-normalizer==2.0.6
@@ -26,9 +27,9 @@ flake8==4.0.1
     # via -r requirements-dev.in
 h11==0.12.0
     # via httpcore
-httpcore==0.13.7
+httpcore==0.14.1
     # via httpx
-httpx==0.20.0
+httpx==0.21.0
     # via -r requirements-dev.in
 idna==3.2
     # via
