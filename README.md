@@ -36,7 +36,7 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 * Clone the repo. On your workspace directory, run:
 
     ```
-    git clone git@github.com:rednafi/fastapi-nano.git
+    git clone https://github.com/rednafi/fastapi-nano.git
     ```
 
 * Head over to the `fastapi-nano` directory.
