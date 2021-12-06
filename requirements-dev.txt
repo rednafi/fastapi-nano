@@ -8,7 +8,7 @@ anyio==3.3.1
     # via httpcore
 attrs==21.2.0
     # via pytest
-black==21.11b1
+black==21.12b0
     # via -r requirements-dev.in
 certifi==2021.5.30
     # via
@@ -70,8 +70,6 @@ pyparsing==2.4.7
     # via packaging
 pytest==6.2.5
     # via -r requirements-dev.in
-regex==2021.8.28
-    # via black
 requests==2.26.0
     # via -r requirements-dev.in
 rfc3986[idna2008]==1.5.0
