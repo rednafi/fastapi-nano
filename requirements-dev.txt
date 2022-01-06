@@ -29,7 +29,7 @@ h11==0.12.0
     # via httpcore
 httpcore==0.14.1
     # via httpx
-httpx==0.21.1
+httpx==0.21.3
     # via -r requirements-dev.in
 idna==3.2
     # via
