@@ -68,7 +68,7 @@ pyflakes==2.4.0
     # via flake8
 pyparsing==2.4.7
     # via packaging
-pytest==6.2.5
+pytest==7.0.0
     # via -r requirements-dev.in
 requests==2.27.1
     # via -r requirements-dev.in
@@ -79,13 +79,12 @@ sniffio==1.2.0
     #   anyio
     #   httpcore
     #   httpx
-toml==0.10.2
-    # via pytest
 tomli==1.2.1
     # via
     #   black
     #   mypy
     #   pep517
+    #   pytest
 typing-extensions==3.10.0.2
     # via mypy
 urllib3==1.26.6
