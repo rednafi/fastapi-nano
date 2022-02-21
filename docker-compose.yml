@@ -33,7 +33,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
 
@@ -42,5 +42,4 @@ services:
 
 volumes:
   caddy_data:
-    external: true
   caddy_config:
