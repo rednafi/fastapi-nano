@@ -26,6 +26,8 @@ jobs:
           path: ~/Library/Caches/pip
 
     steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
       - uses: actions/cache@v2
         with:
           path: ${{ matrix.path }}
