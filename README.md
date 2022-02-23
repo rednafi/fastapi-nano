@@ -27,7 +27,7 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
 * Flask inspired divisional folder structure better decoupling and encapsulation. This is suitable for small to medium backend development.
 
-* Dockerized using [python:3.9-slim-bullseye](https://github.com/docker-library/python/blob/bb68424de76756a2d3dc817f87b1f8640112461f/3.8/bullseye/Dockerfile) and optimized for size and functionality.
+* Dockerized using [python:3.10-slim-bullseye](https://github.com/docker-library/python/blob/bb68424de76756a2d3dc817f87b1f8640112461f/3.8/bullseye/Dockerfile) and optimized for size and functionality.
 
 ## Quickstart
 
@@ -56,7 +56,7 @@ If you want to run the application locally, without using Docker, then:
 * Create a virtual environment in the root directory. Here I'm using Python's built-in venv in a Unix system. Run:
 
     ```bash
-    python3.9 -m venv .venv
+    python3.10 -m venv .venv
     ```
 
 * Activate the environment. Run:
