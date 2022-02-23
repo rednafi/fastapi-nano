@@ -1,33 +1,50 @@
-from app.apis.api_a.mainmod import main_func as main_func_a
-from app.apis.api_b.mainmod import main_func as main_func_b
+from unittest.mock import patch
+
+import pytest
+
+from app.apis.api_a import mainmod as mainmod_a
+from app.apis.api_b import mainmod as mainmod_b
 
 
-def mock_randint(*args, **kwargs):
-    """A mock version of 'random.randint' that always returns 42."""
-    return 42
+@pytest.fixture(scope="module")
+def mock_randint():
+    """Mock random.randint function."""
+
+    with patch("random.randint", return_value=42, auto=True) as m:
+        yield m
 
 
-def test_func_main_a(monkeypatch) -> None:
-    monkeypatch.setattr(
-        "app.apis.api_a.submod.random.randint",
-        mock_randint,
-    )
-    seed = 420
-    result = main_func_a(seed)
+@pytest.mark.parametrize(
+    "seed, output",
+    [(1, 42), (100, 42), (589, 42), (444, 42)],
+)
+def test_func_main_a(mock_randint, seed, output):
+
+    # Act.
+    result = mainmod_a.main_func(seed)
+
+    # Assert.
     assert isinstance(result, dict) is True
-    assert result.get("seed") == seed
-    assert result.get("random_first") == mock_randint()
-    assert result.get("random_second") == mock_randint()
+    assert result["seed"] == seed
+    assert result["random_first"] == output
+    assert result["random_second"] == output
+
+    mock_randint.assert_called_with(0, seed)
 
 
-def test_func_main_b(monkeypatch) -> None:
-    monkeypatch.setattr(
-        "app.apis.api_a.submod.random.randint",
-        mock_randint,
-    )
-    seed = 500
-    result = main_func_b(seed)
+@pytest.mark.parametrize(
+    "seed, output",
+    [(1, 42), (100, 42), (589, 42), (444, 42)],
+)
+def test_func_main_b(mock_randint, seed, output):
+
+    # Act.
+    result = mainmod_b.main_func(seed)
+
+    # Assert.
     assert isinstance(result, dict) is True
-    assert result.get("seed") == seed
-    assert result.get("random_first") == mock_randint()
-    assert result.get("random_second") == mock_randint()
+    assert result["seed"] == seed
+    assert result["random_first"] == output
+    assert result["random_second"] == output
+
+    mock_randint.assert_called_with(0, seed)
