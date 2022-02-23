@@ -34,17 +34,17 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: Install the Dependencies
-          run: |
-            echo "Installing the dependencies..."
-            python -m pip install -r requirements.txt
-            python -m pip install -r requirements-dev.txt
+        run: |
+          echo "Installing the dependencies..."
+          python -m pip install -r requirements.txt
+          python -m pip install -r requirements-dev.txt
 
       - name: Check Linter
-          run: |
-            echo "Checking linter formatting..."
-            make lint-check
+        run: |
+          echo "Checking linter formatting..."
+          make lint-check
 
       - name: Run Tests
-          run: |
-            echo "Running the tests..."
-            python -m pytest -v -s
+        run: |
+          echo "Running the tests..."
+          python -m pytest -v -s
