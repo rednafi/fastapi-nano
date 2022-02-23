@@ -1,0 +1,50 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - master
+
+  schedule:
+    # Run cron at the end of every day.
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        include:
+        - os: ubuntu-latest
+          path: ~/.cache/pip
+        - os: macos-latest
+          path: ~/Library/Caches/pip
+
+    steps:
+    - uses: actions/cache@v2
+      with:
+        path: ${{ matrix.path }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/requirements-dev.txt') }}
+        restore-keys: |
+         ${{ runner.os }}-pip-
+
+      - name: Install the Dependencies
+        run: |
+          echo "Installing the dependencies..."
+          python -m pip install -r requirements.txt
+          python -m pip install -r requirements-dev.txt
+
+      - name: Check Linter
+        run: |
+          echo "Checking linter formatting..."
+          make lint-check
+
+      - name: Run Tests
+        run: |
+          echo "Running the tests..."
+          python -m pytest -v -s
