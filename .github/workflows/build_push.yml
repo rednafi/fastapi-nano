@@ -6,6 +6,8 @@ on:
     types: [published]
     branches:
       - master
+    tags:
+      - "v*.*"
 
   push:
     branches:
@@ -24,49 +26,49 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  run-tests:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-        python-version: ["3.8", "3.9", "3.10"]
-        include:
-        - os: ubuntu-latest
-          path: ~/.cache/pip
-        - os: macos-latest
-          path: ~/Library/Caches/pip
+  # run-tests:
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest, macos-latest]
+  #       python-version: ["3.8", "3.9", "3.10"]
+  #       include:
+  #       - os: ubuntu-latest
+  #         path: ~/.cache/pip
+  #       - os: macos-latest
+  #         path: ~/Library/Caches/pip
 
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-python@v2
+  #       with:
+  #         python-version: ${{ matrix.python-version }}
 
-      - uses: actions/cache@v2
-        with:
-          path: ${{ matrix.path }}
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/requirements-dev.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+  #     - uses: actions/cache@v2
+  #       with:
+  #         path: ${{ matrix.path }}
+  #         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/requirements-dev.txt') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-pip-
 
-      - name: Install the Dependencies
-        run: |
-          echo "Installing the dependencies..."
-          python -m pip install -r requirements.txt
-          python -m pip install -r requirements-dev.txt
+  #     - name: Install the Dependencies
+  #       run: |
+  #         echo "Installing the dependencies..."
+  #         python -m pip install -r requirements.txt
+  #         python -m pip install -r requirements-dev.txt
 
-      - name: Check Linter
-        run: |
-          echo "Checking linter formatting..."
-          make lint-check
+  #     - name: Check Linter
+  #       run: |
+  #         echo "Checking linter formatting..."
+  #         make lint-check
 
-      - name: Run Tests
-        run: |
-          echo "Running the tests..."
-          python -m pytest -v -s
+  #     - name: Run Tests
+  #       run: |
+  #         echo "Running the tests..."
+  #         python -m pytest -v -s
 
   build-push:
-    needs: ["run-tests"]
+    #needs: ["run-tests"]
     if: startsWith(github.event.ref, 'refs/tags/v')
     env:
       IMAGE: rednafi/fastapi-nano
