@@ -106,6 +106,6 @@ jobs:
       with:
         push: true
         context: .
-        file: ./dockerfiles/Dockerfile-310
+        file: ./dockerfiles/python310/Dockerfile
         tags: |
           ${{ env.IMAGE }}:${{ steps.prep.outputs.BUILD_ID }}
