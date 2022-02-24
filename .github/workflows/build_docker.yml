@@ -1,0 +1,68 @@
+
+name: Publish Image to Docker Hub
+
+on:
+  release:
+    types: [published]
+    branches:
+      - master
+
+  schedule:
+    # Every 7 days.
+    - cron: "0 0 * * 0"
+
+jobs:
+  build-push:
+    env:
+      IMAGE: rednafi/fastapi-nano
+      TEST_TAG: rednafi/fastapi-nano:latest
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-versions: ["3.8", "3.9", "3.10" ]
+        dockerfiles: ["Dockerfile-38", "Dockerfile-39", "Dockerfile-310"]
+
+    steps:
+    - name: Generate build ID
+      id: prep
+      run: |
+        sha=${GITHUB_SHA::8}
+        ts=$(date +%s)
+        echo "::set-output name=BUILD_ID::py${{ matrix.python-versions }}-${sha}-${ts}"
+
+    # These are prerequisites for the docker build step.
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and export to Docker
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./dockerfiles/${{ matrix.dockerfiles }}
+        load: true
+        tags: ${{ env.TEST_TAG }}
+
+    - name: Test container
+      run: |
+        echo "Running ${{ matrix.python-versions }}" container...
+        docker run --rm ${{ env.TEST_TAG }}
+
+    - name: Build and publish container image with tag
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        context: .
+        file: ./dockerfiles/${{ matrix.dockerfiles }}
+        tags: |
+          ${{ env.IMAGE }}:${{ steps.prep.outputs.BUILD_ID }}

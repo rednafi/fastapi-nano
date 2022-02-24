@@ -7,7 +7,7 @@ services:
       - .env
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: dockerfiles/Dockerfile-310
       labels:
         - fnano
     volumes:
