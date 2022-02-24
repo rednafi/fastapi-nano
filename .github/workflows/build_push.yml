@@ -1,5 +1,5 @@
 
-name: Publish Image to Docker Hub
+name: Run Tests & Publish Image to Dockerhub
 
 on:
   release:
