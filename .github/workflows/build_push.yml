@@ -77,8 +77,8 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Inject RELEASE_VERSION to environment variable
-        id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      id: vars
+      run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
     # These are prerequisites for the docker build step.
     - name: Set up QEMU
