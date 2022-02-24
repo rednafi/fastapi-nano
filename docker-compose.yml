@@ -1,13 +1,12 @@
 version: "3.9"
 services:
   fnano:
-    container_name: fnano
     restart: unless-stopped
     env_file:
       - .env
     build:
       context: ./
-      dockerfile: dockerfiles/Dockerfile-310
+      dockerfile: ./dockerfiles/python310/Dockerfile
       labels:
         - fnano
     volumes:
