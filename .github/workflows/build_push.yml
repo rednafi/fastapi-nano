@@ -92,7 +92,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: ./dockerfiles/Dockerfile-310
+        file: ./dockerfiles/python310/Dockerfile
         load: true
         tags: ${{ env.TEST_TAG }}
 
