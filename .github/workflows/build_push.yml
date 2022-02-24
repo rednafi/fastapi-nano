@@ -6,13 +6,18 @@ on:
     types: [published]
     branches:
       - master
+
   push:
     branches:
       - master
 
+  pull_request:
+    branches:
+      - master
+
   schedule:
-    # Every 7 days.
-    - cron: "0 0 * * 0"
+    # Every day at 1.00 UTC.
+    - cron: "0 1 * * *"
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
@@ -62,6 +67,7 @@ jobs:
 
   build-push:
     needs: ["run-tests"]
+    if: startsWith(github.event.ref, 'refs/tags/v')
     env:
       IMAGE: rednafi/fastapi-nano
       TEST_TAG: rednafi/fastapi-nano:latest
@@ -69,12 +75,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Generate build ID
-      id: prep
-      run: |
-        sha=${GITHUB_SHA::8}
-        ts=$(date +%s)
-        echo "::set-output name=BUILD_ID::${sha}-${ts}"
+
+    - name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - name: Check output
+        env:
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ steps.vars.outputs.tag }}
 
     # These are prerequisites for the docker build step.
     - name: Set up QEMU
@@ -109,4 +119,4 @@ jobs:
         context: .
         file: ./dockerfiles/python310/Dockerfile
         tags: |
-          ${{ env.IMAGE }}:${{ steps.prep.outputs.BUILD_ID }}
+          ${{ env.IMAGE }}:${{ steps.vars.outputs.tag }}
