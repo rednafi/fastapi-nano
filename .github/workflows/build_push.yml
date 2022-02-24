@@ -12,9 +12,9 @@ on:
   push:
     branches:
       - master
-
     tags:
       - "v*"
+
 
   pull_request:
     branches:
@@ -72,12 +72,12 @@ jobs:
 
   build-push:
     #needs: ["run-tests"]
-    if: startsWith(github.event.ref, 'refs/tags/v')
     env:
       IMAGE: rednafi/fastapi-nano
       TEST_TAG: rednafi/fastapi-nano:latest
 
     runs-on: ubuntu-latest
+    if: startsWith(github.event.ref, 'refs/tags/v')
     steps:
     - uses: actions/checkout@v2
 
