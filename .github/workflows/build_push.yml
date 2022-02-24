@@ -15,7 +15,6 @@ on:
     tags:
       - "v*"
 
-
   pull_request:
     branches:
       - master
@@ -24,54 +23,58 @@ on:
     # Every day at 1.00 UTC.
     - cron: "0 1 * * *"
 
+# If you trigger a new workflow while the previous one is running,
+# this will cancel the previous one.
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
-  # run-tests:
-  #   runs-on: ${{ matrix.os }}
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest, macos-latest]
-  #       python-version: ["3.8", "3.9", "3.10"]
-  #       include:
-  #       - os: ubuntu-latest
-  #         path: ~/.cache/pip
-  #       - os: macos-latest
-  #         path: ~/Library/Caches/pip
+  run-tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # Use matrix strategy to run the tests on multiple Py versions on multiple OSs.
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python-version: ["3.8", "3.9", "3.10"]
+        include:
+        - os: ubuntu-latest
+          path: ~/.cache/pip
+        - os: macos-latest
+          path: ~/Library/Caches/pip
 
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-python@v2
-  #       with:
-  #         python-version: ${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
 
-  #     - uses: actions/cache@v2
-  #       with:
-  #         path: ${{ matrix.path }}
-  #         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/requirements-dev.txt') }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-pip-
+      - uses: actions/cache@v2
+        with:
+          path: ${{ matrix.path }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/requirements-dev.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
-  #     - name: Install the Dependencies
-  #       run: |
-  #         echo "Installing the dependencies..."
-  #         python -m pip install -r requirements.txt
-  #         python -m pip install -r requirements-dev.txt
+      - name: Install the Dependencies
+        run: |
+          echo "Installing the dependencies..."
+          python -m pip install -r requirements.txt
+          python -m pip install -r requirements-dev.txt
 
-  #     - name: Check Linter
-  #       run: |
-  #         echo "Checking linter formatting..."
-  #         make lint-check
+      - name: Check Linter
+        run: |
+          echo "Checking linter formatting..."
+          make lint-check
 
-  #     - name: Run Tests
-  #       run: |
-  #         echo "Running the tests..."
-  #         python -m pytest -v -s
+      - name: Run Tests
+        run: |
+          echo "Running the tests..."
+          python -m pytest -v -s
 
   build-push:
-    #needs: ["run-tests"]
+    # https://github.com/docker/build-push-action/blob/master/docs/advanced/test-before-push.md
+    needs: ["run-tests"]
     if: github.event_name == 'release' && github.event.action == 'published'
 
     env:
