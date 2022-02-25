@@ -113,7 +113,7 @@ jobs:
     - name: Test container
       run: |
         echo "Running container..."
-        docker run --rm -d ${{ env.TEST_TAG }}
+        docker run -d -p 5000:5000 --expose 5000 ${{ env.TEST_TAG }}
 
     - name: Build and publish container image with tag
       uses: docker/build-push-action@v2
