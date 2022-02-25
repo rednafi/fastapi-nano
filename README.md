@@ -25,35 +25,29 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
 * [CORS (Cross Origin Resource Sharing)](https://fastapi.tiangolo.com/tutorial/cors/) enabled.
 
-* Flask inspired divisional folder structure better decoupling and encapsulation. This is suitable for small to medium backend development.
+* Flask inspired divisional folder structure for better decoupling and encapsulation. This is suitable for small to medium backend development.
 
-* Dockerized using [python:3.10-slim-bullseye](https://github.com/docker-library/python/blob/bb68424de76756a2d3dc817f87b1f8640112461f/3.8/bullseye/Dockerfile) and optimized for size and functionality.
+* Dockerized using **python:3.10-slim-bullseye** and optimized for size and functionality. Dockerfile for Python 3.9 and 3.8 can also be found in the `dockerfiles` directory.
 
 ## Quickstart
 
-### Setup
-
-* Clone the repo. On your workspace directory, run:
-
-    ```
-    git clone https://github.com/rednafi/fastapi-nano.git
-    ```
-
-* Head over to the `fastapi-nano` directory.
-
 ### Run the App in Containers
 
-To run the application using Docker, make sure you've got [Docker](https://www.docker.com/) and [Docker Compose V2](https://docs.docker.com/compose/cli-command/) installed on your system. From the project's root dirctory, run:
+* Clone the repo and navigate to the root folder.
 
-```bash
-docker compose up -d
-```
+* To run the app using Docker, make sure you've got [Docker](https://www.docker.com/) and [Docker Compose V2](https://docs.docker.com/compose/cli-command/) installed on your system. From the project's root dirctory, run:
 
-### Alternatively, Run the App Locally
+    ```bash
+    docker compose up -d
+    ```
 
-If you want to run the application locally, without using Docker, then:
+### Or, Run the App Locally
 
-* Create a virtual environment in the root directory. Here I'm using Python's built-in venv in a Unix system. Run:
+If you want to run the app locally, without using Docker, then:
+
+* Clone the repo and navigate to the root folder.
+
+* Create a virtual environment. Here I'm using Python's built-in venv in a Unix system. Run:
 
     ```bash
     python3.10 -m venv .venv
@@ -73,11 +67,20 @@ If you want to run the application locally, without using Docker, then:
     pip install -r requirements.txt && pip install -r requirements-dev.txt
     ```
 
-* Start the application. Run:
+* Start the app. Run:
 
     ```bash
     uvicorn app.main:app --port 5000 --reload
     ```
+
+### Or, Pull The Python 3.10 Image from Dockerhub
+
+If you just want to test out the app without cloning anything, then run:
+
+```
+docker run -p 5000:5000 --expose 5000 rednafi/fastapi-nano:0.1
+```
+
 
 ### Check the APIs
 
@@ -161,7 +164,7 @@ This shows the folder structure of the default template.
 
 ```
 fastapi-nano
-├── app                                 # primary application folder
+├── app                                 # primary app folder
 │   ├── apis                            # this houses all the API packages
 │   │   ├── api_a                       # api_a package
 │   │   │   ├── __init__.py             # empty init file to make the api_a folder a package
@@ -181,16 +184,13 @@ fastapi-nano
 │   │   └── views.py                    # file containing the endpoints of api_a and api_b
 │   └── tests                           # test package
 │       ├── __init__.py                 # empty init file to make the tests folder a package
-│       ├── test_api.py                 # functional testing the API responses
+│       ├── test_api.py                 # integration testing the API responses
 │       └── test_functions.py           # unit testing the underlying functions
+├── dockerfiles                         # directory containing all the dockerfiles
+├── .env                                # env file containing app variables
 ├── Caddyfile                           # simple reverse-proxy with caddy
 ├── docker-compose.yml                  # docker-compose file
-├── Dockerfile                          # dockerfile
-├── LICENSE                             # MIT license
-├── makefile                            # Makefile to apply Python linters
-├── mypy.ini                            # type checking configs
 ├── pyproject.toml                      # pep-518 compliant config file
-├── README.md                           # a basic readme template
 ├── requrements-dev.in                  # .in file to enlist the top-level dev requirements
 ├── requirements-dev.txt                # pinned dev dependencies
 ├── requirements.in                     # .in file to enlist the top-level app dependencies

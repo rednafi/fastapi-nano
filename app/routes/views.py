@@ -9,6 +9,14 @@ from app.core.auth import get_current_user
 router = APIRouter()
 
 
+@router.get("/")
+async def index() -> dict[str, str]:
+    return {
+        "info": "This is the index page of fastapi-nano. "
+        "You probably want to go to 'http://<hostname:port>/docs'.",
+    }
+
+
 @router.get("/api_a/{num}", tags=["api_a"])
 async def view_a(
     num: int,

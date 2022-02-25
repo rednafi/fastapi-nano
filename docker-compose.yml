@@ -11,13 +11,12 @@ services:
         - fnano
     volumes:
         - .:/code
-    command:
+    entrypoint:
       - /bin/sh
       - -c
       - |
         gunicorn app.main:app --workers 2 \
         --worker-class uvicorn.workers.UvicornWorker -b 0.0.0.0:6969
-
     ports:
       - 6969:6969
 
