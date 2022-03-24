@@ -31,7 +31,7 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
 
 ## Quickstart
 
-### Run the App in Containers
+### Run the app in containers
 
 * Clone the repo and navigate to the root folder.
 
@@ -41,7 +41,7 @@ This is a minimalistic and extensible [FastAPI](https://fastapi.tiangolo.com/) t
     docker compose up -d
     ```
 
-### Or, Run the App Locally
+### Or, run the app locally
 
 If you want to run the app locally, without using Docker, then:
 
@@ -73,7 +73,7 @@ If you want to run the app locally, without using Docker, then:
     uvicorn app.main:app --port 5000 --reload
     ```
 
-### Or, Pull The Python 3.10 Image from Dockerhub
+### Or, pull the Python 3.10 image from DockerHub
 
 If you just want to test out the app without cloning anything, then run:
 
@@ -158,7 +158,7 @@ docker run -p 5000:5000 --expose 5000 rednafi/fastapi-nano:0.1
         print(r.json())
     ```
 
-## Folder Structure
+## Folder structure
 
 This shows the folder structure of the default template.
 
@@ -253,7 +253,7 @@ So hitting the API with a random integer will give you a response like the follo
 }
 ```
 
-## Further Modifications
+## Further modifications
 
 * You can put your own API logics in the shape of `api_a` and `api_b` packages. You'll have to add additional directories like `api_a` and `api_b` if you need more APIs.
 

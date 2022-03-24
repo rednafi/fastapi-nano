@@ -42,7 +42,7 @@ isort==5.10.1
     # via -r requirements-dev.in
 mccabe==0.6.1
     # via flake8
-mypy==0.931
+mypy==0.942
     # via -r requirements-dev.in
 mypy-extensions==0.4.3
     # via
@@ -68,7 +68,7 @@ pyflakes==2.4.0
     # via flake8
 pyparsing==3.0.7
     # via packaging
-pytest==7.0.1
+pytest==7.1.1
     # via -r requirements-dev.in
 requests==2.27.1
     # via -r requirements-dev.in
@@ -87,7 +87,7 @@ tomli==2.0.1
     #   pytest
 typing-extensions==4.1.1
     # via mypy
-urllib3==1.26.8
+urllib3==1.26.9
     # via requests
 wheel==0.37.1
     # via pip-tools
