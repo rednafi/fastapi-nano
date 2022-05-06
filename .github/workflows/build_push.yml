@@ -103,7 +103,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and export to Docker
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       with:
         context: .
         file: ./dockerfiles/python310/Dockerfile
@@ -116,7 +116,7 @@ jobs:
         docker run -d -p 5000:5000 --expose 5000 ${{ env.TEST_TAG }}
 
     - name: Build and publish container image with tag
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       with:
         push: true
         context: .
