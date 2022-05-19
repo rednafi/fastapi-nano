@@ -7,7 +7,7 @@ from typing import Any, Optional, Union
 import jwt
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from jwt import PyJWTError
+from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
 
@@ -113,7 +113,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> UserInDB:
             raise credentials_exception
         token_data = TokenData(username=username)
 
-    except PyJWTError:
+    except JWTError:
         raise credentials_exception
 
     user = get_user(fake_users_db, username=token_data.username)
