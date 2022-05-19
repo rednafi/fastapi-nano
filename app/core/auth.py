@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 from http import HTTPStatus
 from typing import Any, Optional, Union
 
-import jwt
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
