@@ -6,8 +6,6 @@
 #
 anyio==3.5.0
     # via starlette
-asgiref==3.5.0
-    # via uvicorn
 bcrypt==3.2.2
     # via -r requirements.in
 cffi==1.15.0
@@ -42,7 +40,7 @@ starlette==0.19.1
     # via fastapi
 typing-extensions==4.1.1
     # via pydantic
-uvicorn==0.17.6
+uvicorn==0.18.1
     # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
