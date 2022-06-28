@@ -40,7 +40,7 @@ starlette==0.19.1
     # via fastapi
 typing-extensions==4.1.1
     # via pydantic
-uvicorn==0.18.1
+uvicorn==0.18.2
     # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
