@@ -74,7 +74,7 @@ test: ## Run the tests against the current version of Python.
 .PHONY: dep-lock
 dep-lock: ## Freeze deps in 'requirements.txt' file.
 	@pip-compile requirements.in -o requirements.txt --no-emit-options
-	@pip-compile requirements-dev.in -o requirements-dev.txt --no-emit-options 
+	@pip-compile requirements-dev.in -o requirements-dev.txt --no-emit-options
 
 
 .PHONY: dep-sync
@@ -89,11 +89,11 @@ dep-update: ## Update all the deps.
 
 .PHONY: run-container
 run-container: ## Run the app in a docker container.
-	docker-compose up -d
+	docker compose up -d
 
 .PHONY: kill-container
 kill-container: ## Stop the running docker container.
-	docker-compose down
+	docker compose down
 
 
 .PHONY: run-local
