@@ -12,7 +12,6 @@ bcrypt
 fastapi
 passlib
 pyjwt
-python-dotenv
 python-multipart
 uvicorn
 gunicorn
