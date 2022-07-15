@@ -12,9 +12,7 @@ cffi==1.15.0
     # via bcrypt
 click==8.0.4
     # via uvicorn
-colorama==0.4.5
-    # via click
-fastapi==0.78.0
+fastapi==0.79.0
     # via -r requirements.in
 gunicorn==20.1.0
     # via -r requirements.in
