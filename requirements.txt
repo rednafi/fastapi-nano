@@ -6,10 +6,8 @@
 #
 anyio==3.5.0
     # via starlette
-bcrypt==3.2.2
+bcrypt==4.0.0
     # via -r requirements.in
-cffi==1.15.0
-    # via bcrypt
 click==8.0.4
     # via uvicorn
 fastapi==0.80.0
@@ -22,8 +20,6 @@ idna==3.3
     # via anyio
 passlib==1.7.4
     # via -r requirements.in
-pycparser==2.21
-    # via cffi
 pydantic==1.9.0
     # via fastapi
 pyjwt==2.4.0
