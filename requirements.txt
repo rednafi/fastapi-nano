@@ -10,7 +10,7 @@ bcrypt==4.0.0
     # via -r requirements.in
 click==8.0.4
     # via uvicorn
-fastapi==0.80.0
+fastapi==0.81.0
     # via -r requirements.in
 gunicorn==20.1.0
     # via -r requirements.in
