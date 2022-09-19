@@ -22,7 +22,7 @@ passlib==1.7.4
     # via -r requirements.in
 pydantic==1.9.0
     # via fastapi
-pyjwt==2.4.0
+pyjwt==2.5.0
     # via -r requirements.in
 python-multipart==0.0.5
     # via -r requirements.in
