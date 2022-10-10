@@ -6,7 +6,7 @@
 #
 anyio==3.5.0
     # via starlette
-bcrypt==4.0.0
+bcrypt==4.0.1
     # via -r requirements.in
 click==8.0.4
     # via uvicorn
