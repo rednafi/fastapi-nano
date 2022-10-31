@@ -1,5 +1,5 @@
 
-FROM python:3.10-slim-bullseye
+FROM python:3.11-slim-bullseye
 
 # Set environment variables.
 ENV PYTHONWRITEBYTECODE 1
