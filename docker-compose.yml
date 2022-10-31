@@ -6,7 +6,7 @@ services:
       - .env
     build:
       context: ./
-      dockerfile: ./dockerfiles/python310/Dockerfile
+      dockerfile: ./dockerfiles/python311/Dockerfile
       labels:
         - fnano
     volumes:

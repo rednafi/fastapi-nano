@@ -11,7 +11,7 @@
 bcrypt
 fastapi
 passlib
-pyjwt
 python-multipart
 uvicorn
 gunicorn
+python-jose[cryptography]
