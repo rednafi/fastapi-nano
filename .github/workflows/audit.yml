@@ -1,0 +1,45 @@
+# .github/workflows/audit.yml
+# Auditing commit structure.
+name: Audit
+
+on:
+  workflow_call:
+
+
+jobs:
+  audit-commits:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    steps:
+      - name: "Return exit code 1 if the commit messages aren't formatted correctly."
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Get the commit payload from GH Actions event.
+          # https://docs.github.com/en/developers/webhooks-and-events/events/
+          # github-event-types#pushevent
+          commits='${{ toJSON(github.event.commits) }}'
+          # Exit with 0 if no new commit is found.
+          if [[ $commits =~ "null" ]]; then
+              echo "No commit found. Exiting..."
+          exit 0
+          fi
+          # Get the unique messages from the commits event.
+          parsed=$(echo -n "$commits" | jq -r ".[].message" | sort -u)
+          mtch='(, refs|, closes) #[0-9]+'
+          echo "$parsed" | while IFS= read -r raw_line; do
+              line=$(echo "$raw_line" | tr -d "\r\n")
+              # Ignore empty lines.
+              if [[ -z "$line" ]]; then
+                  continue
+              # Check with regex if the commit message contains 'refs #issue_number'
+              # or 'closes #issue_number'. If not, exit with an error.
+              elif [[ "$line" =~ $mtch ]]; then
+                  echo "Commit message: $line ✅"
+              else
+                  echo "Commit message: $line ❌"
+                  echo -n "Commit message must contain "
+                  echo -n "'refs #issue_number' or 'closes #issue_number'."
+                  exit 1
+              fi
+          done
