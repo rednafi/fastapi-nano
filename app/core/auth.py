@@ -55,7 +55,7 @@ fake_users_db = {
 def get_user(
     db: dict[str, dict[str, str]],
     username: Optional[str],
-) -> UserInDB:
+) -> UserInDB | None:
 
     if username in db:
         user_dict = db[username]
