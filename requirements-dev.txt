@@ -8,7 +8,7 @@ anyio==3.6.2
     # via httpcore
 attrs==22.1.0
     # via pytest
-black==22.10.0
+black==22.12.0
     # via -r requirements-dev.in
 build==0.9.0
     # via pip-tools
