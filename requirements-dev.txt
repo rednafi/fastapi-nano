@@ -83,7 +83,7 @@ typing-extensions==4.4.0
     # via mypy
 urllib3==1.26.12
     # via requests
-wheel==0.37.1
+wheel==0.38.1
     # via pip-tools
 
 # The following packages are considered to be unsafe in a requirements file:
