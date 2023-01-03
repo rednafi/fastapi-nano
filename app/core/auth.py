@@ -76,7 +76,7 @@ def authenticate_user(
     return user
 
 
-def create_access_token(data: dict, expires_delta: timedelta = None) -> bytes:
+def create_access_token(data: dict, expires_delta: timedelta | None = None) -> bytes:
     to_encode = data.copy()
 
     if expires_delta:

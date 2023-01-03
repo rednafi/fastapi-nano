@@ -25,7 +25,7 @@ def api_token():
     access_token = res_json["access_token"]
     token_type = res_json["token_type"]
 
-    yield f"{token_type} {access_token}"
+    return f"{token_type} {access_token}"
 
 
 def test_api_a_unauthorized():

@@ -15,7 +15,7 @@ def mock_randint():
 
 
 @pytest.mark.parametrize(
-    "seed, output",
+    ("seed", "output"),
     [(1, 42), (100, 42), (589, 42), (444, 42)],
 )
 def test_func_main_a(mock_randint, seed, output):
@@ -33,7 +33,7 @@ def test_func_main_a(mock_randint, seed, output):
 
 
 @pytest.mark.parametrize(
-    "seed, output",
+    ("seed", "output"),
     [(1, 42), (100, 42), (589, 42), (444, 42)],
 )
 def test_func_main_b(mock_randint, seed, output):

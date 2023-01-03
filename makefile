@@ -10,7 +10,7 @@ endef
 
 
 .PHONY: lint
-lint: black isort flake mypy	## Apply all the linters.
+lint: black ruff mypy	## Apply all the linters.
 
 
 .PHONY: lint-check
@@ -20,8 +20,7 @@ lint-check:  ## Check whether the codebase satisfies the linter rules.
 	@echo "========================"
 	@echo
 	@black --check $(path)
-	@isort --check $(path)
-	@flake8 $(path)
+	@ruff $(path)
 	@mypy $(path)
 
 
@@ -35,21 +34,12 @@ black: ## Apply black.
 	@echo
 
 
-.PHONY: isort
-isort: ## Apply isort.
-	@echo "Applying isort..."
-	@echo "================="
+.PHONY: ruff
+ruff: ## Apply ruff.
+	@echo "Applying ruff..."
+	@echo "================"
 	@echo
-	@isort $(path)
-
-
-.PHONY: flake
-flake: ## Apply flake8.
-	@echo
-	@echo "Applying flake8..."
-	@echo "================="
-	@echo
-	@flake8 $(path)
+	@ruff --fix $(path)
 
 
 .PHONY: mypy
@@ -81,6 +71,7 @@ dep-lock: ## Freeze deps in 'requirements.txt' file.
 dep-sync: ## Sync venv installation with 'requirements.txt' file.
 	@pip-sync
 
+
 .PHONY: dep-update
 dep-update: ## Update all the deps.
 	@chmod +x ./scripts/update_deps.sh
@@ -90,6 +81,7 @@ dep-update: ## Update all the deps.
 .PHONY: run-container
 run-container: ## Run the app in a docker container.
 	docker compose up -d
+
 
 .PHONY: kill-container
 kill-container: ## Stop the running docker container.

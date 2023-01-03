@@ -1,8 +1,7 @@
 black
-isort
-flake8
 mypy
 pip-tools
 pytest
 requests # Required by fastapi-test.
-httpx 
+httpx
+ruff
