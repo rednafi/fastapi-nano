@@ -16,7 +16,7 @@ cryptography==39.0.1
     # via python-jose
 ecdsa==0.18.0
     # via python-jose
-fastapi==0.94.1
+fastapi==0.95.0
     # via -r requirements.in
 gunicorn==20.1.0
     # via -r requirements.in
