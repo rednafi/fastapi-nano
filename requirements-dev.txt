@@ -36,7 +36,7 @@ idna==3.4
     #   rfc3986
 iniconfig==1.1.1
     # via pytest
-mypy==1.1.1
+mypy==1.2.0
     # via -r requirements-dev.in
 mypy-extensions==1.0.0
     # via
