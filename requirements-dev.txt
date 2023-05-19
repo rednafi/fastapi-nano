@@ -25,7 +25,7 @@ h11==0.14.0
     # via httpcore
 httpcore==0.16.3
     # via httpx
-httpx==0.24.0
+httpx==0.24.1
     # via -r requirements-dev.in
 idna==3.4
     # via
