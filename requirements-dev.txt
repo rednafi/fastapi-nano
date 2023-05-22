@@ -57,7 +57,7 @@ pluggy==1.0.0
     # via pytest
 pytest==7.3.1
     # via -r requirements-dev.in
-requests==2.30.0
+requests==2.31.0
     # via -r requirements-dev.in
 ruff==0.0.269
     # via -r requirements-dev.in
