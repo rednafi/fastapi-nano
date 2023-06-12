@@ -56,10 +56,10 @@ def get_user(
     db: dict[str, dict[str, str]],
     username: Optional[str],
 ) -> UserInDB | None:
-
-    if username in db:
-        user_dict = db[username]
-        return UserInDB(**user_dict)
+    if username not in db:
+        return None
+    user_dict = db[username]
+    return UserInDB(**user_dict)
 
 
 def authenticate_user(
@@ -67,7 +67,6 @@ def authenticate_user(
     username: str,
     password: str,
 ) -> Union[bool, UserInDB]:
-
     user = get_user(fake_db, username)
     if not user:
         return False
@@ -126,7 +125,6 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> UserInDB:
 async def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(),
 ) -> dict[str, Any]:
-
     user = authenticate_user(
         fake_users_db,
         form_data.username,

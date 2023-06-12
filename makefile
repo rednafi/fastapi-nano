@@ -62,9 +62,9 @@ test: ## Run the tests against the current version of Python.
 
 
 .PHONY: dep-lock
-dep-lock: ## Freeze deps in 'requirements.txt' file.
-	@pip-compile requirements.in -o requirements.txt --no-emit-options
-	@pip-compile requirements-dev.in -o requirements-dev.txt --no-emit-options
+dep-lock: ## Freeze deps in 'requirements*.txt' files.
+	@pip-compile -o requirements.txt pyproject.toml --no-emit-options
+	@pip-compile -o requirements-dev.txt pyproject.toml --extra=dev --no-emit-options
 
 
 .PHONY: dep-sync

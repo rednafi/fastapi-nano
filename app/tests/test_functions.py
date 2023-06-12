@@ -19,7 +19,6 @@ def mock_randint():
     [(1, 42), (100, 42), (589, 42), (444, 42)],
 )
 def test_func_main_a(mock_randint, seed, output):
-
     # Act.
     result = mainmod_a.main_func(seed)
 
@@ -37,7 +36,6 @@ def test_func_main_a(mock_randint, seed, output):
     [(1, 42), (100, 42), (589, 42), (444, 42)],
 )
 def test_func_main_b(mock_randint, seed, output):
-
     # Act.
     result = mainmod_b.main_func(seed)
 

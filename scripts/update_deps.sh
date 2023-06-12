@@ -12,5 +12,5 @@ rm -rf requirements-*.txt
 pip install pip-tools
 
 # Update the deps.
-pip-compile requirements.in -o requirements.txt --no-emit-options \
-    && pip-compile requirements-dev.in -o requirements-dev.txt --no-emit-options
+pip-compile -o requirements.txt pyproject.toml --no-emit-options
+pip-compile -o requirements-dev.txt pyproject.toml --extra=dev --no-emit-options
