@@ -36,8 +36,8 @@ enabled.
 This is suitable for small to medium backend development.
 
 * Dockerized using **python:3.11-slim-bullseye** and optimized for size and
-functionality. Dockerfile for Python 3.10, 3.9, and 3.8 can also be found in the
-`dockerfiles` directory.
+functionality. Dockerfile for Python 3.10 and 3.9 can also be found in the `dockerfiles`
+directory.
 
 ## Quickstart
 
