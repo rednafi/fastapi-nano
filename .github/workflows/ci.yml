@@ -70,4 +70,4 @@ jobs:
       - name: Run Tests
         run: |
           echo "Running the tests..."
-          python -m pytest -v -s
+          cd app && python -m pytest -v -s
