@@ -46,7 +46,7 @@ functionality. Dockerfile for Python 3.10, 3.9, and 3.8 can also be found in the
 * Clone the repo and navigate to the root folder.
 
 * To run the app using Docker, make sure you've got [Docker][docker] installed on your
-system. From the project's root dirctory, run:
+system. From the project's root directory, run:
 
     ```bash
     docker compose up -d
