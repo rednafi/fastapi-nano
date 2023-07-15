@@ -30,7 +30,7 @@ click==8.1.3
     #   uvicorn
 coverage[toml]==7.2.7
     # via pytest-cov
-cryptography==41.0.1
+cryptography==41.0.2
     # via python-jose
 ecdsa==0.18.0
     # via python-jose
