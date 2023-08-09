@@ -98,7 +98,7 @@ requests==2.31.0
     # via fastapi-nano (pyproject.toml)
 rsa==4.9
     # via python-jose
-ruff==0.0.272
+ruff==0.0.283
     # via fastapi-nano (pyproject.toml)
 six==1.16.0
     # via ecdsa
