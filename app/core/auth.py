@@ -53,7 +53,7 @@ fake_users_db = {
 
 
 def get_user(
-    db: dict[str, dict[str, str]],
+    db: dict[str, dict[str, Any]],
     username: Optional[str],
 ) -> UserInDB | None:
     if username not in db:
@@ -75,7 +75,7 @@ def authenticate_user(
     return user
 
 
-def create_access_token(data: dict, expires_delta: timedelta | None = None) -> bytes:
+def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:
     to_encode = data.copy()
 
     if expires_delta:
