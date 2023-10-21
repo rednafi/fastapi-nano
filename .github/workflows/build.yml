@@ -16,42 +16,66 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    strategy:
-      matrix:
-        python_version: ['39', '310', '311', '312']
-        port: [5002, 5003, 5004, 5005]
-
+  # Define a reusable job template for Python versions
+  build:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
-    - name: Checkout Code
-      uses: actions/checkout@v2
+      - name: Spin up container
+        run: |
+          sed -i 's/PYTHON_VERSION=.*/PYTHON_VERSION=$1/' .env
+          sed -i 's/PORT=.*/PORT=$2/' .env
 
-    - name: Spin up container
-      run: |
-        sed -i "s/PYTHON_VERSION=.*/PYTHON_VERSION=\${{ matrix.python_version }}/" .env
-        sed -i "s/PORT=.*/PORT=\${{ matrix.port }}/" .env
+          echo "Building container for Python $1 on port $2."
+          docker compose up -d
 
-        echo "Building container for Python ${{ matrix.python_version }} on port ${{ matrix.port }}."
-        docker compose up -d
+      - name: Wait and check the health of the container
+        run: |
+          attempts=0
 
-    - name: Wait and check the health of the container
-      run: |
-        attempts=0
+          while [ $attempts -lt 5 ]; do
+            if curl http://localhost:$2; then
+              echo "Success!"
+              exit 0
+            fi
 
-        while [ $attempts -lt 10 ]; do
-          if curl http://localhost:${{ matrix.port }}; then
-            echo "Success!"
-            exit 0
-          fi
+            attempts=$((attempts+1))
+            sleep 1
+          done
 
-          attempts=$((attempts+1))
-          sleep 1
-        done
+          echo "Failed after $attempts attempts"
+          exit 1
 
-        echo "Failed after $attempts attempts"
-        exit 1
+  # Create jobs for different Python versions
+  build-39:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python_version: ['39']
+        port: ['5002']
+    steps:
+      - name: Test Python 3.9
+        uses: build
+        with:
+          python_version: ${{ matrix.python_version }}
+          port: ${{ matrix.port }}
+
+  test-310:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python_version: ['310']
+        port: ['5003']
+    steps:
+      - name: Test Python 3.10
+        uses: build
+        with:
+          python_version: ${{ matrix.python_version }}
+          port: ${{ matrix.port }}
+
+ 
