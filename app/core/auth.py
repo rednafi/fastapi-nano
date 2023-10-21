@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta
 from http import HTTPStatus
-from typing import Any, Optional, Union
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -19,12 +18,12 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    username: Optional[str] = None
+    username: str | None = None
 
 
 class User(BaseModel):
     username: str
-    disabled: Optional[bool] = None
+    disabled: bool = False
 
 
 class UserInDB(User):
@@ -52,10 +51,7 @@ fake_users_db = {
 }
 
 
-def get_user(
-    db: dict[str, dict[str, Any]],
-    username: Optional[str],
-) -> UserInDB | None:
+def get_user(db: dict[str, dict[str, dict]], username: str | None) -> UserInDB | None:
     if username not in db:
         return None
     user_dict = db[username]
@@ -63,10 +59,10 @@ def get_user(
 
 
 def authenticate_user(
-    fake_db: dict[str, dict[str, str]],
+    fake_db: dict[str, dict[str, dict]],
     username: str,
     password: str,
-) -> Union[bool, UserInDB]:
+) -> bool | UserInDB:
     user = get_user(fake_db, username)
     if not user:
         return False
@@ -124,7 +120,7 @@ def get_current_user(token: str = Depends(oauth2_scheme)) -> UserInDB:
 @router.post("/token", response_model=Token)
 async def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(),
-) -> dict[str, Any]:
+) -> dict[str, str]:
     user = authenticate_user(
         fake_users_db,
         form_data.username,

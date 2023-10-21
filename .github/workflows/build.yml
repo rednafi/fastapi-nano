@@ -1,0 +1,38 @@
+name: Test Container
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Spin up container
+      run: |
+        docker compose up
+
+    - name: Wait for container to be ready
+      run: |
+        attempts=0
+
+        while [ $attempts -lt 5 ]; do
+          if curl http://localhost:5002; then
+            echo "Success!"
+            exit 0
+          fi
+
+          attempts=$((attempts+1))
+          sleep 1
+        done
+
+        echo "Failed after $attempts attempts"
+        exit 1
+
+    - name: Make HTTP request
+      run: |
+        curl http://localhost:5002

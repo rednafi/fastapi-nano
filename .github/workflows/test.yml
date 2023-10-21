@@ -1,14 +1,7 @@
 
-name: Run tests & publish image to Dockerhub
+name: Run tests
 
 on:
-  release:
-    types: [published]
-    branches:
-      - master
-    tags:
-      - "v*"
-
   push:
     branches:
       - master
@@ -20,8 +13,8 @@ on:
       - master
 
   schedule:
-    # Every day at 12:32 UTC.
-    - cron: "32 12 * * *"
+    # Every sunday at 8:05 UTC
+    - cron: "5 8 * * 0"
 
 # If you trigger a new workflow while the previous one is running,
 # this will cancel the previous one.
@@ -36,7 +29,7 @@ jobs:
       # Use matrix strategy to run the tests on multiple Py versions on multiple OSs.
       matrix:
         os: [ubuntu-latest, macos-latest]
-        python-version: ["3.9", "3.10", "3.11"]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
         include:
         - os: ubuntu-latest
           path: ~/.cache/pip

@@ -4,47 +4,50 @@
 #
 #    pip-compile --extra=dev --no-emit-options --output-file=requirements-dev.txt pyproject.toml
 #
-anyio==3.7.0
+annotated-types==0.6.0
+    # via pydantic
+anyio==3.7.1
     # via
+    #   fastapi
     #   httpcore
     #   starlette
 bcrypt==4.0.1
     # via fastapi-nano (pyproject.toml)
-black==23.3.0
+black==23.10.0
     # via fastapi-nano (pyproject.toml)
-build==0.10.0
+build==1.0.3
     # via pip-tools
-certifi==2023.5.7
+certifi==2023.7.22
     # via
     #   httpcore
     #   httpx
     #   requests
-cffi==1.15.1
+cffi==1.16.0
     # via cryptography
-charset-normalizer==3.1.0
+charset-normalizer==3.3.0
     # via requests
-click==8.1.3
+click==8.1.7
     # via
     #   black
     #   pip-tools
     #   uvicorn
-coverage[toml]==7.2.7
+coverage[toml]==7.3.2
     # via pytest-cov
-cryptography==41.0.1
+cryptography==41.0.4
     # via python-jose
 ecdsa==0.18.0
     # via python-jose
-fastapi==0.97.0
+fastapi==0.104.0
     # via fastapi-nano (pyproject.toml)
-gunicorn==20.1.0
+gunicorn==21.2.0
     # via fastapi-nano (pyproject.toml)
 h11==0.14.0
     # via
     #   httpcore
     #   uvicorn
-httpcore==0.17.2
+httpcore==0.18.0
     # via httpx
-httpx==0.24.1
+httpx==0.25.0
     # via fastapi-nano (pyproject.toml)
 idna==3.4
     # via
@@ -53,26 +56,27 @@ idna==3.4
     #   requests
 iniconfig==2.0.0
     # via pytest
-mypy==1.3.0
+mypy==1.6.1
     # via fastapi-nano (pyproject.toml)
 mypy-extensions==1.0.0
     # via
     #   black
     #   mypy
-packaging==23.1
+packaging==23.2
     # via
     #   black
     #   build
+    #   gunicorn
     #   pytest
 passlib==1.7.4
     # via fastapi-nano (pyproject.toml)
-pathspec==0.11.1
+pathspec==0.11.2
     # via black
-pip-tools==6.13.0
+pip-tools==7.3.0
     # via fastapi-nano (pyproject.toml)
-platformdirs==3.5.3
+platformdirs==3.11.0
     # via black
-pluggy==1.0.0
+pluggy==1.3.0
     # via pytest
 pyasn1==0.5.0
     # via
@@ -80,11 +84,13 @@ pyasn1==0.5.0
     #   rsa
 pycparser==2.21
     # via cffi
-pydantic==1.10.9
+pydantic==2.4.2
     # via fastapi
+pydantic-core==2.10.1
+    # via pydantic
 pyproject-hooks==1.0.0
     # via build
-pytest==7.3.2
+pytest==7.4.2
     # via
     #   fastapi-nano (pyproject.toml)
     #   pytest-cov
@@ -98,7 +104,7 @@ requests==2.31.0
     # via fastapi-nano (pyproject.toml)
 rsa==4.9
     # via python-jose
-ruff==0.0.272
+ruff==0.1.1
     # via fastapi-nano (pyproject.toml)
 six==1.16.0
     # via ecdsa
@@ -109,15 +115,17 @@ sniffio==1.3.0
     #   httpx
 starlette==0.27.0
     # via fastapi
-typing-extensions==4.6.3
+typing-extensions==4.8.0
     # via
+    #   fastapi
     #   mypy
     #   pydantic
-urllib3==2.0.3
+    #   pydantic-core
+urllib3==2.0.7
     # via requests
-uvicorn==0.22.0
+uvicorn==0.23.2
     # via fastapi-nano (pyproject.toml)
-wheel==0.40.0
+wheel==0.41.2
     # via pip-tools
 
 # The following packages are considered to be unsafe in a requirements file:
