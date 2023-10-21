@@ -1,6 +1,25 @@
 name: Test Container
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - "v*"
+
+  pull_request:
+    branches:
+      - master
+
+  schedule:
+    # Every sunday at 8:05 UTC
+    - cron: "5 8 * * 0"
+
+# If you trigger a new workflow while the previous one is running,
+# this will cancel the previous one.
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -14,9 +33,13 @@ jobs:
 
     - name: Spin up container
       run: |
+        sed -i 's/PYTHON_VERSION=.*/PYTHON_VERSION=311/' '.env'
+        sed -i 's/PORT=.*/PORT=5003/' '.env'
+
+        echo "Building container for Python $PYTHON_VERSION."
         docker compose up -d
 
-    - name: Wait for container to be ready
+    - name: Wait and check the health of the container
       run: |
         attempts=0
 
@@ -32,7 +55,3 @@ jobs:
 
         echo "Failed after $attempts attempts"
         exit 1
-
-    - name: Make HTTP request
-      run: |
-        curl http://localhost:5002
