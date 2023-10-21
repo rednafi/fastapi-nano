@@ -24,17 +24,18 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+      uses: docker/setup-buildx-action@v3
 
     - name: Spin up container
       run: |
         sed -i "s/PYTHON_VERSION=.*/PYTHON_VERSION=${{ matrix.python-version }}/" '.env'
         sed -i 's/PORT=.*/PORT=5002/' '.env'
 
-        echo "Building container for Python $PYTHON_VERSION."
+        echo "Building container for Python ${{ matrix.python-version }}."
+        cat
         docker compose up -d
 
     - name: Wait and check the health of the container
