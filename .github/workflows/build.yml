@@ -2,45 +2,49 @@ name: Test Container
 
 on:
   push:
-    
+
   pull_request:
     branches:
       - master
 
   schedule:
-    # Every sunday at 8:05 UTC
+    # Every Sunday at 8:05 UTC
     - cron: "5 8 * * 0"
 
-# If you trigger a new workflow while the previous one is running,
-# this will cancel the previous one.
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
   test:
+    strategy:
+      matrix:
+        python_version: ['39', '310', '311', '312']
+        port: [5002, 5003, 5004, 5005]
+
     runs-on: ubuntu-latest
     steps:
-
-    - uses: actions/checkout@v3
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
     - name: Spin up container
       run: |
-        sed -i 's/PYTHON_VERSION=.*/PYTHON_VERSION=311/' '.env'
-        sed -i 's/PORT=.*/PORT=5003/' '.env'
+        sed -i "s/PYTHON_VERSION=.*/PYTHON_VERSION=\${{ matrix.python_version }}/" .env
+        sed -i "s/PORT=.*/PORT=\${{ matrix.port }}/" .env
 
-        echo "Building container for Python $PYTHON_VERSION."
+        echo "Building container for Python ${{ matrix.python_version }} on port ${{ matrix.port }}."
         docker compose up -d
 
     - name: Wait and check the health of the container
       run: |
         attempts=0
 
-        while [ $attempts -lt 5 ]; do
-          if curl http://localhost:5002; then
+        while [ $attempts -lt 10 ]; do
+          if curl http://localhost:${{ matrix.port }}; then
             echo "Success!"
             exit 0
           fi
