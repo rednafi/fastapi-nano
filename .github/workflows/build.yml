@@ -51,20 +51,6 @@ jobs:
           echo "Failed after $attempts attempts"
           exit 1
 
-  # Create jobs for different Python versions
-  build-39:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python_version: ['39']
-        port: ['5002']
-    steps:
-      - name: Test Python 3.9
-        uses: build
-        with:
-          python_version: ${{ matrix.python_version }}
-          port: ${{ matrix.port }}
-
   test-310:
     runs-on: ubuntu-latest
     strategy:
@@ -77,5 +63,3 @@ jobs:
         with:
           python_version: ${{ matrix.python_version }}
           port: ${{ matrix.port }}
-
- 
