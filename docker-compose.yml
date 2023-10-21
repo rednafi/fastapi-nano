@@ -6,7 +6,7 @@ services:
       - .env
     build:
       context: ./
-      dockerfile: ./dockerfiles/$python{PYTHON_VERSION}/Dockerfile
+      dockerfile: ./dockerfiles/python${PYTHON_VERSION}/Dockerfile
       labels:
         - fnano
     volumes:
