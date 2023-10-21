@@ -1,5 +1,5 @@
 
-FROM python:3.9-slim-bullseye
+FROM python:3.12-slim-bookworm
 
 # Set environment variables.
 ENV PYTHONWRITEBYTECODE 1
@@ -17,7 +17,7 @@ RUN pip install -r requirements.txt
 # Copy project.
 COPY . /code/
 
-EXPOSE 5000
+EXPOSE 5001
 
 ENTRYPOINT [ "gunicorn", "app.main:app", "--workers", "2", "--worker-class", \
-        "uvicorn.workers.UvicornWorker",  "-b", "0.0.0.0:5000" ]
+        "uvicorn.workers.UvicornWorker",  "-b", "0.0.0.0:5001" ]
