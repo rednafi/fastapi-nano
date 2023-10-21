@@ -86,7 +86,7 @@ pycparser==2.21
     # via cffi
 pydantic==2.4.2
     # via fastapi
-pydantic-core==2.10.1
+pydantic-core==2.11.0
     # via pydantic
 pyproject-hooks==1.0.0
     # via build
