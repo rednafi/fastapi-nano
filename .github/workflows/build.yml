@@ -6,7 +6,6 @@ on:
   pull_request:
     branches:
       - master
-
   schedule:
     # Every Sunday at 8:05 UTC
     - cron: "5 8 * * 0"
@@ -16,50 +15,41 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Define a reusable job template for Python versions
-  build:
+  test:
     runs-on: ubuntu-latest
-    steps:
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
 
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Spin up container
-        run: |
-          sed -i 's/PYTHON_VERSION=.*/PYTHON_VERSION=$1/' .env
-          sed -i 's/PORT=.*/PORT=$2/' .env
-
-          echo "Building container for Python $1 on port $2."
-          docker compose up -d
-
-      - name: Wait and check the health of the container
-        run: |
-          attempts=0
-
-          while [ $attempts -lt 5 ]; do
-            if curl http://localhost:$2; then
-              echo "Success!"
-              exit 0
-            fi
-
-            attempts=$((attempts+1))
-            sleep 1
-          done
-
-          echo "Failed after $attempts attempts"
-          exit 1
-
-  test-310:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        python_version: ['310']
-        port: ['5003']
+        python-version: [310, 311, 312]
+
     steps:
-      - name: Test Python 3.10
-        uses: build
-        with:
-          python_version: ${{ matrix.python_version }}
-          port: ${{ matrix.port }}
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Spin up container
+      run: |
+        sed -i "s/PYTHON_VERSION=.*/PYTHON_VERSION=${{ matrix.python-version }}/" '.env'
+        sed -i 's/PORT=.*/PORT=5002/' '.env'
+
+        echo "Building container for Python $PYTHON_VERSION."
+        docker compose up -d
+
+    - name: Wait and check the health of the container
+      run: |
+        attempts=0
+
+        while [ $attempts -lt 5 ]; do
+          if curl http://localhost:5002; then
+            echo "Success!"
+            exit 0
+          fi
+
+          attempts=$((attempts+1))
+          sleep 1
+        done
+
+        echo "Failed after $attempts attempts"
+        exit 1
