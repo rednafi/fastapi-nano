@@ -59,9 +59,9 @@ If you want to run the app locally, without using Docker, then:
 -   Create a virtual environment. Here I'm using Python's built-in venv in a Unix system.
     Run:
 
-        ```sh
-        python3.12 -m venv .venv
-        ```
+    ```sh
+    python3.12 -m venv .venv
+    ```
 
 -   Activate the environment. Run:
 
@@ -99,16 +99,16 @@ If you want to run the app locally, without using Docker, then:
     use OAuth2 (with hashed password and Bearer with JWT) based authentication. In this
     case, the username and password is `ubuntu` and `debian` respectively.
 
-        ![Screenshot from 2020-06-21 22-18-25][screenshot_2]
+    ![Screenshot from 2020-06-21 22-18-25][screenshot_2]
 
-        Clicking the `authorize` button will bring up a screen like this:
+    Clicking the `authorize` button will bring up a screen like this:
 
-        ![Screenshot from 2020-06-21 22-18-59][screenshot_3]
+    ![Screenshot from 2020-06-21 22-18-59][screenshot_3]
 
 -   Then select any of the `api_a` or `api_b` APIs and put an integer in the number box and
     click the `authorize` button.
 
-        ![Screenshot from 2020-06-21 22-31-19][screenshot_4]
+    ![Screenshot from 2020-06-21 22-31-19][screenshot_4]
 
 -   Hitting the API should give a json response with random integers.
 
@@ -118,47 +118,47 @@ If you want to run the app locally, without using Docker, then:
     highlighted curl command in your terminal. Make sure you've got `jq` installed in your
     system.
 
-        ```bash
-        curl -X GET "http://localhost:5002/api_a/22" \
-             -H "accept: application/json" \
-             -H "Authorization: Bearer $(curl -X POST "http://localhost:5002/token" \
-                                -H "accept: application/x-www-form-urlencoded" \
-                                -d "username=ubuntu&password=debian" | jq -r ".access_token")"
-        ```
+    ```sh
+    curl -X GET "http://localhost:5002/api_a/22" \
+            -H "accept: application/json" \
+            -H "Authorization: Bearer $(curl -X POST "http://localhost:5002/token" \
+                            -H "accept: application/x-www-form-urlencoded" \
+                            -d "username=ubuntu&password=debian" | jq -r ".access_token")"
+    ```
 
-        This should show a response like this:
+    This should show a response like this:
 
-        ```json
-        {
-          "seed": 22,
-          "random_first": 5,
-          "random_second": 13
-        }
-        ```
+    ```json
+    {
+        "seed": 22,
+        "random_first": 5,
+        "random_second": 13
+    }
+    ```
 
 -   To test the `GET` APIs with Python, you can use a http client library like
     [httpx][httpx]:
 
-        ```python
-        import httpx
+    ```python
+    import httpx
 
-        with httpx.Client() as client:
+    with httpx.Client() as client:
 
-            # Collect the API token.
-            r = client.post(
-                "http://localhost:5002/token",
-                headers={"Content-Type": "application/x-www-form-urlencoded"},
-                data={"username": "ubuntu", "password": "debian"},
-            )
-            token = r.json()["access_token"]
+        # Collect the API token.
+        r = client.post(
+            "http://localhost:5002/token",
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+            data={"username": "ubuntu", "password": "debian"},
+        )
+        token = r.json()["access_token"]
 
-            # Use the token value to hit the API.
-            r = client.get(
-                "http://localhost:5002/api_a/22",
-                headers={"Accept": "application/json", "Authorization": f"Bearer {token}"},
-            )
-            print(r.json())
-        ```
+        # Use the token value to hit the API.
+        r = client.get(
+            "http://localhost:5002/api_a/22",
+            headers={"Accept": "application/json", "Authorization": f"Bearer {token}"},
+        )
+        print(r.json())
+    ```
 
 ## Folder structure
 
