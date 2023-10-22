@@ -46,9 +46,9 @@ is similar to what you'd get with Flask's [Blueprint][blueprint].
 -   To run the app using Docker, make sure you've got [Docker][docker] installed on your
     system. From the project's root directory, run:
 
-        ```sh
-        docker compose up -d
-        ```
+    ```sh
+    docker compose up -d
+    ```
 
 ### Or, run the app locally
 
