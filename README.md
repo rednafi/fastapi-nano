@@ -33,9 +33,8 @@ is similar to what you'd get with Flask's [Blueprint][blueprint].
 -   Flask inspired divisional folder structure for better decoupling and encapsulation. This
     is suitable for small to medium backend development.
 
--   Dockerized using **python:3.13-slim-bookworm** and optimized for size and functionality.
-    Dockerfile for Python 3.11, 3.10, and 3.9 can also be found in the `dockerfiles`
-    directory.
+-   Dockerized using **python:3.12-slim-bookworm** and optimized for size and functionality.
+    Dockerfile for Python 3.11 and 3.10 can also be found in the `dockerfiles` directory.
 
 ## Quickstart
 
