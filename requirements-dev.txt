@@ -45,7 +45,7 @@ h11==0.14.0
     # via
     #   httpcore
     #   uvicorn
-httpcore==0.18.0
+httpcore==1.0.0
     # via httpx
 httpx==0.25.0
     # via fastapi-nano (pyproject.toml)
