@@ -125,7 +125,7 @@ urllib3==2.0.7
     # via requests
 uvicorn==0.23.2
     # via fastapi-nano (pyproject.toml)
-wheel==0.41.2
+wheel==0.41.3
     # via pip-tools
 
 # The following packages are considered to be unsafe in a requirements file:
