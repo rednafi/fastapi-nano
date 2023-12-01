@@ -13,7 +13,7 @@ anyio==3.7.1
     #   starlette
 bcrypt==4.0.1
     # via fastapi-nano (pyproject.toml)
-black==23.10.0
+black==23.11.0
     # via fastapi-nano (pyproject.toml)
 build==1.0.3
     # via pip-tools
