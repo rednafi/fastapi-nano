@@ -13,7 +13,7 @@ anyio==3.7.1
     #   starlette
 bcrypt==4.0.1
     # via fastapi-nano (pyproject.toml)
-black==23.10.0
+black==23.12.1
     # via fastapi-nano (pyproject.toml)
 build==1.0.3
     # via pip-tools
@@ -33,7 +33,7 @@ click==8.1.7
     #   uvicorn
 coverage[toml]==7.3.2
     # via pytest-cov
-cryptography==41.0.6
+cryptography==41.0.7
     # via python-jose
 ecdsa==0.18.0
     # via python-jose
@@ -90,7 +90,7 @@ pydantic-core==2.10.1
     # via pydantic
 pyproject-hooks==1.0.0
     # via build
-pytest==7.4.2
+pytest==7.4.4
     # via
     #   fastapi-nano (pyproject.toml)
     #   pytest-cov
@@ -125,7 +125,7 @@ urllib3==2.0.7
     # via requests
 uvicorn==0.23.2
     # via fastapi-nano (pyproject.toml)
-wheel==0.41.2
+wheel==0.42.0
     # via pip-tools
 
 # The following packages are considered to be unsafe in a requirements file:
