@@ -123,7 +123,7 @@ typing-extensions==4.8.0
     #   pydantic-core
 urllib3==2.0.7
     # via requests
-uvicorn==0.23.2
+uvicorn==0.27.0.post1
     # via fastapi-nano (pyproject.toml)
 wheel==0.42.0
     # via pip-tools
