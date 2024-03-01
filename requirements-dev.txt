@@ -113,7 +113,7 @@ sniffio==1.3.0
     #   anyio
     #   httpcore
     #   httpx
-starlette==0.27.0
+starlette==0.37.1
     # via fastapi
 typing-extensions==4.8.0
     # via
