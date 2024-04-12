@@ -26,7 +26,7 @@ gunicorn==21.2.0
     # via fastapi-nano (pyproject.toml)
 h11==0.14.0
     # via uvicorn
-idna==3.4
+idna==3.7
     # via anyio
 packaging==23.2
     # via gunicorn

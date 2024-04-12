@@ -49,7 +49,7 @@ httpcore==0.18.0
     # via httpx
 httpx==0.25.0
     # via fastapi-nano (pyproject.toml)
-idna==3.4
+idna==3.7
     # via
     #   anyio
     #   httpx
