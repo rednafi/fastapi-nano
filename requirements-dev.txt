@@ -39,7 +39,7 @@ ecdsa==0.18.0
     # via python-jose
 fastapi==0.104.0
     # via fastapi-nano (pyproject.toml)
-gunicorn==21.2.0
+gunicorn==22.0.0
     # via fastapi-nano (pyproject.toml)
 h11==0.14.0
     # via
