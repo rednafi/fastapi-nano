@@ -13,7 +13,7 @@
 This is a minimalistic and extensible [FastAPI][fastapi] template that incorporates
 divisional pattern architecture with [divisional folder structure][divisional_pattern]. It's
 suitable for developing small to medium sized API oriented micro-services. The architecture
-is similar to what you'd get with Flask's [Blueprint][blueprint].
+is similar to what you'd get with Flask's [Blueprint][flask_blueprints].
 
 ## Features
 
@@ -293,6 +293,7 @@ So hitting the API with a random integer will give you a response like the follo
 [gunicorn]: https://gunicorn.org/
 [httpx]: https://www.python-httpx.org/
 [uvicorn]: https://www.uvicorn.org/
+[flask_blueprints]: https://explore-flask.readthedocs.io/en/latest/blueprints.html
 [screenshot_1]:
     https://user-images.githubusercontent.com/30027932/85229723-5b721880-b40d-11ea-8f03-de36c07a3ce5.png
 [screenshot_2]:
