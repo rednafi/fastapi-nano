@@ -286,13 +286,13 @@ So hitting the API with a random integer will give you a response like the follo
 
 [caddy]: https://caddyserver.com/docs/
 [cors]: https://fastapi.tiangolo.com/tutorial/cors/
-[divisional_pattern]: https://exploreflask.com/en/latest/blueprints.html#divisional
+[divisional_pattern]: https://explore-flask.readthedocs.io/en/latest/blueprints.html#divisional
 [docker]: https://www.docker.com/
 [fastapi]: https://fastapi.tiangolo.com/
 [fastapi_security]: https://fastapi.tiangolo.com/tutorial/security/
 [gunicorn]: https://gunicorn.org/
 [httpx]: https://www.python-httpx.org/
-[uvicorn]: https://uvicorn.org/
+[uvicorn]: https://www.uvicorn.org/
 [screenshot_1]:
     https://user-images.githubusercontent.com/30027932/85229723-5b721880-b40d-11ea-8f03-de36c07a3ce5.png
 [screenshot_2]:
