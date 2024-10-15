@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Turn on bash strict mode.
-set -euxo pipefail
+set -euo pipefail
 
 # Delete the old lock file.
 rm -f uv.lock

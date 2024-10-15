@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 # Template Dockerfile path
 template_dockerfile="bin/Dockerfile-template"
