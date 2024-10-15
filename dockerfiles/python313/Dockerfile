@@ -12,9 +12,10 @@ SHELL ["sh", "-exc"]
 WORKDIR /app
 
 # Install dependencies
-COPY pyproject.toml uv.lock /app/
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-install-project --no-editable --no-dev
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --no-install-project --locked --no-dev
 
 # Copy the project source code into the builder stage
 COPY . /app
@@ -24,6 +25,9 @@ FROM python:${PYTHON_VERSION}-slim
 
 # Set the working directory in the final image
 WORKDIR /app
+
+# See <https://hynek.me/articles/docker-signals/>.
+STOPSIGNAL SIGINT
 
 # Copy the virtual environment and the source code from the builder stage
 COPY --from=builder /app/.venv /app/.venv

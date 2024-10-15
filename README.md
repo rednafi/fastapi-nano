@@ -70,7 +70,7 @@ If you want to run the app locally, without using Docker, then:
 -   Install the dependencies. Run:
 
     ```sh
-    uv sync
+    uv sync --frozen
     ```
 
 -   Start the app. Run:
