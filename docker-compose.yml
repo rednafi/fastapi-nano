@@ -9,7 +9,9 @@ services:
       labels:
         - fnano
     volumes:
-        - .:/code
+      - type: bind
+        source: .
+        target: /code
     entrypoint:
       - /bin/sh
       - -c
@@ -30,10 +32,15 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
-
+      - type: bind
+        source: ./Caddyfile
+        target: /etc/caddy/Caddyfile
+      - type: volume
+        source: caddy_data
+        target: /data
+      - type: volume
+        source: caddy_config
+        target: /config
     depends_on:
       - fnano
 
