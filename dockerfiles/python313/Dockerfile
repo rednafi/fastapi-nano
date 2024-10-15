@@ -1,9 +1,12 @@
 # Define Python version as an argument
-ARG PYTHON_VERSION=3.11
+ARG PYTHON_VERSION=3.13
 
 # Install uv and dependencies
 FROM python:${PYTHON_VERSION}-slim AS builder
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+# Show the currently running commands
+SHELL ["sh", "-exc"]
 
 # Set working directory
 WORKDIR /app

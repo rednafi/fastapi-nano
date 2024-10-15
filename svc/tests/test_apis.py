@@ -3,8 +3,8 @@ from http import HTTPStatus
 import pytest
 from fastapi.testclient import TestClient
 
-from app.core import config
-from app.main import app
+from svc.core import config
+from svc.main import app
 
 client = TestClient(app)
 

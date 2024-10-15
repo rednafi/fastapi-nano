@@ -1,23 +1,37 @@
+# Define Python version as an argument
+ARG PYTHON_VERSION=3.12
 
-FROM python:3.12-slim-bookworm
+# Install uv and dependencies
+FROM python:${PYTHON_VERSION}-slim AS builder
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Set environment variables.
-ENV PYTHONWRITEBYTECODE 1
-ENV PYTHONBUFFERED 1
+# Set working directory
+WORKDIR /app
 
-# Set working directory.
-WORKDIR /code
+# Install dependencies
+COPY pyproject.toml uv.lock /app/
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-install-project --no-editable --no-dev
 
-# Copy dependencies.
-COPY requirements.txt /code/
+# Copy the project source code into the builder stage
+COPY . /app
 
-# Install dependencies.
-RUN pip install -r requirements.txt
+# Final stage with minimal footprint
+FROM python:${PYTHON_VERSION}-slim
 
-# Copy project.
-COPY . /code/
+# Set the working directory in the final image
+WORKDIR /app
 
+# Copy the virtual environment and the source code from the builder stage
+COPY --from=builder /app/.venv /app/.venv
+COPY --from=builder /app /app
+
+# Set environment variables and add venv to PATH
+ENV PATH="/app/.venv/bin:$PATH"
+
+# Expose the application port
 EXPOSE 5001
 
-ENTRYPOINT [ "gunicorn", "app.main:app", "--workers", "2", "--worker-class", \
+# Entry point for running the application
+ENTRYPOINT ["gunicorn", "svc.main:app", "--workers", "2", "--worker-class", \
         "uvicorn.workers.UvicornWorker",  "-b", "0.0.0.0:5001" ]

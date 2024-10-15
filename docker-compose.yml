@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   fnano:
     restart: unless-stopped
@@ -15,10 +14,10 @@ services:
       - /bin/sh
       - -c
       - |
-        gunicorn app.main:app --workers 2 \
-        --worker-class uvicorn.workers.UvicornWorker -b $HOST:5001
+        gunicorn svc.main:app --workers 2 \
+        --worker-class uvicorn.workers.UvicornWorker -b 0.0.0.0:5001
     ports:
-      - 5001:5001
+      - "5001:5001"
 
   caddy:
     image: caddy:2-alpine
@@ -27,7 +26,7 @@ services:
     env_file:
       - .env
     ports:
-      - "$PORT:$PORT"
+      - "5002:5002"
       - "80:80"
       - "443:443"
     volumes:

@@ -2,7 +2,7 @@ import pathlib
 
 from starlette.config import Config
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent  # app/
+ROOT = pathlib.Path(__file__).resolve().parent.parent  # svc/
 BASE_DIR = ROOT.parent  # ./
 
 config = Config(BASE_DIR / ".env")

@@ -10,35 +10,33 @@
 
 ## Description
 
-This is a minimalistic and extensible [FastAPI][fastapi] template that incorporates
-divisional pattern architecture with [divisional folder structure][divisional_pattern]. It's
-suitable for developing small to medium sized API oriented micro-services. The architecture
-is similar to what you'd get with Flask's [Blueprint][blueprint].
+This is a simple [FastAPI][fastapi] template that follows Flask's [blueprint][blueprint]
+directory structure.
 
 ## Features
 
--   It uses [FastAPI][fastapi] framework for API development. FastAPI is a modern, highly
-    performant, web framework for building APIs with Python 3.6+.
+-   Uses [FastAPI][fastapi] to build the HTTP API endpoints.
 
--   The APIs are served with [Gunicorn](gunicorn) server with multiple [Uvicorn][uvicorn]
-    workers. Uvicorn is a lightning-fast "ASGI" server. It runs asynchronous Python web code
-    in a single process.
+-   Served via [Gunicorn](gunicorn) with multiple [Uvicorn][uvicorn] workers. Uvicorn is a
+    lightning-fast "ASGI" server. It runs asynchronous Python web code in a single process.
 
 -   Simple reverse-proxying with [Caddy][caddy].
 
--   OAuth2 (with hashed password and Bearer with JWT) based authentication
+-   OAuth2 (with hashed password and Bearer with JWT) based authentication.
 
 -   [CORS (Cross Origin Resource Sharing)][cors] enabled.
 
--   Flask inspired divisional folder structure for better decoupling and encapsulation. This
-    is suitable for small to medium backend development.
+-   Flask inspired divisional directory structure, suitable for small to medium backend
+    development.
 
--   Dockerized using **python:3.12-slim-bookworm** and optimized for size and functionality.
-    Dockerfile for Python 3.11 and 3.10 can also be found in the `dockerfiles` directory.
+-   Uses [uv][uv] for dependency management, enabling shorter build time.
+
+-   Dockerized using **python:3.13-slim** image and optimized for size. Dockerfile for
+    Python 3.12 and 3.11 can also be found in the `dockerfiles` directory.
 
 ## Quickstart
 
-### Run the app in containers
+### Run in containers
 
 -   Clone the repo and navigate to the root folder.
 
@@ -46,20 +44,21 @@ is similar to what you'd get with Flask's [Blueprint][blueprint].
     system. From the project's root directory, run:
 
     ```sh
-    docker compose up -d
+    make run-container
     ```
 
-### Or, run the app locally
+### Or, run locally
 
 If you want to run the app locally, without using Docker, then:
 
 -   Clone the repo and navigate to the root folder.
 
--   Create a virtual environment. Here I'm using Python's built-in venv in a Unix system.
-    Run:
+-   Install [uv][uv] for dependency management.
+
+-   Create a virtual environment:
 
     ```sh
-    python3.12 -m venv .venv
+    uv venv -p 3.13
     ```
 
 -   Activate the environment. Run:
@@ -68,25 +67,23 @@ If you want to run the app locally, without using Docker, then:
     source .venv/bin/activate
     ```
 
--   Go to the folder created by cookie-cutter (default is **fastapi-nano**).
-
 -   Install the dependencies. Run:
 
-    ```bash
-    pip install -r requirements.txt -r requirements-dev.txt
+    ```sh
+    uv sync
     ```
 
 -   Start the app. Run:
 
-    ```bash
-    uvicorn app.main:app --port 5002 --reload
+    ```sh
+    make run-local
     ```
 
-### Check the APIs
+### Explore the endpoints
 
 -   To play around with the APIs, go to the following link on your browser:
 
-    ```
+    ```sh
     http://localhost:5002/docs
     ```
 
@@ -135,37 +132,20 @@ If you want to run the app locally, without using Docker, then:
     }
     ```
 
--   To test the `GET` APIs with Python, you can use a http client library like
-    [httpx][httpx]:
+### Testing, Linting, and Maintenance
 
-    ```python
-    import httpx
+-   Run tests with `make tests` (uses [pytest][pytest]).
+-   Lint with [ruff] and check types with [mypy] using `make lint`.
+-   Update dependencies with `make dep-update`.
+-   Stop containers with `make kill-container`.
 
-    with httpx.Client() as client:
-
-        # Collect the API token.
-        r = client.post(
-            "http://localhost:5002/token",
-            headers={"Content-Type": "application/x-www-form-urlencoded"},
-            data={"username": "ubuntu", "password": "debian"},
-        )
-        token = r.json()["access_token"]
-
-        # Use the token value to hit the API.
-        r = client.get(
-            "http://localhost:5002/api_a/22",
-            headers={"Accept": "application/json", "Authorization": f"Bearer {token}"},
-        )
-        print(r.json())
-    ```
-
-## Folder structure
+## Directory structure
 
 This shows the folder structure of the default template.
 
 ```txt
 fastapi-nano
-├── app                           # primary app folder
+├── svc                           # primary service folder
 │   ├── apis                      # this houses all the API packages
 │   │   ├── api_a                 # api_a package
 │   │   │   ├── __init__.py       # empty init file to make the api_a folder a package
@@ -182,7 +162,7 @@ fastapi-nano
 │   ├── __init__.py               # empty init file to make the app folder a package
 │   ├── main.py                   # main file where the fastAPI() class is called
 │   ├── routes                    # this is where all the routes live
-│   │   └── views.py              # file containing the endpoints of api_a and api_b
+│   │   └── views.py              # file containing the endpoints for api_a and api_b
 │   └── tests                     # test package
 │       ├── __init__.py           # empty init file to make the tests folder a package
 │       ├── test_api.py           # integration testing the API responses
@@ -192,19 +172,16 @@ fastapi-nano
 ├── Caddyfile                     # simple reverse-proxy with caddy
 ├── docker-compose.yml            # docker-compose file
 ├── pyproject.toml                # pep-518 compliant config file
-├── requrements-dev.in            # .in file to enlist the top-level dev requirements
-├── requirements-dev.txt          # pinned dev dependencies
-├── requirements.in               # .in file to enlist the top-level app dependencies
-└── requirements.txt              # pinned app dependencies
+└── uv.lock                       # pinned app and dev dependencies
 ```
 
 In the above structure, `api_a` and `api_b` are the main packages where the code of the APIs
 live and they are exposed by the endpoints defined in the `routes` folder. Here, `api_a` and
-`api_b` have identical logic. Basically these are dummy APIs that take an integer as input
-and return two random integers between zero and the input value. The purpose of including
-two identical APIs in the template is to demonstrate how you can decouple the logics of
-multiple APIs and then assemble their endpoints in the routes directory. The following
-snippets show the logic behind the dummy APIs.
+`api_b` have identical logic. These are dummy APIs that take an integer as input and return
+two random integers between zero and the input value. The purpose of including two identical
+APIs in the template is to demonstrate how you can decouple the logics of multiple APIs and
+then assemble their endpoints in the routes directory. The following snippets show the logic
+behind the dummy APIs.
 
 This is a dummy submodule that houses a function called `random_gen` which generates a
 dictionary of random integers.
@@ -230,7 +207,7 @@ The `main_func` in the primary module calls the `rand_gen` function from the sub
 
 ```python
 from __future__ import annotations
-from app.api_a.submod import rand_gen
+from svc.api_a.submod import rand_gen
 
 
 def main_func(num: int) -> dict[str, int]:
@@ -241,7 +218,7 @@ def main_func(num: int) -> dict[str, int]:
 The endpoint is exposed like this:
 
 ```python
-# app/routes/views.py
+# svc/routes/views.py
 from __future__ import annotations
 #... codes regarding authentication ...
 
@@ -263,36 +240,38 @@ So hitting the API with a random integer will give you a response like the follo
 
 ## Further modifications
 
--   You can put your own API logics in the shape of `api_a` and `api_b` packages. You'll
-    have to add additional directories like `api_a` and `api_b` if you need more APIs.
+-   You can put your own API logic following the shape of `api_a` and `api_b` packages.
+    You'll have to add additional directories like `api_a` or `api_b` if you need to expose
+    more endponts.
 
--   Then expose the APIs in the `routes/views.py` file. You may choose to create multiple
-    `views` files to organize your endpoints.
+-   Then expose the API URLs in the `routes/views.py` file. You may choose to create
+    multiple `views` files to organize your endpoint URLs.
 
 -   This template uses OAuth2 based authentication and it's easy to change that. FastAPI
     docs has a comprehensive list of the available [authentication][fastapi_security]
     options and instructions on how to use them.
-
--   You can change the application port in the `.env` file.
 
 -   During prod deployment, you might need to fiddle with the reverse-proxy rules in the
     Caddyfile.
 
 ## Resources
 
--   [Flask divisional folder structure][divisional_pattern]
+-   [Flask divisional folder structure][blueprint]
 -   [Deploying APIs built with FastAPI](https://fastapi.tiangolo.com/deployment/)
 -   [Reverse proxying with Caddy](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy)
 
+[blueprint]: https://flask.palletsprojects.com/en/2.3.x/blueprints/
 [caddy]: https://caddyserver.com/docs/
 [cors]: https://fastapi.tiangolo.com/tutorial/cors/
-[divisional_pattern]: https://exploreflask.com/en/latest/blueprints.html#divisional
 [docker]: https://www.docker.com/
 [fastapi]: https://fastapi.tiangolo.com/
 [fastapi_security]: https://fastapi.tiangolo.com/tutorial/security/
 [gunicorn]: https://gunicorn.org/
 [httpx]: https://www.python-httpx.org/
+[pytest]: https://docs.pytest.org/en/stable/
+[ruff]: https://astral.sh/ruff
 [uvicorn]: https://uvicorn.org/
+[uv]: https://docs.astral.sh/uv/
 [screenshot_1]:
     https://user-images.githubusercontent.com/30027932/85229723-5b721880-b40d-11ea-8f03-de36c07a3ce5.png
 [screenshot_2]:

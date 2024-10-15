@@ -25,7 +25,7 @@ jobs:
       # Use matrix strategy to run the tests on multiple Py versions on multiple OSs.
       matrix:
         os: [ubuntu-latest, macos-latest]
-        python-version: ["3.10", "3.11", "3.12"]
+        python-version: ["3.11", "3.12", "3.13"]
         include:
         - os: ubuntu-latest
           path: ~/.cache/pip
@@ -38,18 +38,16 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - uses: actions/cache@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
         with:
-          path: ${{ matrix.path }}
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/requirements-dev.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
 
       - name: Install the Dependencies
         run: |
           echo "Installing the dependencies..."
-          python -m pip install -r requirements.txt
-          python -m pip install -r requirements-dev.txt
+          uv sync
 
       - name: Check Linter
         run: |
@@ -59,4 +57,4 @@ jobs:
       - name: Run Tests
         run: |
           echo "Running the tests..."
-          cd app && python -m pytest -v -s
+          make test

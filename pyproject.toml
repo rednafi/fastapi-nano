@@ -3,7 +3,7 @@
 #################################################
 
 [project]
-requires-python = ">=3.8"
+requires-python = ">=3.11"
 name = "fastapi-nano"
 version = "0.1.0"
 description = "A minimal FastAPI project template."
@@ -20,10 +20,8 @@ dependencies = [
     "gunicorn",
     "python-jose[cryptography]"
 ]
-
-[project.optional-dependencies]
-dev = [
-    "black",
+[tool.uv]
+dev-dependencies = [
     "httpx",
     "mypy",
     "pip-tools",
@@ -32,6 +30,7 @@ dev = [
     "requests", # Required by fastapi-test.
     "ruff"
 ]
+
 [project.urls]
 Repository = "https://github.com/rednafi/fastapi-nano.git"
 
@@ -60,23 +59,17 @@ ignore_errors = true
 #################################################
 
 [tool.ruff]
-line-length = 88
-
-# Enable Pyflakes `E` and `F` codes by default
-select = ["E", "F", "I001", "PT", "C4"]
-ignore = ["E501"]
 respect-gitignore = true
+target-version = "py311"
+
+[tool.ruff.lint]
+# Enable Pyflakes `E` and `F` codes by default
+select = ["E", "F", "PT", "C4", "I"]
+ignore = ["E501"]
 
 per-file-ignores = {}
 
-# Allow unused variables when underscore-prefixed
-dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
-
-# Assume Python 3.11
-target-version = "py311"
-
-[tool.ruff.mccabe]
-# Unlike Flake8, default to a complexity level of 10
+[tool.ruff.lint.mccabe]
 max-complexity = 10
 
 #################################################

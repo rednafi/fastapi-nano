@@ -1,6 +1,6 @@
 # https://caddyserver.com/docs/caddyfile/concepts
 
-:{$PORT} {
+:5002 {
 	reverse_proxy /* fnano:5001
 	encode zstd gzip
 }
