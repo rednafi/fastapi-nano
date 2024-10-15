@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [310, 311, 312]
+        python-version: [311, 312, 313]
 
     steps:
     - name: Checkout repository
@@ -32,8 +32,6 @@ jobs:
     - name: Spin up container
       run: |
         sed -i "s/PYTHON_VERSION=.*/PYTHON_VERSION=${{ matrix.python-version }}/" '.env'
-        sed -i 's/PORT=.*/PORT=5002/' '.env'
-
         echo "Building container for Python ${{ matrix.python-version }}."
         cat
         docker compose up -d
