@@ -132,7 +132,7 @@ If you want to run the app locally, without using Docker, then:
     }
     ```
 
-### Testing, Linting, and Maintenance
+### Housekeeping
 
 -   Run tests with `make tests` (uses [pytest][pytest]).
 -   Lint with [ruff] and check types with [mypy] using `make lint`.
