@@ -18,16 +18,16 @@ lint-check:  ## Check whether the codebase satisfies the linter rules.
 	@echo "Checking linter rules..."
 	@echo "========================"
 	@echo
-	@ruff check $(path)
-	@mypy $(path)
+	@uv run ruff check $(path)
+	@uv run mypy $(path)
 
 .PHONY: ruff
 ruff: ## Apply ruff.
 	@echo "Applying ruff..."
 	@echo "================"
 	@echo
-	@ruff check --fix $(path)
-	@ruff format $(path)
+	@uv run ruff check --fix $(path)
+	@uv run ruff format $(path)
 
 .PHONY: mypy
 mypy: ## Apply mypy.
@@ -35,7 +35,7 @@ mypy: ## Apply mypy.
 	@echo "Applying mypy..."
 	@echo "================="
 	@echo
-	@mypy $(path)
+	@uv run mypy $(path)
 
 .PHONY: help
 help: ## Show this help message.
@@ -43,7 +43,7 @@ help: ## Show this help message.
 
 .PHONY: test
 test: ## Run the tests against the current version of Python.
-	cd svc && pytest -vv && cd ..
+	cd svc && uv run pytest -vv && cd ..
 
 .PHONY: dep-lock
 dep-lock: ## Freeze deps in 'requirements*.txt' files.
