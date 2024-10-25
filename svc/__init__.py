@@ -1,7 +1,3 @@
-import logging
-import sys
+from svc.core.logger import configure_logger
 
-# Set default logging value to debug
-logging.basicConfig(level=logging.INFO)
-
-logging.info("Running fastapi-nano with Python %s", sys.version)
+configure_logger()
