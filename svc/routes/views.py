@@ -1,14 +1,16 @@
 from __future__ import annotations
 
+import logging
+
 from fastapi import APIRouter, Depends
 
 from svc.apis.api_a.mainmod import main_func as main_func_a
 from svc.apis.api_b.mainmod import main_func as main_func_b
 from svc.core.auth import get_current_user
-import logging
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
+
 
 @router.get("/")
 async def index() -> dict[str, str]:

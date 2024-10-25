@@ -1,5 +1,3 @@
-import logging
-
 """Test suite for the logger module."""
 
 import logging

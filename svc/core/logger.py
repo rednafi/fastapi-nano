@@ -1,5 +1,6 @@
 import logging
 
+
 def configure_logger() -> None:
     """Configure a custom logger."""
 
