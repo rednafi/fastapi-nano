@@ -77,7 +77,7 @@ max-complexity = 10
 #################################################
 
 [tool.pytest.ini_options]
-addopts = "--strict-markers --maxfail 1 --cov src tests/ --no-header"
+addopts = "--strict-markers --maxfail 1 --cov svc tests/ --no-header"
 markers = """
     integration: mark a test as an integration test.
 """
