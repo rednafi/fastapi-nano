@@ -115,10 +115,10 @@ If you want to run the app locally, without using Docker, then:
 
     ```sh
     curl -X GET "http://localhost:5002/api_a/22" \
-            -H "accept: application/json" \
-            -H "Authorization: Bearer $(curl -X POST "http://localhost:5002/token" \
-                            -H "accept: application/x-www-form-urlencoded" \
-                            -d "username=ubuntu&password=debian" | jq -r ".access_token")"
+        -H "accept: application/json" \
+        -H "Authorization: Bearer $(curl -X POST "http://localhost:5002/token" \
+        -H "accept: application/x-www-form-urlencoded" \
+        -d "username=ubuntu&password=debian" | jq -r ".access_token")"
     ```
 
     This should show a response like this:
