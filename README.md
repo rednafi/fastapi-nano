@@ -54,29 +54,14 @@ If you want to run the app locally, without using Docker, then:
 
 -   Install [uv][uv] for dependency management.
 
--   Create a virtual environment:
-
-    ```sh
-    uv venv -p 3.13
-    ```
-
--   Activate the environment. Run:
-
-    ```sh
-    source .venv/bin/activate
-    ```
-
--   Install the dependencies. Run:
-
-    ```sh
-    uv sync --frozen
-    ```
-
 -   Start the app. Run:
 
     ```sh
     make run-local
     ```
+
+    This will set up a virtual environment `.venv` in the current directory with Python
+    3.13, install dependencies, and start the Uvicorn server.
 
 ### Explore the endpoints
 

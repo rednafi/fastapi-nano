@@ -12,23 +12,23 @@ keywords = ["fastapi", "template", "minimal", "docker", "cookiecutter"]
 license = {file = "LICENSE"}
 authors = [{name = "Redowan Delowar", email = "redowan.nafi@gmail.com"}]
 dependencies = [
-    "bcrypt",
-    "fastapi",
-    "passlib",
-    "python-multipart",
-    "uvicorn",
-    "gunicorn",
-    "python-jose[cryptography]"
+    "bcrypt>=4.2.0",
+    "fastapi>=0.115.4",
+    "gunicorn>=23.0.0",
+    "passlib>=1.7.4",
+    "python-jose[cryptography]>=3.3.0",
+    "python-multipart>=0.0.17",
+    "uvicorn>=0.32.0",
 ]
-[tool.uv]
-dev-dependencies = [
-    "httpx",
-    "mypy",
-    "pip-tools",
-    "pytest",
-    "pytest-cov",
-    "requests", # Required by fastapi-test.
-    "ruff"
+[dependency-groups]
+dev = [
+    "httpx>=0.27.2",
+    "mypy>=1.13.0",
+    "pip-tools>=7.4.1",
+    "pytest>=8.3.3",
+    "pytest-cov>=6.0.0",
+    "requests>=2.32.3",
+    "ruff>=0.7.1",
 ]
 
 [project.urls]
