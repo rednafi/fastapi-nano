@@ -6,7 +6,8 @@ from http import HTTPStatus
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
-from passlib.context import CryptContext
+from pwdlib import PasswordHash
+from pwdlib.hashers.bcrypt import BcryptHasher
 from pydantic import BaseModel
 
 from svc.core import config
@@ -30,7 +31,7 @@ class UserInDB(User):
     hashed_password: str
 
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = PasswordHash([BcryptHasher()])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 router = APIRouter()
 
