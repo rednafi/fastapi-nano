@@ -10,7 +10,7 @@ rm -f uv.lock
 rm -rf .venv || true
 
 # Create a new virtual environment.
-uv venv -p 3.13
+uv venv -p 3.14
 
 # Install the latest versions of the dependencies.
 uv lock && uv sync

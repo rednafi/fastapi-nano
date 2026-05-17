@@ -3,32 +3,27 @@
 #################################################
 
 [project]
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 name = "fastapi-nano"
 version = "0.1.0"
 description = "A minimal FastAPI project template."
 readme = "README.md"
 keywords = ["fastapi", "template", "minimal", "docker", "cookiecutter"]
-license = {file = "LICENSE"}
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{name = "Redowan Delowar", email = "redowan.nafi@gmail.com"}]
 dependencies = [
-    "bcrypt>=4.2.0",
-    "fastapi>=0.115.4",
-    "gunicorn>=23.0.0",
-    "pwdlib[bcrypt]>=0.3.0",
-    "python-jose[cryptography]>=3.3.0",
-    "python-multipart>=0.0.17",
-    "uvicorn>=0.32.0",
+    "fastapi[standard]>=0.136.1",
+    "pydantic-settings>=2.14.1",
+    "pwdlib[argon2]>=0.3.0",
+    "pyjwt>=2.12.1",
 ]
 [dependency-groups]
 dev = [
-    "httpx>=0.27.2",
-    "mypy>=1.13.0",
-    "pip-tools>=7.4.1",
-    "pytest>=8.3.3",
-    "pytest-cov>=6.0.0",
-    "requests>=2.32.3",
-    "ruff>=0.7.1",
+    "mypy>=2.1.0",
+    "pytest>=9.0.3",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.15.13",
 ]
 
 [project.urls]
@@ -60,7 +55,7 @@ ignore_errors = true
 
 [tool.ruff]
 respect-gitignore = true
-target-version = "py311"
+target-version = "py313"
 
 [tool.ruff.lint]
 # Enable Pyflakes `E` and `F` codes by default
@@ -88,4 +83,5 @@ console_output_style = "progress"
 #################################################
 
 [tool.setuptools.packages.find]
-where = ["app"]  # ["."] by default
+where = ["."]
+include = ["svc*"]

@@ -1,5 +1,5 @@
-# This a dummy module
-# This gets called in the module_main.py file
+# This is a dummy module.
+# This gets called in mainmod.py.
 
 from __future__ import annotations
 

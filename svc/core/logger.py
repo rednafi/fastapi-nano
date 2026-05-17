@@ -25,7 +25,3 @@ def configure_logger() -> None:
 
     # Disable propagation to avoid log duplication via uvicorn
     logger.propagate = False
-
-    # Disable passlib logger
-    # See: <https://github.com/pyca/bcrypt/issues/684>
-    logging.getLogger("passlib").setLevel(logging.ERROR)

@@ -1,5 +1,5 @@
 # Define Python version as an argument
-ARG PYTHON_VERSION=3.11
+ARG PYTHON_VERSION=3.14
 
 # Install uv and dependencies
 FROM python:${PYTHON_VERSION}-slim AS builder
@@ -10,6 +10,8 @@ SHELL ["sh", "-exc"]
 
 # Set working directory
 WORKDIR /app
+
+ENV UV_LINK_MODE=copy
 
 # Install dependencies
 RUN --mount=type=cache,target=/root/.cache/uv \
@@ -40,5 +42,5 @@ ENV PATH="/app/.venv/bin:$PATH"
 EXPOSE 5001
 
 # Entry point for running the application
-ENTRYPOINT ["gunicorn", "svc.main:app", "--workers", "2", "--worker-class", \
-        "uvicorn.workers.UvicornWorker",  "-b", "0.0.0.0:5001" ]
+ENTRYPOINT ["fastapi", "run", "--workers", "2", "svc/main.py", \
+        "--host", "0.0.0.0", "--port", "5001" ]

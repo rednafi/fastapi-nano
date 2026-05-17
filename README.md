@@ -3,7 +3,7 @@
 ![logo](https://user-images.githubusercontent.com/30027932/134270064-baecfbec-b3e7-4cb7-a07e-c11a58526260.png)
 
 [![Mentioned in Awesome <INSERT LIST NAME>](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/mjhea0/awesome-fastapi#boilerplate)
-[![License](https://img.shields.io/cocoapods/l/AFNetworking?style=flat-square)](https://github.com/rednafi/think-asyncio/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/rednafi/fastapi-nano?style=flat-square)](https://github.com/rednafi/fastapi-nano/blob/master/LICENSE)
 
 </div>
 
@@ -16,22 +16,28 @@ directory structure.
 
 -   Uses [FastAPI][fastapi] to build the HTTP API endpoints.
 
--   Served via [Gunicorn](gunicorn) with multiple [Uvicorn][uvicorn] workers. Uvicorn is a
-    lightning-fast "ASGI" server. It runs asynchronous Python web code in a single process.
+-   Served with the [FastAPI CLI][fastapi_cli] using the `fastapi run` command, which
+    runs [Uvicorn][uvicorn] under the hood.
 
 -   Simple reverse-proxying with [Caddy][caddy].
 
--   OAuth2 (with hashed password and Bearer with JWT) based authentication.
+-   OAuth2 authentication with [Argon2][argon2] password hashing via [pwdlib][pwdlib]
+    and Bearer JWT tokens via [PyJWT][pyjwt].
 
 -   [CORS (Cross Origin Resource Sharing)][cors] enabled.
 
 -   Flask inspired divisional directory structure, suitable for small to medium backend
     development.
 
--   Uses [uv][uv] for dependency management, enabling shorter build time.
+-   Uses [FastAPI standard dependencies][fastapi_standard] and [uv][uv] for dependency
+    management.
 
--   Dockerized using **python:3.13-slim** image and optimized for size. Dockerfile for
-    Python 3.12 and 3.11 can also be found in the `dockerfiles` directory.
+-   Uses [Pydantic Settings][pydantic_settings] for typed environment configuration.
+
+-   Supports Python 3.14 and 3.13.
+
+-   Dockerized with multi-stage Dockerfiles based on **python:3.14-slim** by default.
+    Dockerfiles for Python 3.14 and 3.13 can be found in the `dockerfiles` directory.
 
 ## Quickstart
 
@@ -61,7 +67,7 @@ If you want to run the app locally, without using Docker, then:
     ```
 
     This will set up a virtual environment `.venv` in the current directory with Python
-    3.13, install dependencies, and start the Uvicorn server.
+    3.14, install dependencies, and start the FastAPI development server.
 
 ### Explore the endpoints
 
@@ -76,8 +82,8 @@ If you want to run the app locally, without using Docker, then:
     ![Screenshot from 2020-06-21 22-15-18][screenshot_1]
 
 -   Press the `authorize` button on the right and add _username_ and _password_. The APIs
-    use OAuth2 (with hashed password and Bearer with JWT) based authentication. In this
-    case, the username and password is `ubuntu` and `debian` respectively.
+    use OAuth2 with Argon2 password hashing and Bearer JWT authentication. In this case,
+    the username and password are `ubuntu` and `debian` respectively.
 
     ![Screenshot from 2020-06-21 22-18-25][screenshot_2]
 
@@ -106,7 +112,7 @@ If you want to run the app locally, without using Docker, then:
         -d "username=ubuntu&password=debian" | jq -r ".access_token")"
     ```
 
-    This should show a response like this:
+    This should show a response like this. The random values will vary.
 
     ```json
     {
@@ -118,7 +124,7 @@ If you want to run the app locally, without using Docker, then:
 
 ### Housekeeping
 
--   Run tests with `make tests` (uses [pytest][pytest]).
+-   Run tests with `make test` (uses [pytest][pytest]).
 -   Lint with [ruff] and check types with [mypy] using `make lint`.
 -   Update dependencies with `make dep-update`.
 -   Stop containers with `make kill-container`.
@@ -141,18 +147,19 @@ fastapi-nano
 │   │       └── submod.py         # submodule of api_b package
 │   ├── core                      # this is where the configs live
 │   │   ├── auth.py               # authentication with OAuth2
-│   │   ├── config.py             # sample config file
+│   │   ├── config.py             # typed environment settings
 │   │   └── __init__.py           # empty init file to make the config folder a package
-│   ├── __init__.py               # empty init file to make the app folder a package
-│   ├── main.py                   # main file where the fastAPI() class is called
+│   ├── __init__.py               # empty init file to make the svc folder a package
+│   ├── main.py                   # main file where the FastAPI() class is called
 │   ├── routes                    # this is where all the routes live
 │   │   └── views.py              # file containing the endpoints for api_a and api_b
 │   └── tests                     # test package
 │       ├── __init__.py           # empty init file to make the tests folder a package
-│       ├── test_api.py           # integration testing the API responses
+│       ├── test_apis.py          # integration testing the API responses
+│       ├── test_logger.py        # unit testing logger configuration
 │       └── test_functions.py     # unit testing the underlying functions
-├── dockerfiles                   # directory containing all the dockerfiles
-├── .env                          # env file containing app variables
+├── dockerfiles                   # Dockerfiles for supported Python versions
+├── .env                          # env file containing app variables and Docker Python target
 ├── Caddyfile                     # simple reverse-proxy with caddy
 ├── docker-compose.yml            # docker-compose file
 ├── pyproject.toml                # pep-518 compliant config file
@@ -167,12 +174,12 @@ APIs in the template is to demonstrate how you can decouple the logics of multip
 then assemble their endpoints in the routes directory. The following snippets show the logic
 behind the dummy APIs.
 
-This is a dummy submodule that houses a function called `random_gen` which generates a
+This is a dummy submodule that houses a function called `rand_gen` which generates a
 dictionary of random integers.
 
 ```python
-# This a dummy module
-# This gets called in the module_main.py file
+# This is a dummy module.
+# This gets called in mainmod.py.
 from __future__ import annotations
 import random
 
@@ -191,7 +198,7 @@ The `main_func` in the primary module calls the `rand_gen` function from the sub
 
 ```python
 from __future__ import annotations
-from svc.api_a.submod import rand_gen
+from svc.apis.api_a.submod import rand_gen
 
 
 def main_func(num: int) -> dict[str, int]:
@@ -204,20 +211,28 @@ The endpoint is exposed like this:
 ```python
 # svc/routes/views.py
 from __future__ import annotations
-#... codes regarding authentication ...
+
+from typing import Annotated
+
+from fastapi import Depends
+
+from svc.core.auth import UserInDB, get_current_user
+
+CurrentUser = Annotated[UserInDB, Depends(get_current_user)]
 
 # endpoint for api_a (api_b looks identical)
 @router.get("/api_a/{num}", tags=["api_a"])
-async def view_a(num: int, auth: Depends =Depends(get_current_user)) -> dict[str, int]:
+async def view_a(num: int, _auth: CurrentUser) -> dict[str, int]:
     return main_func_a(num)
 ```
 
-So hitting the API with a random integer will give you a response like the following:
+So hitting the API with a random integer will give you a response like the following. The
+random values will vary.
 
 ```json
 {
   "seed": 22,
-  "random_first": 27,
+  "random_first": 5,
   "random_second": 20
 }
 ```
@@ -226,7 +241,7 @@ So hitting the API with a random integer will give you a response like the follo
 
 -   You can put your own API logic following the shape of `api_a` and `api_b` packages.
     You'll have to add additional directories like `api_a` or `api_b` if you need to expose
-    more endponts.
+    more endpoints.
 
 -   Then expose the API URLs in the `routes/views.py` file. You may choose to create
     multiple `views` files to organize your endpoint URLs.
@@ -249,9 +264,13 @@ So hitting the API with a random integer will give you a response like the follo
 [cors]: https://fastapi.tiangolo.com/tutorial/cors/
 [docker]: https://www.docker.com/
 [fastapi]: https://fastapi.tiangolo.com/
-[fastapi_security]: https://fastapi.tiangolo.com/tutorial/security/
-[gunicorn]: https://gunicorn.org/
-[httpx]: https://www.python-httpx.org/
+[argon2]: https://argon2-cffi.readthedocs.io/
+[fastapi_cli]: https://fastapi.tiangolo.com/fastapi-cli/
+[fastapi_security]: https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
+[fastapi_standard]: https://fastapi.tiangolo.com/#standard-dependencies
+[pydantic_settings]: https://fastapi.tiangolo.com/advanced/settings/
+[pwdlib]: https://github.com/frankie567/pwdlib
+[pyjwt]: https://pyjwt.readthedocs.io/
 [pytest]: https://docs.pytest.org/en/stable/
 [ruff]: https://astral.sh/ruff
 [uvicorn]: https://uvicorn.org/
