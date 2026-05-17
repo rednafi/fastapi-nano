@@ -1,19 +1,22 @@
-import pathlib
+from functools import lru_cache
+from pathlib import Path
 
-from starlette.config import Config
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent  # svc/
+ROOT = Path(__file__).resolve().parent.parent  # svc/
 BASE_DIR = ROOT.parent  # ./
 
-config = Config(BASE_DIR / ".env")
+
+class Settings(BaseSettings):
+    api_username: str
+    api_password: str
+    api_secret_key: str
+    api_algorithm: str = "HS256"
+    api_access_token_expire_minutes: int
+
+    model_config = SettingsConfigDict(env_file=BASE_DIR / ".env", extra="ignore")
 
 
-API_USERNAME = config("API_USERNAME", str)
-API_PASSWORD = config("API_PASSWORD", str)
-
-# Auth configs.
-API_SECRET_KEY = config("API_SECRET_KEY", str)
-API_ALGORITHM = config("API_ALGORITHM", str)
-API_ACCESS_TOKEN_EXPIRE_MINUTES = config(
-    "API_ACCESS_TOKEN_EXPIRE_MINUTES", int
-)  # infinity
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()

@@ -8,16 +8,6 @@ services:
       dockerfile: ./dockerfiles/python${PYTHON_VERSION}/Dockerfile
       labels:
         - fnano
-    volumes:
-      - type: bind
-        source: .
-        target: /code
-    entrypoint:
-      - /bin/sh
-      - -c
-      - |
-        gunicorn svc.main:app --workers 2 \
-        --worker-class uvicorn.workers.UvicornWorker -b 0.0.0.0:5001
     ports:
       - "5001:5001"
 

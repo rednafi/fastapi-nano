@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -7,7 +7,7 @@ from svc.apis.api_b import mainmod as mainmod_b
 
 
 @pytest.fixture(scope="module")
-def mock_randint():
+def mock_randint() -> MagicMock:
     """Mock random.randint function."""
 
     with patch("random.randint", return_value=42, auto=True) as m:
@@ -16,14 +16,19 @@ def mock_randint():
 
 @pytest.mark.parametrize(
     ("seed", "output"),
-    [(1, 42), (100, 42), (589, 42), (444, 42)],
+    [
+        pytest.param(1, 42, id="seed-1"),
+        pytest.param(100, 42, id="seed-100"),
+        pytest.param(589, 42, id="seed-589"),
+        pytest.param(444, 42, id="seed-444"),
+    ],
 )
-def test_func_main_a(mock_randint, seed, output):
+def test_func_main_a(mock_randint: MagicMock, seed: int, output: int) -> None:
     # Act.
     result = mainmod_a.main_func(seed)
 
     # Assert.
-    assert isinstance(result, dict) is True
+    assert isinstance(result, dict)
     assert result["seed"] == seed
     assert result["random_first"] == output
     assert result["random_second"] == output
@@ -33,14 +38,19 @@ def test_func_main_a(mock_randint, seed, output):
 
 @pytest.mark.parametrize(
     ("seed", "output"),
-    [(1, 42), (100, 42), (589, 42), (444, 42)],
+    [
+        pytest.param(1, 42, id="seed-1"),
+        pytest.param(100, 42, id="seed-100"),
+        pytest.param(589, 42, id="seed-589"),
+        pytest.param(444, 42, id="seed-444"),
+    ],
 )
-def test_func_main_b(mock_randint, seed, output):
+def test_func_main_b(mock_randint: MagicMock, seed: int, output: int) -> None:
     # Act.
     result = mainmod_b.main_func(seed)
 
     # Assert.
-    assert isinstance(result, dict) is True
+    assert isinstance(result, dict)
     assert result["seed"] == seed
     assert result["random_first"] == output
     assert result["random_second"] == output

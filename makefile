@@ -4,8 +4,8 @@ define Comment
 	- Run `make help` to see all the available options.
 	- Run `make lint` to run the linter.
 	- Run `make lint-check` to check linter conformity.
-	- Run `dep-lock` to lock the deps in 'requirements.txt' and 'requirements-dev.txt'.
-	- Run `dep-sync` to sync current environment up to date with the locked deps.
+	- Run `dep-lock` to lock dependencies in 'uv.lock'.
+	- Run `dep-sync` to sync the current environment with 'uv.lock'.
 endef
 
 
@@ -46,11 +46,11 @@ test: ## Run the tests against the current version of Python.
 	cd svc && uv run pytest -vv && cd ..
 
 .PHONY: dep-lock
-dep-lock: ## Freeze deps in 'requirements*.txt' files.
+dep-lock: ## Lock dependencies in 'uv.lock'.
 	@uv lock
 
 .PHONY: dep-sync
-dep-sync: ## Sync venv installation with 'requirements.txt' file.
+dep-sync: ## Sync venv installation with 'uv.lock'.
 	@uv sync
 
 .PHONY: dep-update
@@ -68,4 +68,4 @@ kill-container: ## Stop the running docker container.
 
 .PHONY: run-local
 run-local: ## Run the app locally.
-	uv run uvicorn svc.main:app --port 5002 --reload
+	uv run fastapi dev svc/main.py --port 5002
