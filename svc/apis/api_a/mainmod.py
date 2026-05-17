@@ -1,8 +1,7 @@
-from __future__ import annotations
+from svc.apis.schemas import RandomNumbers
 
 from .submod import rand_gen
 
 
-def main_func(num: int) -> dict[str, int]:
-    d = rand_gen(num)
-    return d
+def main_func(num: int) -> RandomNumbers:
+    return rand_gen(num)

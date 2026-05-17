@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import logging
 from typing import Annotated
 
@@ -7,10 +5,11 @@ from fastapi import APIRouter, Depends
 
 from svc.apis.api_a.mainmod import main_func as main_func_a
 from svc.apis.api_b.mainmod import main_func as main_func_b
+from svc.apis.schemas import RandomNumbers
 from svc.core.auth import UserInDB, get_current_user
 
 router = APIRouter()
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("fnano")
 CurrentUser = Annotated[UserInDB, Depends(get_current_user)]
 
 
@@ -26,7 +25,7 @@ async def index() -> dict[str, str]:
 async def view_a(
     num: int,
     _auth: CurrentUser,
-) -> dict[str, int]:
+) -> RandomNumbers:
     result = main_func_a(num)
     logger.info(f"API A: {result}")
     return result
@@ -36,7 +35,7 @@ async def view_a(
 async def view_b(
     num: int,
     _auth: CurrentUser,
-) -> dict[str, int]:
+) -> RandomNumbers:
     result = main_func_b(num)
     logger.info(f"API B: {result}")
     return result

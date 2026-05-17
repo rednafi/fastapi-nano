@@ -1,8 +1,6 @@
-from __future__ import annotations
-
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from functools import lru_cache
-from typing import Annotated, Any
+from typing import Annotated, Any, TypedDict
 
 import jwt
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -32,11 +30,16 @@ class UserInDB(User):
     hashed_password: str
 
 
-type UserRecord = dict[str, str]
+class UserRecord(TypedDict):
+    username: str
+    hashed_password: str
 
 
 pwd_context = PasswordHash.recommended()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
+DUMMY_PASSWORD_HASH = pwd_context.hash("dummypassword")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+SettingsDep = Annotated[Settings, Depends(get_settings)]
+OAuth2Token = Annotated[str, Depends(oauth2_scheme)]
 router = APIRouter()
 
 
@@ -72,6 +75,7 @@ def authenticate_user(
 ) -> UserInDB | None:
     user = get_user(fake_db, username)
     if not user:
+        verify_password(password, DUMMY_PASSWORD_HASH)
         return None
     if not verify_password(password, user.hashed_password):
         return None
@@ -87,9 +91,9 @@ def create_access_token(
     to_encode = data.copy()
 
     if expires_delta:
-        expire = datetime.now(tz=timezone.utc) + expires_delta
+        expire = datetime.now(tz=UTC) + expires_delta
     else:
-        expire = datetime.now(tz=timezone.utc) + timedelta(minutes=15)
+        expire = datetime.now(tz=UTC) + timedelta(minutes=15)
 
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(
@@ -101,8 +105,8 @@ def create_access_token(
 
 
 def get_current_user(
-    token: Annotated[str, Depends(oauth2_scheme)],
-    settings: Annotated[Settings, Depends(get_settings)],
+    token: OAuth2Token,
+    settings: SettingsDep,
 ) -> UserInDB:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -135,11 +139,11 @@ def get_current_user(
     return user
 
 
-@router.post("/token", response_model=Token)
+@router.post("/token")
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
-    settings: Annotated[Settings, Depends(get_settings)],
-) -> dict[str, str]:
+    settings: SettingsDep,
+) -> Token:
     user = authenticate_user(
         get_fake_users_db(settings.api_username, settings.api_password),
         form_data.username,
@@ -162,4 +166,4 @@ async def login_for_access_token(
         algorithm=settings.api_algorithm,
         expires_delta=access_token_expires,
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    return Token(access_token=access_token, token_type="bearer")

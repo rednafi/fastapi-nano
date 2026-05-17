@@ -20,7 +20,7 @@ def configure_logger() -> None:
     console_handler.setFormatter(formatter)
 
     # Add the handler to the logger
-    if not logger.hasHandlers():
+    if not logger.handlers:
         logger.addHandler(console_handler)
 
     # Disable propagation to avoid log duplication via uvicorn

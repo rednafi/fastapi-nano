@@ -20,3 +20,7 @@ coverage.xml
 .github
 .hypothesis
 .venv
+.DS_Store
+build
+dist
+*.egg-info

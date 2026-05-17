@@ -59,7 +59,7 @@ target-version = "py313"
 
 [tool.ruff.lint]
 # Enable Pyflakes `E` and `F` codes by default
-select = ["E", "F", "PT", "C4", "I"]
+select = ["E", "F", "PT", "C4", "I", "UP"]
 ignore = ["E501"]
 
 per-file-ignores = {}

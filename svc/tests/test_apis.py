@@ -144,3 +144,17 @@ def test_api_b_ok(client: TestClient, api_token: str) -> None:
 
     for val in response.json().values():
         assert isinstance(val, int)
+
+
+def test_cors_preflight_allows_configured_origin(client: TestClient) -> None:
+    response = client.options(
+        "/api_a/22",
+        headers={
+            "Origin": "http://localhost:5002",
+            "Access-Control-Request-Method": "GET",
+            "Access-Control-Request-Headers": "Authorization",
+        },
+    )
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.headers["access-control-allow-origin"] == "http://localhost:5002"

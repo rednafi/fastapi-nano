@@ -4,6 +4,7 @@ import pytest
 
 from svc.apis.api_a import mainmod as mainmod_a
 from svc.apis.api_b import mainmod as mainmod_b
+from svc.apis.schemas import RandomNumbers
 
 
 @pytest.fixture(scope="module")
@@ -28,10 +29,10 @@ def test_func_main_a(mock_randint: MagicMock, seed: int, output: int) -> None:
     result = mainmod_a.main_func(seed)
 
     # Assert.
-    assert isinstance(result, dict)
-    assert result["seed"] == seed
-    assert result["random_first"] == output
-    assert result["random_second"] == output
+    assert isinstance(result, RandomNumbers)
+    assert result.seed == seed
+    assert result.random_first == output
+    assert result.random_second == output
 
     mock_randint.assert_called_with(0, seed)
 
@@ -50,9 +51,9 @@ def test_func_main_b(mock_randint: MagicMock, seed: int, output: int) -> None:
     result = mainmod_b.main_func(seed)
 
     # Assert.
-    assert isinstance(result, dict)
-    assert result["seed"] == seed
-    assert result["random_first"] == output
-    assert result["random_second"] == output
+    assert isinstance(result, RandomNumbers)
+    assert result.seed == seed
+    assert result.random_first == output
+    assert result.random_second == output
 
     mock_randint.assert_called_with(0, seed)

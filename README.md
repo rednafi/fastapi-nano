@@ -24,7 +24,8 @@ directory structure.
 -   OAuth2 authentication with [Argon2][argon2] password hashing via [pwdlib][pwdlib]
     and Bearer JWT tokens via [PyJWT][pyjwt].
 
--   [CORS (Cross Origin Resource Sharing)][cors] enabled.
+-   [CORS (Cross Origin Resource Sharing)][cors] enabled with explicit allowed origins
+    so credentialed requests follow FastAPI's current CORS guidance.
 
 -   Flask inspired divisional directory structure, suitable for small to medium backend
     development.
@@ -128,6 +129,9 @@ If you want to run the app locally, without using Docker, then:
 -   Lint with [ruff] and check types with [mypy] using `make lint`.
 -   Update dependencies with `make dep-update`.
 -   Stop containers with `make kill-container`.
+-   Configure credentialed CORS origins with `CORS_ALLOW_ORIGINS` in `.env`. The value is
+    parsed as a JSON array, for example
+    `["http://localhost","http://localhost:5002"]`.
 
 ## Directory structure
 
@@ -141,10 +145,11 @@ fastapi-nano
 │   │   │   ├── __init__.py       # empty init file to make the api_a folder a package
 │   │   │   ├── mainmod.py        # main module of api_a package
 │   │   │   └── submod.py         # submodule of api_a package
-│   │   └── api_b                 # api_b package
-│   │       ├── __init__.py       # empty init file to make the api_b folder a package
-│   │       ├── mainmod.py        # main module of api_b package
-│   │       └── submod.py         # submodule of api_b package
+│   │   ├── api_b                 # api_b package
+│   │   │   ├── __init__.py       # empty init file to make the api_b folder a package
+│   │   │   ├── mainmod.py        # main module of api_b package
+│   │   │   └── submod.py         # submodule of api_b package
+│   │   └── schemas.py            # shared Pydantic response models
 │   ├── core                      # this is where the configs live
 │   │   ├── auth.py               # authentication with OAuth2
 │   │   ├── config.py             # typed environment settings
@@ -175,54 +180,50 @@ then assemble their endpoints in the routes directory. The following snippets sh
 behind the dummy APIs.
 
 This is a dummy submodule that houses a function called `rand_gen` which generates a
-dictionary of random integers.
+Pydantic response model with random integers.
 
 ```python
-# This is a dummy module.
-# This gets called in mainmod.py.
-from __future__ import annotations
 import random
 
+from svc.apis.schemas import RandomNumbers
 
-def rand_gen(num: int) -> dict[str, int]:
+
+def rand_gen(num: int) -> RandomNumbers:
     num = int(num)
-    d = {
-        "seed": num,
-        "random_first": random.randint(0, num),
-        "random_second": random.randint(0, num),
-    }
-    return d
+    return RandomNumbers(
+        seed=num,
+        random_first=random.randint(0, num),
+        random_second=random.randint(0, num),
+    )
 ```
 
 The `main_func` in the primary module calls the `rand_gen` function from the submodule.
 
 ```python
-from __future__ import annotations
+from svc.apis.schemas import RandomNumbers
 from svc.apis.api_a.submod import rand_gen
 
 
-def main_func(num: int) -> dict[str, int]:
-    d = rand_gen(num)
-    return d
+def main_func(num: int) -> RandomNumbers:
+    return rand_gen(num)
 ```
 
 The endpoint is exposed like this:
 
 ```python
 # svc/routes/views.py
-from __future__ import annotations
-
 from typing import Annotated
 
 from fastapi import Depends
 
+from svc.apis.schemas import RandomNumbers
 from svc.core.auth import UserInDB, get_current_user
 
 CurrentUser = Annotated[UserInDB, Depends(get_current_user)]
 
 # endpoint for api_a (api_b looks identical)
 @router.get("/api_a/{num}", tags=["api_a"])
-async def view_a(num: int, _auth: CurrentUser) -> dict[str, int]:
+async def view_a(num: int, _auth: CurrentUser) -> RandomNumbers:
     return main_func_a(num)
 ```
 
