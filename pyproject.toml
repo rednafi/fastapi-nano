@@ -14,7 +14,7 @@ license-files = ["LICENSE"]
 authors = [{name = "Redowan Delowar", email = "redowan.nafi@gmail.com"}]
 dependencies = [
     "fastapi[standard]>=0.136.1",
-    "pydantic-settings>=2.14.1",
+    "pydantic-settings>=2.14.2",
     "pwdlib[argon2]>=0.3.0",
     "pyjwt>=2.12.1",
 ]
