@@ -16,7 +16,7 @@ dependencies = [
     "fastapi[standard]>=0.136.1",
     "pydantic-settings>=2.14.1",
     "pwdlib[argon2]>=0.3.0",
-    "pyjwt>=2.12.1",
+    "pyjwt>=2.13.0",
 ]
 [dependency-groups]
 dev = [
