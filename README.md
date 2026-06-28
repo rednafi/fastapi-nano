@@ -16,8 +16,8 @@ directory structure.
 
 -   Uses [FastAPI][fastapi] to build the HTTP API endpoints.
 
--   Served with the [FastAPI CLI][fastapi_cli] using the `fastapi run` command, which
-    runs [Uvicorn][uvicorn] under the hood.
+-   Served with the [FastAPI CLI][fastapi_cli] using `fastapi dev` locally and
+    `fastapi run` in the container, both running [Uvicorn][uvicorn] under the hood.
 
 -   Simple reverse-proxying with [Caddy][caddy].
 
@@ -66,8 +66,9 @@ If you want to run the app locally, without using Docker, then:
     make run-local
     ```
 
-    This will set up a virtual environment `.venv` in the current directory with Python
-    3.14, install dependencies, and start the FastAPI development server.
+    This will use [uv][uv] and `.python-version` to create or sync a `.venv` with
+    Python 3.14 when needed, install dependencies, and start the FastAPI development
+    server on `http://localhost:5002`.
 
 ### Explore the endpoints
 
@@ -91,8 +92,8 @@ If you want to run the app locally, without using Docker, then:
 
     ![Screenshot from 2020-06-21 22-18-59][screenshot_3]
 
--   Then select any of the `api_a` or `api_b` APIs and put an integer in the number box and
-    click the `authorize` button.
+-   Then select any of the `api_a` or `api_b` APIs, put an integer in the number box,
+    and click the `Execute` button.
 
     ![Screenshot from 2020-06-21 22-31-19][screenshot_4]
 
@@ -148,8 +149,9 @@ fastapi-nano
 │   ├── core                      # this is where the configs live
 │   │   ├── auth.py               # authentication with OAuth2
 │   │   ├── config.py             # typed environment settings
-│   │   └── __init__.py           # empty init file to make the config folder a package
-│   ├── __init__.py               # empty init file to make the svc folder a package
+│   │   ├── logger.py             # logging configuration
+│   │   └── __init__.py           # empty init file to make the core folder a package
+│   ├── __init__.py               # configures logging when the svc package is imported
 │   ├── main.py                   # main file where the FastAPI() class is called
 │   ├── routes                    # this is where all the routes live
 │   │   └── views.py              # file containing the endpoints for api_a and api_b
@@ -180,7 +182,9 @@ dictionary of random integers.
 ```python
 # This is a dummy module.
 # This gets called in mainmod.py.
+
 from __future__ import annotations
+
 import random
 
 
@@ -198,7 +202,8 @@ The `main_func` in the primary module calls the `rand_gen` function from the sub
 
 ```python
 from __future__ import annotations
-from svc.apis.api_a.submod import rand_gen
+
+from .submod import rand_gen
 
 
 def main_func(num: int) -> dict[str, int]:
@@ -209,21 +214,20 @@ def main_func(num: int) -> dict[str, int]:
 The endpoint is exposed like this:
 
 ```python
-# svc/routes/views.py
-from __future__ import annotations
-
-from typing import Annotated
-
-from fastapi import Depends
-
-from svc.core.auth import UserInDB, get_current_user
-
+router = APIRouter()
+logger = logging.getLogger(__name__)
 CurrentUser = Annotated[UserInDB, Depends(get_current_user)]
 
-# endpoint for api_a (api_b looks identical)
+
+# endpoint for api_a (api_b looks similar)
 @router.get("/api_a/{num}", tags=["api_a"])
-async def view_a(num: int, _auth: CurrentUser) -> dict[str, int]:
-    return main_func_a(num)
+async def view_a(
+    num: int,
+    _auth: CurrentUser,
+) -> dict[str, int]:
+    result = main_func_a(num)
+    logger.info(f"API A: {result}")
+    return result
 ```
 
 So hitting the API with a random integer will give you a response like the following. The
