@@ -15,7 +15,7 @@ on:
 # If you trigger a new workflow while the previous one is running,
 # this will cancel the previous one.
 concurrency:
-  group: ${{ github.head_ref || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 jobs:

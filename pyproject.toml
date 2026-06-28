@@ -13,7 +13,7 @@ license = "MIT"
 license-files = ["LICENSE"]
 authors = [{name = "Redowan Delowar", email = "redowan.nafi@gmail.com"}]
 dependencies = [
-    "fastapi[standard]>=0.136.1",
+    "fastapi[standard]>=0.138.1",
     "pydantic-settings>=2.14.2",
     "pwdlib[argon2]>=0.3.0",
     "pyjwt>=2.13.0",
@@ -21,9 +21,9 @@ dependencies = [
 [dependency-groups]
 dev = [
     "mypy>=2.1.0",
-    "pytest>=9.0.3",
+    "pytest>=9.1.1",
     "pytest-cov>=7.1.0",
-    "ruff>=0.15.13",
+    "ruff>=0.15.20",
 ]
 
 [project.urls]
